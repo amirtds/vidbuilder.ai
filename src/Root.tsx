@@ -2,6 +2,8 @@ import React from 'react';
 import { Composition } from 'remotion';
 import { PromoVideo } from './PromoVideo';
 import { FlexibleVideo, examplePromoConfig, exampleEducationalConfig } from './FlexibleVideo';
+import { EnhancedFlexibleVideo } from './EnhancedFlexibleVideo';
+import { appleColorScheme } from './scenes/types';
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -53,6 +55,35 @@ export const RemotionRoot: React.FC = () => {
         width={1920}
         height={1080}
         defaultProps={exampleEducationalConfig}
+      />
+      
+      {/* Enhanced Flexible Video with all new features */}
+      <Composition
+        id="EnhancedFlexibleVideo"
+        component={EnhancedFlexibleVideo}
+        durationInFrames={30 * 30} // Dynamic duration
+        fps={30}
+        width={1920}
+        height={1080}
+        defaultProps={{
+          title: 'Enhanced Video',
+          type: 'promotional',
+          colorScheme: appleColorScheme,
+          scenes: [
+            {
+              type: 'minimal-title',
+              duration: 3,
+              content: {
+                superTitle: 'INTRODUCING',
+                title: 'The Future of Video',
+                subtitle: 'Powered by AI'
+              }
+            }
+          ],
+          music: {
+            enabled: false
+          }
+        }}
       />
     </>
   );
