@@ -152,6 +152,33 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            cursor: move;
+            transition: all 0.3s;
+        }
+        
+        .scene-item:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+        
+        .scene-item.dragging {
+            opacity: 0.5;
+            transform: scale(0.95);
+        }
+        
+        .scene-item.drag-over {
+            border-top: 3px solid #667eea;
+        }
+        
+        .drag-handle {
+            cursor: grab;
+            color: #999;
+            margin-right: 15px;
+            font-size: 20px;
+        }
+        
+        .drag-handle:active {
+            cursor: grabbing;
         }
         
         .scene-item-info {
@@ -404,7 +431,61 @@
             
             <div class="form-group">
                 <label for="border-radius">Border Radius</label>
-                <input type="number" id="border-radius" min="0" max="50" value="20">
+                <input type="number" id="border-radius" min="0" max="50" value="16">
+            </div>
+            
+            <div class="form-group">
+                <label for="font-family">Font Family</label>
+                <select id="font-family">
+                    <option value="SF Pro" selected>SF Pro (Apple)</option>
+                    <option value="Inter">Inter</option>
+                    <option value="Helvetica Neue">Helvetica Neue</option>
+                    <option value="Roboto">Roboto</option>
+                    <option value="Open Sans">Open Sans</option>
+                    <option value="Montserrat">Montserrat</option>
+                    <option value="Playfair Display">Playfair Display</option>
+                    <option value="Poppins">Poppins</option>
+                    <option value="Raleway">Raleway</option>
+                    <option value="Lato">Lato</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="music-enabled" style="width: auto; margin-right: 10px;">
+                    Enable Background Music
+                </label>
+            </div>
+            
+            <div class="form-group" id="music-options" style="display: none;">
+                <label for="music-track">Select Music Track</label>
+                <select id="music-track">
+                    <optgroup label="Corporate">
+                        <option value="corp-1">Corporate Success</option>
+                        <option value="corp-2">Innovation Drive</option>
+                    </optgroup>
+                    <optgroup label="Upbeat">
+                        <option value="upbeat-1">Happy Days</option>
+                        <option value="upbeat-2">Energy Burst</option>
+                    </optgroup>
+                    <optgroup label="Calm/Ambient">
+                        <option value="calm-1">Peaceful Moments</option>
+                        <option value="calm-2">Zen Garden</option>
+                    </optgroup>
+                    <optgroup label="Cinematic">
+                        <option value="epic-1">Epic Journey</option>
+                        <option value="epic-2">Rising Action</option>
+                    </optgroup>
+                    <optgroup label="Tech/Electronic">
+                        <option value="tech-1">Digital Future</option>
+                        <option value="tech-2">Innovation Lab</option>
+                    </optgroup>
+                </select>
+                
+                <label for="music-volume" style="margin-top: 15px;">Music Volume</label>
+                <input type="range" id="music-volume" min="0" max="100" value="30" 
+                       style="width: 100%;">
+                <small style="color: #777;">Volume: <span id="volume-display">30</span>%</small>
             </div>
             
             <div class="form-group">
@@ -466,18 +547,42 @@
             <div class="form-group">
                 <label>Scene Type</label>
                 <select id="scene-type" onchange="updateSceneFields()">
-                    <optgroup label="Promotional">
-                        <option value="hero-title">Hero Title</option>
-                        <option value="product-showcase">Product Showcase</option>
-                        <option value="feature-list">Feature List</option>
-                        <option value="cta">Call to Action</option>
+                    <optgroup label="Promotional - New Apple Style">
+                        <option value="minimal-title">✨ Minimal Title (Apple Style)</option>
+                        <option value="split-screen">⚡ Split Screen</option>
+                        <option value="stats-dashboard">📊 Stats Dashboard</option>
+                        <option value="testimonial">💬 Testimonial</option>
+                        <option value="timeline">📅 Timeline</option>
+                        <option value="pricing-cards">💳 Pricing Cards</option>
+                        <option value="icon-grid">🎨 Icon Grid</option>
+                        <option value="product-matrix">📦 Product Matrix</option>
+                        <option value="process-flow">🔄 Process Flow</option>
+                        <option value="countdown">⏱️ Countdown Timer</option>
                     </optgroup>
-                    <optgroup label="Educational">
-                        <option value="lesson-title">Lesson Title</option>
-                        <option value="step-by-step">Step by Step</option>
-                        <option value="comparison">Comparison</option>
-                        <option value="key-takeaways">Key Takeaways</option>
-                        <option value="quiz">Quiz</option>
+                    <optgroup label="Promotional - Classic">
+                        <option value="hero-title">🎯 Hero Title</option>
+                        <option value="product-showcase">🖼️ Product Showcase</option>
+                        <option value="feature-list">📝 Feature List</option>
+                        <option value="cta">🚀 Call to Action</option>
+                    </optgroup>
+                    <optgroup label="Educational - New">
+                        <option value="chapter-intro">📖 Chapter Introduction</option>
+                        <option value="learning-objectives">🎯 Learning Objectives</option>
+                        <option value="concept-explanation">💡 Concept Explanation</option>
+                        <option value="interactive-quiz">❓ Interactive Quiz</option>
+                        <option value="code-demo">💻 Code Demo</option>
+                        <option value="formula">🔢 Formula Display</option>
+                        <option value="vocabulary">📚 Vocabulary Builder</option>
+                        <option value="interactive-timeline">⏳ Interactive Timeline</option>
+                        <option value="summary-points">✅ Summary Points</option>
+                        <option value="achievement-badge">🏆 Achievement Badge</option>
+                    </optgroup>
+                    <optgroup label="Educational - Classic">
+                        <option value="lesson-title">🎓 Lesson Title</option>
+                        <option value="step-by-step">👣 Step by Step</option>
+                        <option value="comparison">⚖️ Comparison</option>
+                        <option value="key-takeaways">🔑 Key Takeaways</option>
+                        <option value="quiz">📝 Quiz</option>
                     </optgroup>
                 </select>
             </div>

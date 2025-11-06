@@ -252,6 +252,48 @@ app.post('/api/generate-flexible-video', upload.array('images', 20), async (req,
       }
     }
     
+    // Distribute images across scenes that can use them
+    const imageScenes = ['product-showcase', 'hero-title', 'product-matrix'];
+    let imageIndex = 0;
+    
+    videoConfig.scenes.forEach(scene => {
+      if (imageScenes.includes(scene.type) && imageUrls.length > 0) {
+        if (!scene.content.images) {
+          scene.content.images = [];
+        }
+        // Add images to this scene
+        const imagesForScene = imageUrls.slice(imageIndex, imageIndex + 3);
+        scene.content.images.push(...imagesForScene);
+        imageIndex = (imageIndex + 3) % imageUrls.length;
+      }
+    });
+    
+    // Resolve music URL from trackId
+    if (videoConfig.music && videoConfig.music.enabled && videoConfig.music.trackId) {
+      const musicLibrary = {
+        'corp-1': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+        'corp-2': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+        'upbeat-1': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+        'upbeat-2': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
+        'calm-1': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
+        'calm-2': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
+        'epic-1': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3',
+        'epic-2': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
+        'tech-1': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
+        'tech-2': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3'
+      };
+      
+      const musicUrl = musicLibrary[videoConfig.music.trackId];
+      if (musicUrl) {
+        videoConfig.music.url = musicUrl;
+        console.log(`Music track resolved: ${videoConfig.music.trackId} -> ${musicUrl}`);
+      } else {
+        console.warn(`Music track not found: ${videoConfig.music.trackId}`);
+      }
+    }
+    
+    console.log('Processed configuration:', JSON.stringify(videoConfig, null, 2));
+    
     // Process scenes and inject image URLs where needed
     const processedScenes = videoConfig.scenes.map((scene, index) => {
       // For product-showcase scenes, inject uploaded images
