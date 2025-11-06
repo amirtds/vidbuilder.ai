@@ -1,0 +1,211 @@
+{
+  "promotional_example": {
+    "title": "Product Launch Video",
+    "type": "promotional",
+    "colorScheme": {
+      "primary": "#FF6B6B",
+      "secondary": "#4ECDC4",
+      "accent": "#95E77E",
+      "text": "#FFFFFF",
+      "textLight": "#F7F7F7",
+      "background": "#1A1A1A",
+      "backgroundGradient": "linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%)",
+      "borderRadius": 20
+    },
+    "scenes": [
+      {
+        "type": "hero-title",
+        "duration": 3,
+        "content": {
+          "title": "Revolutionary Product",
+          "subtitle": "Change Your World Today",
+          "fontSize": 80
+        }
+      },
+      {
+        "type": "product-showcase",
+        "duration": 6,
+        "content": {
+          "title": "Experience Excellence",
+          "images": [],
+          "captions": [],
+          "fitMode": "cover"
+        }
+      },
+      {
+        "type": "feature-list",
+        "duration": 5,
+        "content": {
+          "title": "Why Choose Us",
+          "features": [
+            {
+              "icon": "🚀",
+              "title": "Fast Performance",
+              "text": "10x faster than traditional solutions"
+            },
+            {
+              "icon": "💎",
+              "title": "Premium Quality",
+              "text": "Built with the finest materials"
+            },
+            {
+              "icon": "🛡️",
+              "title": "Lifetime Warranty",
+              "text": "Protected for life"
+            }
+          ]
+        }
+      },
+      {
+        "type": "cta",
+        "duration": 3,
+        "content": {
+          "title": "Start Your Journey",
+          "description": "Join millions of satisfied customers",
+          "buttonText": "Shop Now",
+          "urgency": "Limited Stock - Order Today!"
+        }
+      }
+    ]
+  },
+  "educational_example": {
+    "title": "Product Tutorial",
+    "type": "educational",
+    "colorScheme": {
+      "primary": "#2196F3",
+      "secondary": "#4CAF50",
+      "accent": "#FF9800",
+      "text": "#212121",
+      "textLight": "#757575",
+      "background": "#FFFFFF",
+      "backgroundGradient": "linear-gradient(135deg, #E3F2FD 0%, #E8F5E9 100%)",
+      "borderRadius": 12
+    },
+    "scenes": [
+      {
+        "type": "lesson-title",
+        "duration": 3,
+        "content": {
+          "lessonNumber": "1",
+          "title": "Getting Started with Our Product",
+          "objectives": [
+            "Understand core features",
+            "Learn basic operations",
+            "Master advanced techniques"
+          ]
+        }
+      },
+      {
+        "type": "step-by-step",
+        "duration": 9,
+        "content": {
+          "title": "Setup Guide",
+          "stepDuration": 3,
+          "steps": [
+            {
+              "title": "Unbox and Inspect",
+              "description": "Check all components are included",
+              "image": ""
+            },
+            {
+              "title": "Initial Setup",
+              "description": "Connect power and configure settings",
+              "image": ""
+            },
+            {
+              "title": "First Use",
+              "description": "Start using your product effectively",
+              "image": ""
+            }
+          ]
+        }
+      },
+      {
+        "type": "comparison",
+        "duration": 5,
+        "content": {
+          "title": "Old vs New Method",
+          "left": {
+            "title": "Without Our Product",
+            "points": [
+              "Manual processes",
+              "Time consuming",
+              "Prone to errors"
+            ]
+          },
+          "right": {
+            "title": "With Our Product",
+            "points": [
+              "Automated workflow",
+              "Save 5 hours daily",
+              "99.9% accuracy"
+            ]
+          }
+        }
+      },
+      {
+        "type": "quiz",
+        "duration": 6,
+        "content": {
+          "question": "What's the first step in setting up the product?",
+          "options": [
+            { "text": "Connect to WiFi", "correct": false },
+            { "text": "Unbox and inspect components", "correct": true },
+            { "text": "Download the app", "correct": false },
+            { "text": "Charge the battery", "correct": false }
+          ],
+          "explanation": "Always start by unboxing and checking all components are present before proceeding with setup.",
+          "revealDelay": 3
+        }
+      },
+      {
+        "type": "key-takeaways",
+        "duration": 4,
+        "content": {
+          "title": "Remember These Points",
+          "takeaways": [
+            {
+              "icon": "✅",
+              "text": "Setup takes only 5 minutes"
+            },
+            {
+              "icon": "💡",
+              "text": "Regular updates improve performance"
+            },
+            {
+              "icon": "📱",
+              "text": "Mobile app provides remote control"
+            },
+            {
+              "icon": "🎯",
+              "text": "Focus on core features first"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "quick_promo": {
+    "title": "Quick Product Promo",
+    "type": "promotional",
+    "scenes": [
+      {
+        "type": "hero-title",
+        "duration": 2,
+        "content": {
+          "title": "Special Offer",
+          "subtitle": "50% Off Today Only"
+        }
+      },
+      {
+        "type": "cta",
+        "duration": 3,
+        "content": {
+          "title": "Don't Miss Out",
+          "buttonText": "Buy Now",
+          "urgency": "Sale Ends in 24 Hours"
+        }
+      }
+    ]
+  }
+}

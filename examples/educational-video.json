@@ -1,0 +1,141 @@
+{
+  "title": "Product Tutorial Series",
+  "type": "educational",
+  "colorScheme": {
+    "primary": "#2196F3",
+    "secondary": "#4CAF50",
+    "accent": "#FF9800",
+    "text": "#212121",
+    "textLight": "#757575",
+    "background": "#FFFFFF",
+    "backgroundGradient": "linear-gradient(135deg, #E3F2FD 0%, #E8F5E9 100%)",
+    "borderRadius": 12
+  },
+  "scenes": [
+    {
+      "type": "lesson-title",
+      "duration": 3,
+      "content": {
+        "lessonNumber": "Module 1",
+        "title": "Getting Started with Product X",
+        "objectives": [
+          "Understand the basics",
+          "Learn key features",
+          "Complete initial setup"
+        ]
+      }
+    },
+    {
+      "type": "step-by-step",
+      "duration": 12,
+      "content": {
+        "title": "Installation Guide",
+        "stepDuration": 4,
+        "steps": [
+          {
+            "title": "Download the Software",
+            "description": "Visit our website and download the latest version",
+            "image": ""
+          },
+          {
+            "title": "Run the Installer",
+            "description": "Double-click the downloaded file and follow prompts",
+            "image": ""
+          },
+          {
+            "title": "Initial Configuration",
+            "description": "Enter your license key and preferences",
+            "image": ""
+          }
+        ]
+      }
+    },
+    {
+      "type": "comparison",
+      "duration": 5,
+      "content": {
+        "title": "Traditional vs Modern Approach",
+        "left": {
+          "title": "Old Method",
+          "points": [
+            "Manual data entry",
+            "Time-consuming processes",
+            "Prone to human error",
+            "Limited scalability",
+            "High operational costs"
+          ]
+        },
+        "right": {
+          "title": "With Product X",
+          "points": [
+            "Automated workflows",
+            "5x faster processing",
+            "99.9% accuracy rate",
+            "Unlimited scalability",
+            "70% cost reduction"
+          ]
+        }
+      }
+    },
+    {
+      "type": "key-takeaways",
+      "duration": 4,
+      "content": {
+        "title": "What You've Learned",
+        "takeaways": [
+          {
+            "icon": "✅",
+            "text": "Installation process"
+          },
+          {
+            "icon": "🎯",
+            "text": "Core functionality"
+          },
+          {
+            "icon": "💡",
+            "text": "Best practices"
+          },
+          {
+            "icon": "🚀",
+            "text": "Performance benefits"
+          },
+          {
+            "icon": "🔧",
+            "text": "Configuration options"
+          },
+          {
+            "icon": "📈",
+            "text": "ROI expectations"
+          }
+        ]
+      }
+    },
+    {
+      "type": "quiz",
+      "duration": 8,
+      "content": {
+        "question": "What is the primary benefit of using Product X?",
+        "options": [
+          {
+            "text": "It's completely free",
+            "correct": false
+          },
+          {
+            "text": "Increases productivity by 5x",
+            "correct": true
+          },
+          {
+            "text": "Works without internet",
+            "correct": false
+          },
+          {
+            "text": "No training required",
+            "correct": false
+          }
+        ],
+        "explanation": "Product X's automation capabilities increase productivity by 5x through intelligent workflow optimization and AI-powered features.",
+        "revealDelay": 4
+      }
+    }
+  ]
+}

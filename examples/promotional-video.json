@@ -1,0 +1,80 @@
+{
+  "title": "Product Launch Campaign",
+  "type": "promotional",
+  "colorScheme": {
+    "primary": "#FF6B6B",
+    "secondary": "#4ECDC4",
+    "accent": "#95E77E",
+    "text": "#FFFFFF",
+    "textLight": "#F7F7F7",
+    "background": "#1A1A1A",
+    "backgroundGradient": "linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%)",
+    "borderRadius": 20
+  },
+  "scenes": [
+    {
+      "type": "hero-title",
+      "duration": 3,
+      "content": {
+        "title": "Revolutionary Product X",
+        "subtitle": "The Future is Here",
+        "fontSize": 90
+      }
+    },
+    {
+      "type": "product-showcase",
+      "duration": 6,
+      "content": {
+        "title": "See It In Action",
+        "images": [],
+        "captions": [
+          "Sleek modern design",
+          "Powerful performance",
+          "User-friendly interface"
+        ],
+        "fitMode": "contain"
+      }
+    },
+    {
+      "type": "feature-list",
+      "duration": 5,
+      "content": {
+        "title": "Why Choose Product X",
+        "features": [
+          {
+            "icon": "🚀",
+            "title": "Lightning Fast",
+            "text": "10x faster than competitors"
+          },
+          {
+            "icon": "💎",
+            "title": "Premium Quality",
+            "text": "Built to last a lifetime"
+          },
+          {
+            "icon": "🛡️",
+            "title": "Secure & Safe",
+            "text": "Military-grade encryption"
+          },
+          {
+            "icon": "🌍",
+            "title": "Global Reach",
+            "text": "Available in 150+ countries"
+          }
+        ]
+      }
+    },
+    {
+      "type": "cta",
+      "duration": 3,
+      "content": {
+        "title": "Get Yours Today",
+        "description": "Join 1 million+ happy customers",
+        "buttonText": "Order Now",
+        "buttonColor": "#FF6B6B",
+        "urgency": "🔥 Limited Time: 30% OFF",
+        "titleSize": 70
+      }
+    }
+  ]
+}
