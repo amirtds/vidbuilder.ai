@@ -38,7 +38,7 @@ const TitleScene: React.FC<{title: string}> = ({title}) => {
   return (
     <AbsoluteFill
       style={{
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        background: '#667eea',
         justifyContent: 'center',
         alignItems: 'center',
       }}
@@ -71,7 +71,7 @@ const ScreenshotScene: React.FC<{screenshots: string[]}> = ({screenshots}) => {
     return (
       <AbsoluteFill
         style={{
-          background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+          background: '#f093fb',
           justifyContent: 'center',
           alignItems: 'center',
         }}
@@ -138,7 +138,7 @@ const FeaturesScene: React.FC<{description: string}> = ({description}) => {
   return (
     <AbsoluteFill
       style={{
-        background: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+        background: '#fa709a',
         padding: 100,
         justifyContent: 'center',
         alignItems: 'center',
@@ -217,7 +217,7 @@ const CTAScene: React.FC<{title: string}> = ({title}) => {
   return (
     <AbsoluteFill
       style={{
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        background: '#667eea',
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',

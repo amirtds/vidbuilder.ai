@@ -26,7 +26,7 @@ export const MinimalTitleScene: React.FC<{content: any; style: EnhancedColorSche
   return (
     <AbsoluteFill
       style={{
-        background: style.background,
+        background: style.base100,
         justifyContent: 'center',
         alignItems: 'center',
         fontFamily: style.fontFamily,
@@ -58,7 +58,7 @@ export const MinimalTitleScene: React.FC<{content: any; style: EnhancedColorSche
           style={{
             fontSize: content.fontSize || 72,
             fontWeight: content.fontWeight || 700,
-            color: style.text,
+            color: style.baseContent,
             margin: 0,
             letterSpacing: -2,
             lineHeight: 1.1,
@@ -70,7 +70,7 @@ export const MinimalTitleScene: React.FC<{content: any; style: EnhancedColorSche
           <p
             style={{
               fontSize: 28,
-              color: style.textLight,
+              color: style.baseContent,
               marginTop: 20,
               fontWeight: 400,
               letterSpacing: 0.5,
@@ -113,7 +113,7 @@ export const SplitScreenScene: React.FC<{content: any; style: EnhancedColorSchem
         {content.leftImage ? (
           <Img src={content.leftImage} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
         ) : (
-          <div style={{padding: 60, color: '#fff'}}>
+          <div style={{padding: 60, color: style.primaryContent}}>
             <h2 style={{fontSize: 48, marginBottom: 20}}>{content.leftTitle}</h2>
             <p style={{fontSize: 24, opacity: 0.9}}>{content.leftText}</p>
           </div>
@@ -122,7 +122,7 @@ export const SplitScreenScene: React.FC<{content: any; style: EnhancedColorSchem
       <div
         style={{
           flex: 1,
-          background: style.background,
+          background: style.base100,
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -130,8 +130,8 @@ export const SplitScreenScene: React.FC<{content: any; style: EnhancedColorSchem
         }}
       >
         <div style={{padding: 60}}>
-          <h2 style={{fontSize: 48, color: style.text, marginBottom: 20}}>{content.rightTitle}</h2>
-          <p style={{fontSize: 24, color: style.textLight}}>{content.rightText}</p>
+          <h2 style={{fontSize: 48, color: style.baseContent, marginBottom: 20}}>{content.rightTitle}</h2>
+          <p style={{fontSize: 24, color: style.neutral}}>{content.rightText}</p>
         </div>
       </div>
     </AbsoluteFill>
@@ -147,7 +147,7 @@ export const StatsDashboardScene: React.FC<{content: any; style: EnhancedColorSc
   return (
     <AbsoluteFill
       style={{
-        background: style.background,
+        background: style.base100,
         padding: 80,
         fontFamily: style.fontFamily,
       }}
@@ -156,7 +156,7 @@ export const StatsDashboardScene: React.FC<{content: any; style: EnhancedColorSc
         <h2
           style={{
             fontSize: 56,
-            color: style.text,
+            color: style.baseContent,
             textAlign: 'center',
             marginBottom: 80,
             fontWeight: 700,
@@ -218,7 +218,7 @@ export const StatsDashboardScene: React.FC<{content: any; style: EnhancedColorSc
               <div
                 style={{
                   fontSize: 20,
-                  color: style.textLight,
+                  color: style.neutral,
                   fontWeight: 500,
                 }}
               >
@@ -243,7 +243,7 @@ export const TestimonialScene: React.FC<{content: any; style: EnhancedColorSchem
   return (
     <AbsoluteFill
       style={{
-        background: style.background,
+        background: style.base100,
         justifyContent: 'center',
         alignItems: 'center',
         padding: 80,
@@ -269,7 +269,7 @@ export const TestimonialScene: React.FC<{content: any; style: EnhancedColorSchem
         <p
           style={{
             fontSize: 32,
-            color: style.text,
+            color: style.baseContent,
             lineHeight: 1.6,
             fontWeight: 400,
             fontStyle: 'italic',
@@ -292,7 +292,7 @@ export const TestimonialScene: React.FC<{content: any; style: EnhancedColorSchem
         <div
           style={{
             fontSize: 24,
-            color: style.text,
+            color: style.baseContent,
             fontWeight: 600,
           }}
         >
@@ -302,7 +302,7 @@ export const TestimonialScene: React.FC<{content: any; style: EnhancedColorSchem
           <div
             style={{
               fontSize: 18,
-              color: style.textLight,
+              color: style.neutral,
               marginTop: 8,
             }}
           >
@@ -332,7 +332,7 @@ export const TimelineScene: React.FC<{content: any; style: EnhancedColorScheme}>
   return (
     <AbsoluteFill
       style={{
-        background: style.background,
+        background: style.base100,
         padding: 60,
         fontFamily: style.fontFamily,
       }}
@@ -341,7 +341,7 @@ export const TimelineScene: React.FC<{content: any; style: EnhancedColorScheme}>
         <h2
           style={{
             fontSize: 48,
-            color: style.text,
+            color: style.baseContent,
             textAlign: 'center',
             marginBottom: 60,
             fontWeight: 700,
@@ -407,7 +407,7 @@ export const TimelineScene: React.FC<{content: any; style: EnhancedColorScheme}>
                     <div style={{fontSize: 18, color: style.primary, fontWeight: 600}}>
                       {event.date}
                     </div>
-                    <div style={{fontSize: 24, color: style.text, marginTop: 8}}>
+                    <div style={{fontSize: 24, color: style.baseContent, marginTop: 8}}>
                       {event.title}
                     </div>
                   </>
@@ -419,7 +419,7 @@ export const TimelineScene: React.FC<{content: any; style: EnhancedColorScheme}>
                   height: 20,
                   borderRadius: '50%',
                   background: style.primary,
-                  border: `4px solid ${style.background}`,
+                  border: `4px solid ${style.base100}`,
                   zIndex: 1,
                 }}
               />
@@ -436,7 +436,7 @@ export const TimelineScene: React.FC<{content: any; style: EnhancedColorScheme}>
                     <div style={{fontSize: 18, color: style.primary, fontWeight: 600}}>
                       {event.date}
                     </div>
-                    <div style={{fontSize: 24, color: style.text, marginTop: 8}}>
+                    <div style={{fontSize: 24, color: style.baseContent, marginTop: 8}}>
                       {event.title}
                     </div>
                   </>
@@ -459,7 +459,7 @@ export const PricingCardsScene: React.FC<{content: any; style: EnhancedColorSche
   return (
     <AbsoluteFill
       style={{
-        background: style.backgroundGradient || style.background,
+        background: style.base100,
         padding: 60,
         fontFamily: style.fontFamily,
       }}
@@ -468,7 +468,7 @@ export const PricingCardsScene: React.FC<{content: any; style: EnhancedColorSche
         <h2
           style={{
             fontSize: 48,
-            color: style.text,
+            color: style.baseContent,
             textAlign: 'center',
             marginBottom: 60,
             fontWeight: 700,
@@ -536,7 +536,7 @@ export const PricingCardsScene: React.FC<{content: any; style: EnhancedColorSche
               <div
                 style={{
                   fontSize: 24,
-                  color: featured ? '#fff' : style.text,
+                  color: featured ? '#fff' : style.baseContent,
                   fontWeight: 600,
                   marginBottom: 10,
                 }}
@@ -556,7 +556,7 @@ export const PricingCardsScene: React.FC<{content: any; style: EnhancedColorSche
               <div
                 style={{
                   fontSize: 16,
-                  color: featured ? 'rgba(255,255,255,0.8)' : style.textLight,
+                  color: featured ? 'rgba(255,255,255,0.8)' : style.neutral,
                   marginBottom: 30,
                 }}
               >
@@ -575,7 +575,7 @@ export const PricingCardsScene: React.FC<{content: any; style: EnhancedColorSche
                     key={j}
                     style={{
                       fontSize: 16,
-                      color: featured ? 'rgba(255,255,255,0.9)' : style.textLight,
+                      color: featured ? 'rgba(255,255,255,0.9)' : style.neutral,
                       marginBottom: 15,
                       display: 'flex',
                       alignItems: 'flex-start',
@@ -603,7 +603,7 @@ export const IconGridScene: React.FC<{content: any; style: EnhancedColorScheme}>
   return (
     <AbsoluteFill
       style={{
-        background: style.backgroundGradient || style.background,
+        background: style.base100,
         padding: 80,
         fontFamily: style.fontFamily,
       }}
@@ -612,7 +612,7 @@ export const IconGridScene: React.FC<{content: any; style: EnhancedColorScheme}>
         <h2
           style={{
             fontSize: 48,
-            color: style.text,
+            color: style.baseContent,
             textAlign: 'center',
             marginBottom: 60,
             fontWeight: 700,
@@ -667,7 +667,7 @@ export const IconGridScene: React.FC<{content: any; style: EnhancedColorScheme}>
               <div
                 style={{
                   fontSize: 20,
-                  color: style.text,
+                  color: style.baseContent,
                   fontWeight: 600,
                   marginBottom: 8,
                 }}
@@ -678,7 +678,7 @@ export const IconGridScene: React.FC<{content: any; style: EnhancedColorScheme}>
                 <div
                   style={{
                     fontSize: 14,
-                    color: style.textLight,
+                    color: style.neutral,
                     lineHeight: 1.4,
                   }}
                 >
@@ -702,7 +702,7 @@ export const ProductMatrixScene: React.FC<{content: any; style: EnhancedColorSch
   return (
     <AbsoluteFill
       style={{
-        background: style.backgroundGradient || style.background,
+        background: style.base100,
         padding: 60,
         fontFamily: style.fontFamily,
       }}
@@ -711,7 +711,7 @@ export const ProductMatrixScene: React.FC<{content: any; style: EnhancedColorSch
         <h2
           style={{
             fontSize: 48,
-            color: style.text,
+            color: style.baseContent,
             textAlign: 'center',
             marginBottom: 60,
             fontWeight: 700,
@@ -785,7 +785,7 @@ export const ProductMatrixScene: React.FC<{content: any; style: EnhancedColorSch
                 <div
                   style={{
                     fontSize: 20,
-                    color: style.text,
+                    color: style.baseContent,
                     fontWeight: 600,
                     marginBottom: 8,
                   }}
@@ -796,7 +796,7 @@ export const ProductMatrixScene: React.FC<{content: any; style: EnhancedColorSch
                   <div
                     style={{
                       fontSize: 14,
-                      color: style.textLight,
+                      color: style.neutral,
                       marginBottom: 12,
                       lineHeight: 1.4,
                     }}
@@ -832,7 +832,7 @@ export const ProcessFlowScene: React.FC<{content: any; style: EnhancedColorSchem
   return (
     <AbsoluteFill
       style={{
-        background: style.backgroundGradient || style.background,
+        background: style.base100,
         padding: 80,
         fontFamily: style.fontFamily,
       }}
@@ -841,7 +841,7 @@ export const ProcessFlowScene: React.FC<{content: any; style: EnhancedColorSchem
         <h2
           style={{
             fontSize: 48,
-            color: style.text,
+            color: style.baseContent,
             textAlign: 'center',
             marginBottom: 80,
             fontWeight: 700,
@@ -892,7 +892,7 @@ export const ProcessFlowScene: React.FC<{content: any; style: EnhancedColorSchem
                     width: 120,
                     height: 120,
                     borderRadius: '50%',
-                    background: `linear-gradient(135deg, ${style.primary}, ${style.secondary})`,
+                    background: style.primary,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -913,7 +913,7 @@ export const ProcessFlowScene: React.FC<{content: any; style: EnhancedColorSchem
                 <div
                   style={{
                     fontSize: 20,
-                    color: style.text,
+                    color: style.baseContent,
                     fontWeight: 600,
                     maxWidth: 150,
                   }}

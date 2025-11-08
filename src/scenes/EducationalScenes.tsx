@@ -26,7 +26,7 @@ export const ChapterIntroScene: React.FC<{content: any; style: EnhancedColorSche
   return (
     <AbsoluteFill
       style={{
-        background: style.backgroundGradient || style.background,
+        background: style.base100 || style.base100,
         justifyContent: 'center',
         alignItems: 'center',
         fontFamily: style.fontFamily,
@@ -55,7 +55,7 @@ export const ChapterIntroScene: React.FC<{content: any; style: EnhancedColorSche
           style={{
             fontSize: 64,
             fontWeight: 700,
-            color: style.text,
+            color: style.baseContent,
             marginBottom: 20,
             letterSpacing: -1,
           }}
@@ -75,7 +75,7 @@ export const ChapterIntroScene: React.FC<{content: any; style: EnhancedColorSche
           <div
             style={{
               fontSize: 18,
-              color: style.textLight,
+              color: style.neutralContent,
               marginTop: 20,
             }}
           >
@@ -95,7 +95,7 @@ export const LearningObjectivesScene: React.FC<{content: any; style: EnhancedCol
   return (
     <AbsoluteFill
       style={{
-        background: style.background,
+        background: style.base100,
         padding: 80,
         fontFamily: style.fontFamily,
       }}
@@ -103,7 +103,7 @@ export const LearningObjectivesScene: React.FC<{content: any; style: EnhancedCol
       <h2
         style={{
           fontSize: 48,
-          color: style.text,
+          color: style.baseContent,
           marginBottom: 60,
           fontWeight: 700,
         }}
@@ -147,7 +147,7 @@ export const LearningObjectivesScene: React.FC<{content: any; style: EnhancedCol
                   width: 40,
                   height: 40,
                   borderRadius: '50%',
-                  background: `linear-gradient(135deg, ${style.primary}, ${style.secondary})`,
+                  background: style.primary,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -155,7 +155,7 @@ export const LearningObjectivesScene: React.FC<{content: any; style: EnhancedCol
                   flexShrink: 0,
                 }}
               >
-                <span style={{color: '#fff', fontWeight: 600}}>
+                <span style={{color: style.primaryContent, fontWeight: 600}}>
                   {i + 1}
                 </span>
               </div>
@@ -163,7 +163,7 @@ export const LearningObjectivesScene: React.FC<{content: any; style: EnhancedCol
                 <div
                   style={{
                     fontSize: 24,
-                    color: style.text,
+                    color: style.baseContent,
                     fontWeight: 500,
                     marginBottom: 8,
                   }}
@@ -174,7 +174,7 @@ export const LearningObjectivesScene: React.FC<{content: any; style: EnhancedCol
                   <div
                     style={{
                       fontSize: 18,
-                      color: style.textLight,
+                      color: style.neutralContent,
                       lineHeight: 1.5,
                     }}
                   >
@@ -211,7 +211,7 @@ export const ConceptExplanationScene: React.FC<{content: any; style: EnhancedCol
   return (
     <AbsoluteFill
       style={{
-        background: style.background,
+        background: style.base100,
         padding: 60,
         fontFamily: style.fontFamily,
       }}
@@ -228,7 +228,7 @@ export const ConceptExplanationScene: React.FC<{content: any; style: EnhancedCol
           <h2
             style={{
               fontSize: 48,
-              color: style.text,
+              color: style.baseContent,
               marginBottom: 30,
               fontWeight: 700,
             }}
@@ -238,7 +238,7 @@ export const ConceptExplanationScene: React.FC<{content: any; style: EnhancedCol
           <p
             style={{
               fontSize: 22,
-              color: style.textLight,
+              color: style.neutralContent,
               lineHeight: 1.6,
               marginBottom: 30,
             }}
@@ -257,7 +257,7 @@ export const ConceptExplanationScene: React.FC<{content: any; style: EnhancedCol
                   key={i}
                   style={{
                     fontSize: 18,
-                    color: style.text,
+                    color: style.baseContent,
                     marginBottom: 15,
                     paddingLeft: 30,
                     position: 'relative',
@@ -318,7 +318,7 @@ export const InteractiveQuizScene: React.FC<{content: any; style: EnhancedColorS
   return (
     <AbsoluteFill
       style={{
-        background: style.backgroundGradient || style.background,
+        background: style.base100 || style.base100,
         padding: 80,
         fontFamily: style.fontFamily,
       }}
@@ -327,7 +327,7 @@ export const InteractiveQuizScene: React.FC<{content: any; style: EnhancedColorS
         <div
           style={{
             fontSize: 42,
-            color: style.text,
+            color: style.baseContent,
             fontWeight: 700,
             marginBottom: 50,
             opacity: questionFade,
@@ -353,7 +353,7 @@ export const InteractiveQuizScene: React.FC<{content: any; style: EnhancedColorS
                   opacity,
                   padding: 25,
                   background: revealed && isCorrect 
-                    ? `linear-gradient(135deg, ${style.primary}20, ${style.secondary}20)`
+                    ? `${style.primary}15`
                     : '#fff',
                   border: `2px solid ${
                     revealed && isCorrect ? style.primary : '#E5E5E7'
@@ -386,7 +386,7 @@ export const InteractiveQuizScene: React.FC<{content: any; style: EnhancedColorS
                   style={{
                     flex: 1,
                     fontSize: 20,
-                    color: style.text,
+                    color: style.baseContent,
                   }}
                 >
                   {option.text || option}
@@ -411,7 +411,7 @@ export const InteractiveQuizScene: React.FC<{content: any; style: EnhancedColorS
             style={{
               marginTop: 40,
               padding: 30,
-              background: `linear-gradient(135deg, ${style.primary}10, ${style.secondary}10)`,
+              background: `${style.primary}10`,
               borderRadius: style.borderRadius,
               opacity: interpolate(frame, [revealDelay, revealDelay + 20], [0, 1]),
             }}
@@ -429,7 +429,7 @@ export const InteractiveQuizScene: React.FC<{content: any; style: EnhancedColorS
             <div
               style={{
                 fontSize: 20,
-                color: style.text,
+                color: style.baseContent,
                 lineHeight: 1.5,
               }}
             >
@@ -468,7 +468,7 @@ export const CodeDemoScene: React.FC<{content: any; style: EnhancedColorScheme}>
           <div
             style={{
               fontSize: 24,
-              color: '#CCCCCC',
+              color: style.neutralContent,
               marginBottom: 30,
               fontFamily: style.fontFamily,
             }}
@@ -503,7 +503,7 @@ export const CodeDemoScene: React.FC<{content: any; style: EnhancedColorScheme}>
               >
                 <span
                   style={{
-                    color: '#858585',
+                    color: style.neutralContent,
                     marginRight: 20,
                     minWidth: 30,
                     textAlign: 'right',
@@ -513,15 +513,15 @@ export const CodeDemoScene: React.FC<{content: any; style: EnhancedColorScheme}>
                 </span>
                 <span
                   style={{
-                    color: '#D4D4D4',
+                    color: style.baseContent,
                     flex: 1,
                   }}
                   dangerouslySetInnerHTML={{
                     __html: content.highlighted 
                       ? line 
-                      : line.replace(/(\b(?:const|let|var|function|return|if|else|for|while)\b)/g, '<span style="color: #569CD6;">$1</span>')
-                          .replace(/(['"])([^'"]*)\1/g, '<span style="color: #CE9178;">$1$2$1</span>')
-                          .replace(/(\d+)/g, '<span style="color: #B5CEA8;">$1</span>')
+                      : line.replace(/(\b(?:const|let|var|function|return|if|else|for|while)\b)/g, '<span style="color: ${style.primary};">$1</span>')
+                          .replace(/(['"])([^'"]*)\1/g, '<span style="color: ${style.warning};">$1$2$1</span>')
+                          .replace(/(\d+)/g, '<span style="color: ${style.success};">$1</span>')
                   }}
                 />
               </div>
@@ -541,7 +541,7 @@ export const CodeDemoScene: React.FC<{content: any; style: EnhancedColorScheme}>
             <div
               style={{
                 fontSize: 14,
-                color: '#858585',
+                color: style.neutralContent,
                 marginBottom: 10,
                 fontFamily: style.fontFamily,
               }}
@@ -551,7 +551,7 @@ export const CodeDemoScene: React.FC<{content: any; style: EnhancedColorScheme}>
             <div
               style={{
                 fontSize: 16,
-                color: '#4EC9B0',
+                color: style.info,
               }}
             >
               {content.output}

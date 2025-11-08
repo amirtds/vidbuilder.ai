@@ -68,17 +68,8 @@ const sceneTypes = {
 let currentConfig = {
     title: 'My Video',
     type: 'promotional',
-    colorScheme: {
-        primary: '#0071E3',
-        secondary: '#000000',
-        accent: '#FF3B30',
-        text: '#1D1D1F',
-        textLight: '#86868B',
-        textMuted: '#D2D2D7',
-        background: '#FBFBFD',
-        borderRadius: 16,
-        fontFamily: 'SF Pro'
-    },
+    theme: 'corporate', // DaisyUI theme name
+    colorScheme: null, // Will be set from theme
     music: {
         enabled: false,
         trackId: '',
@@ -88,6 +79,11 @@ let currentConfig = {
     },
     scenes: []
 };
+
+// Initialize theme
+if (typeof DAISYUI_THEMES !== 'undefined') {
+    currentConfig.colorScheme = DAISYUI_THEMES.corporate;
+}
 
 // Template configurations
 const templates = {
@@ -264,7 +260,7 @@ function closeSceneModal() {
     document.getElementById('scene-modal').classList.remove('active');
 }
 
-// Music toggle handler
+// Music toggle and theme selector handlers
 document.addEventListener('DOMContentLoaded', () => {
     const musicEnabled = document.getElementById('music-enabled');
     const musicOptions = document.getElementById('music-options');
@@ -282,7 +278,51 @@ document.addEventListener('DOMContentLoaded', () => {
             volumeDisplay.textContent = e.target.value;
         });
     }
+    
+    // Theme selector handler
+    const themeSelector = document.getElementById('theme-selector');
+    if (themeSelector && typeof DAISYUI_THEMES !== 'undefined') {
+        themeSelector.addEventListener('change', (e) => {
+            const themeName = e.target.value;
+            currentConfig.theme = themeName;
+            currentConfig.colorScheme = DAISYUI_THEMES[themeName];
+            updateThemePreview(themeName);
+        });
+        
+        // Initialize theme preview
+        updateThemePreview('corporate');
+    }
 });
+
+// Update theme preview chips
+function updateThemePreview(themeName) {
+    if (typeof DAISYUI_THEMES === 'undefined') return;
+    
+    const theme = DAISYUI_THEMES[themeName];
+    if (!theme) return;
+    
+    const primaryChip = document.getElementById('preview-primary');
+    const secondaryChip = document.getElementById('preview-secondary');
+    const accentChip = document.getElementById('preview-accent');
+    const backgroundChip = document.getElementById('preview-background');
+    
+    if (primaryChip) {
+        primaryChip.style.background = theme.primary;
+        primaryChip.querySelector('.color-label').style.color = theme.primaryContent || '#fff';
+    }
+    if (secondaryChip) {
+        secondaryChip.style.background = theme.secondary;
+        secondaryChip.querySelector('.color-label').style.color = theme.secondaryContent || '#fff';
+    }
+    if (accentChip) {
+        accentChip.style.background = theme.accent;
+        accentChip.querySelector('.color-label').style.color = theme.accentContent || '#fff';
+    }
+    if (backgroundChip) {
+        backgroundChip.style.background = theme.base100;
+        backgroundChip.querySelector('.color-label').style.color = theme.baseContent || '#000';
+    }
+}
 
 function updateSceneFields() {
     const type = document.getElementById('scene-type').value;
@@ -1228,17 +1268,22 @@ async function generateVideo() {
     const generateBtn = document.getElementById('generate-btn');
     const statusDiv = document.getElementById('status');
     
-    // Get selected DaisyUI theme
-    const themeName = document.getElementById('daisyui-theme').value;
-    const themeColors = getThemeColors(themeName);
+    // Get theme and font settings
+    const themeSelector = document.getElementById('theme-selector');
+    const fontFamily = document.getElementById('font-family').value;
     
-    // Apply theme colors to config (following DESIGN.md: DaisyUI colors only, no gradients)
-    currentConfig.theme = themeName;
-    currentConfig.colorScheme = {
-        ...themeColors,
-        borderRadius: 16,
-        fontFamily: 'system-ui, -apple-system, sans-serif' // DESIGN.md: use system fonts
-    };
+    if (themeSelector) {
+        const themeName = themeSelector.value;
+        currentConfig.theme = themeName;
+        
+        // Set color scheme from theme
+        if (typeof DAISYUI_THEMES !== 'undefined' && DAISYUI_THEMES[themeName]) {
+            currentConfig.colorScheme = {
+                ...DAISYUI_THEMES[themeName],
+                fontFamily: fontFamily
+            };
+        }
+    }
     
     // Update music configuration
     const musicEnabled = document.getElementById('music-enabled').checked;

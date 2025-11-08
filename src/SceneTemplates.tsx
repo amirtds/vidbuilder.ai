@@ -9,16 +9,29 @@ import {
   Easing
 } from 'remotion';
 
-// Color scheme interface
+// Color scheme interface - compatible with DaisyUI ThemeColors
 export interface ColorScheme {
   primary: string;
   secondary: string;
   accent?: string;
-  text: string;
-  textLight: string;
-  background: string;
-  backgroundGradient?: string;
+  text?: string; // Legacy
+  textLight?: string; // Legacy
+  background?: string; // Legacy
+  backgroundGradient?: string; // Deprecated per DESIGN.md
+  
+  // DaisyUI semantic colors
+  primaryContent?: string;
+  secondaryContent?: string;
+  accentContent?: string;
+  neutral?: string;
+  neutralContent?: string;
+  base100?: string;
+  base200?: string;
+  base300?: string;
+  baseContent?: string;
+  
   borderRadius: number;
+  fontFamily?: string;
 }
 
 // Scene configuration interface
@@ -32,23 +45,33 @@ export interface SceneConfig {
 // Default color schemes
 export const defaultColorScheme: ColorScheme = {
   primary: '#667eea',
+  primaryContent: '#ffffff',
   secondary: '#764ba2',
+  secondaryContent: '#ffffff',
   accent: '#f093fb',
-  text: '#ffffff',
-  textLight: '#e0e0e0',
-  background: '#000000',
-  backgroundGradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+  accentContent: '#000000',
+  neutral: '#3d4451',
+  neutralContent: '#ffffff',
+  base100: '#000000',
+  base200: '#1a1a1a',
+  base300: '#2a2a2a',
+  baseContent: '#ffffff',
   borderRadius: 20
 };
 
 export const educationalColorScheme: ColorScheme = {
   primary: '#4CAF50',
+  primaryContent: '#ffffff',
   secondary: '#2196F3',
+  secondaryContent: '#ffffff',
   accent: '#FF9800',
-  text: '#212121',
-  textLight: '#757575',
-  background: '#ffffff',
-  backgroundGradient: 'linear-gradient(135deg, #E3F2FD 0%, #E8F5E9 100%)',
+  accentContent: '#000000',
+  neutral: '#757575',
+  neutralContent: '#ffffff',
+  base100: '#ffffff',
+  base200: '#f5f5f5',
+  base300: '#e0e0e0',
+  baseContent: '#212121',
   borderRadius: 12
 };
 
@@ -76,7 +99,7 @@ export const HeroTitleScene: React.FC<{content: any; style: ColorScheme}> = ({co
   return (
     <AbsoluteFill
       style={{
-        background: style.backgroundGradient || style.background,
+        background: style.base100 || "#fff",
         justifyContent: 'center',
         alignItems: 'center',
       }}
@@ -85,7 +108,7 @@ export const HeroTitleScene: React.FC<{content: any; style: ColorScheme}> = ({co
         style={{
           fontSize: content.fontSize || 80,
           fontWeight: 'bold',
-          color: style.text,
+          color: style.baseContent || "#000",
           textAlign: 'center',
           transform: `scale(${scale})`,
           opacity,
@@ -100,7 +123,7 @@ export const HeroTitleScene: React.FC<{content: any; style: ColorScheme}> = ({co
         <div
           style={{
             fontSize: 32,
-            color: style.textLight,
+            color: style.baseContent || "#000",
             marginTop: 30,
             opacity: interpolate(frame, [20, 40], [0, 1], {
               extrapolateRight: 'clamp',
@@ -138,7 +161,7 @@ export const ProductShowcaseScene: React.FC<{content: any; style: ColorScheme}> 
   return (
     <AbsoluteFill
       style={{
-        background: style.backgroundGradient || style.background,
+        background: style.base100 || "#fff",
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',
@@ -149,7 +172,7 @@ export const ProductShowcaseScene: React.FC<{content: any; style: ColorScheme}> 
           style={{
             fontSize: 48,
             fontWeight: 'bold',
-            color: style.text,
+            color: style.baseContent || "#000",
             marginBottom: 40,
             textShadow: '0 2px 10px rgba(0,0,0,0.2)',
           }}
@@ -182,7 +205,7 @@ export const ProductShowcaseScene: React.FC<{content: any; style: ColorScheme}> 
         <div
           style={{
             fontSize: 24,
-            color: style.textLight,
+            color: style.baseContent || "#000",
             marginTop: 30,
             opacity,
             textAlign: 'center',
@@ -205,7 +228,7 @@ export const FeatureListScene: React.FC<{content: any; style: ColorScheme}> = ({
   return (
     <AbsoluteFill
       style={{
-        background: style.backgroundGradient || style.background,
+        background: style.base100 || "#fff",
         padding: '80px',
         justifyContent: 'center',
       }}
@@ -214,7 +237,7 @@ export const FeatureListScene: React.FC<{content: any; style: ColorScheme}> = ({
         <h2
           style={{
             fontSize: 56,
-            color: style.text,
+            color: style.baseContent || "#000",
             marginBottom: 60,
             fontWeight: 'bold',
             textAlign: 'center',
@@ -247,7 +270,7 @@ export const FeatureListScene: React.FC<{content: any; style: ColorScheme}> = ({
                 opacity,
                 transform: `translateX(${translateX}px)`,
                 fontSize: 32,
-                color: style.text,
+                color: style.baseContent || "#000",
                 padding: '25px 40px',
                 background: `${style.primary}20`,
                 borderLeft: `4px solid ${style.primary}`,
@@ -263,7 +286,7 @@ export const FeatureListScene: React.FC<{content: any; style: ColorScheme}> = ({
                 {feature.title && (
                   <div style={{fontWeight: 'bold', marginBottom: 5}}>{feature.title}</div>
                 )}
-                <div style={{color: style.textLight}}>{feature.text || feature}</div>
+                <div style={{color: style.baseContent || "#000"}}>{feature.text || feature}</div>
               </div>
             </div>
           );
@@ -293,7 +316,7 @@ export const CTAScene: React.FC<{content: any; style: ColorScheme}> = ({content,
   return (
     <AbsoluteFill
       style={{
-        background: style.backgroundGradient || style.background,
+        background: style.base100 || "#fff",
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',
@@ -304,7 +327,7 @@ export const CTAScene: React.FC<{content: any; style: ColorScheme}> = ({content,
         <div
           style={{
             fontSize: content.titleSize || 70,
-            color: style.text,
+            color: style.baseContent || "#000",
             marginBottom: 30,
             fontWeight: 'bold',
             textAlign: 'center',
@@ -317,7 +340,7 @@ export const CTAScene: React.FC<{content: any; style: ColorScheme}> = ({content,
         <div
           style={{
             fontSize: 28,
-            color: style.textLight,
+            color: style.baseContent || "#000",
             marginBottom: 50,
             textAlign: 'center',
             maxWidth: '80%',
@@ -330,7 +353,7 @@ export const CTAScene: React.FC<{content: any; style: ColorScheme}> = ({content,
         style={{
           transform: `scale(${buttonScale * pulse})`,
           background: content.buttonColor || style.accent || style.primary,
-          color: style.text,
+          color: style.baseContent || "#000",
           padding: '30px 60px',
           fontSize: 36,
           fontWeight: 'bold',
@@ -345,7 +368,7 @@ export const CTAScene: React.FC<{content: any; style: ColorScheme}> = ({content,
           style={{
             marginTop: 30,
             fontSize: 24,
-            color: style.textLight,
+            color: style.baseContent || "#000",
             opacity: 0.9,
           }}
         >
@@ -370,7 +393,7 @@ export const LessonTitleScene: React.FC<{content: any; style: ColorScheme}> = ({
   return (
     <AbsoluteFill
       style={{
-        background: style.backgroundGradient || style.background,
+        background: style.base100 || "#fff",
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',
@@ -393,7 +416,7 @@ export const LessonTitleScene: React.FC<{content: any; style: ColorScheme}> = ({
         style={{
           fontSize: 64,
           fontWeight: 'bold',
-          color: style.text,
+          color: style.baseContent || "#000",
           textAlign: 'center',
           transform: `translateX(${slideIn}px)`,
           padding: '0 60px',
@@ -406,7 +429,7 @@ export const LessonTitleScene: React.FC<{content: any; style: ColorScheme}> = ({
           style={{
             marginTop: 40,
             fontSize: 24,
-            color: style.textLight,
+            color: style.baseContent || "#000",
             opacity: interpolate(frame, [30, 50], [0, 1]),
           }}
         >
@@ -434,7 +457,7 @@ export const StepByStepScene: React.FC<{content: any; style: ColorScheme}> = ({c
   return (
     <AbsoluteFill
       style={{
-        background: style.background,
+        background: style.base100 || "#fff",
         padding: '60px',
       }}
     >
@@ -458,7 +481,7 @@ export const StepByStepScene: React.FC<{content: any; style: ColorScheme}> = ({c
                 padding: 20,
                 marginBottom: 20,
                 background: i === currentStep ? `${style.primary}15` : 'transparent',
-                borderLeft: `4px solid ${i === currentStep ? style.primary : style.textLight}`,
+                borderLeft: `4px solid ${i === currentStep ? style.primary : style.baseContent || "#000"}`,
                 opacity: i <= currentStep ? 1 : 0.3,
                 transition: 'all 0.3s',
               }}
@@ -476,7 +499,7 @@ export const StepByStepScene: React.FC<{content: any; style: ColorScheme}> = ({c
               <div
                 style={{
                   fontSize: 24,
-                  color: style.text,
+                  color: style.baseContent || "#000",
                 }}
               >
                 {step.title}
@@ -511,7 +534,7 @@ export const StepByStepScene: React.FC<{content: any; style: ColorScheme}> = ({c
               style={{
                 marginTop: 30,
                 fontSize: 24,
-                color: style.textLight,
+                color: style.baseContent || "#000",
                 textAlign: 'center',
                 maxWidth: '600px',
               }}
@@ -542,7 +565,7 @@ export const ComparisonScene: React.FC<{content: any; style: ColorScheme}> = ({c
   return (
     <AbsoluteFill
       style={{
-        background: style.backgroundGradient || style.background,
+        background: style.base100 || "#fff",
         padding: '60px',
       }}
     >
@@ -551,7 +574,7 @@ export const ComparisonScene: React.FC<{content: any; style: ColorScheme}> = ({c
           style={{
             fontSize: 48,
             fontWeight: 'bold',
-            color: style.text,
+            color: style.baseContent || "#000",
             textAlign: 'center',
             marginBottom: 50,
           }}
@@ -580,7 +603,7 @@ export const ComparisonScene: React.FC<{content: any; style: ColorScheme}> = ({c
           >
             {content.left.title}
           </h3>
-          <ul style={{fontSize: 24, color: style.text, lineHeight: 2}}>
+          <ul style={{fontSize: 24, color: style.baseContent || "#000", lineHeight: 2}}>
             {content.left.points?.map((point: string, i: number) => (
               <li key={i} style={{marginBottom: 15}}>
                 {point}
@@ -608,7 +631,7 @@ export const ComparisonScene: React.FC<{content: any; style: ColorScheme}> = ({c
           >
             {content.right.title}
           </h3>
-          <ul style={{fontSize: 24, color: style.text, lineHeight: 2}}>
+          <ul style={{fontSize: 24, color: style.baseContent || "#000", lineHeight: 2}}>
             {content.right.points?.map((point: string, i: number) => (
               <li key={i} style={{marginBottom: 15}}>
                 {point}
@@ -630,7 +653,7 @@ export const KeyTakeawaysScene: React.FC<{content: any; style: ColorScheme}> = (
   return (
     <AbsoluteFill
       style={{
-        background: style.backgroundGradient || style.background,
+        background: style.base100 || "#fff",
         padding: '80px',
         justifyContent: 'center',
       }}
@@ -639,7 +662,7 @@ export const KeyTakeawaysScene: React.FC<{content: any; style: ColorScheme}> = (
         style={{
           fontSize: 56,
           fontWeight: 'bold',
-          color: style.text,
+          color: style.baseContent || "#000",
           marginBottom: 60,
           textAlign: 'center',
         }}
@@ -682,7 +705,7 @@ export const KeyTakeawaysScene: React.FC<{content: any; style: ColorScheme}> = (
               <div
                 style={{
                   fontSize: 24,
-                  color: style.text,
+                  color: style.baseContent || "#000",
                   textAlign: 'center',
                   fontWeight: '500',
                 }}
@@ -712,7 +735,7 @@ export const QuizScene: React.FC<{content: any; style: ColorScheme}> = ({content
   return (
     <AbsoluteFill
       style={{
-        background: style.backgroundGradient || style.background,
+        background: style.base100 || "#fff",
         justifyContent: 'center',
         alignItems: 'center',
         padding: '60px',
@@ -722,7 +745,7 @@ export const QuizScene: React.FC<{content: any; style: ColorScheme}> = ({content
         style={{
           fontSize: 48,
           fontWeight: 'bold',
-          color: style.text,
+          color: style.baseContent || "#000",
           marginBottom: 60,
           textAlign: 'center',
           opacity: questionFade,
@@ -750,13 +773,13 @@ export const QuizScene: React.FC<{content: any; style: ColorScheme}> = ({content
                 marginBottom: 20,
                 background: isRevealed && isCorrect 
                   ? `${style.primary}30`
-                  : `${style.text}10`,
+                  : `${style.baseContent || "#000"}10`,
                 border: `2px solid ${
                   isRevealed && isCorrect ? style.primary : 'transparent'
                 }`,
                 borderRadius: style.borderRadius / 2,
                 fontSize: 28,
-                color: style.text,
+                color: style.baseContent || "#000",
                 display: 'flex',
                 alignItems: 'center',
                 gap: 20,
@@ -768,7 +791,7 @@ export const QuizScene: React.FC<{content: any; style: ColorScheme}> = ({content
                   height: 40,
                   borderRadius: '50%',
                   background: style.secondary,
-                  color: style.text,
+                  color: style.baseContent || "#000",
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -794,7 +817,7 @@ export const QuizScene: React.FC<{content: any; style: ColorScheme}> = ({content
             background: `${style.primary}20`,
             borderRadius: style.borderRadius,
             fontSize: 24,
-            color: style.text,
+            color: style.baseContent || "#000",
             maxWidth: '80%',
             opacity: interpolate(frame, [revealDelay, revealDelay + 20], [0, 1]),
           }}

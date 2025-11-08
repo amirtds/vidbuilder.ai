@@ -1,24 +1,7 @@
-// DaisyUI Theme-based color scheme (DESIGN.md compliant: no gradients, solid colors only)
-export interface EnhancedColorScheme {
-  primary: string;
-  primaryContent: string;
-  secondary: string;
-  secondaryContent: string;
-  accent: string;
-  accentContent: string;
-  neutral: string;
-  neutralContent: string;
-  base100: string;
-  base200: string;
-  base300: string;
-  baseContent: string;
-  info: string;
-  success: string;
-  warning: string;
-  error: string;
-  borderRadius: number;
-  fontFamily: string;
-}
+import { DaisyUITheme, ThemeColors } from '../services/DaisyUIThemeService';
+
+// Re-export for backward compatibility
+export type EnhancedColorScheme = ThemeColors;
 
 // Music configuration
 export interface MusicConfig {
@@ -32,12 +15,13 @@ export interface MusicConfig {
   mood?: string;
 }
 
-// Enhanced scene config with music
+// Enhanced scene config with music and DaisyUI theme
 export interface EnhancedSceneConfig {
   type: string;
   duration: number;
   content: any;
-  style?: EnhancedColorScheme;
+  theme?: DaisyUITheme; // DaisyUI theme name
+  style?: ThemeColors; // Computed theme colors (will be derived from theme)
   music?: MusicConfig;
   transition?: 'fade' | 'slide' | 'zoom' | 'rotate' | 'blur';
   animation?: 'spring' | 'ease' | 'bounce' | 'elastic';
@@ -57,46 +41,54 @@ export const googleFonts = {
   'Lato': "'Lato', sans-serif"
 };
 
-// Default DaisyUI-inspired color scheme (light theme)
+// Default Apple-inspired color scheme (using DaisyUI corporate theme as base)
 export const appleColorScheme: EnhancedColorScheme = {
   primary: '#0071E3',
-  primaryContent: '#FFFFFF',
+  primaryContent: '#ffffff',
   secondary: '#000000',
-  secondaryContent: '#FFFFFF',
+  secondaryContent: '#ffffff',
   accent: '#FF3B30',
-  accentContent: '#FFFFFF',
-  neutral: '#3D4451',
-  neutralContent: '#FFFFFF',
+  accentContent: '#ffffff',
+  neutral: '#3d4451',
+  neutralContent: '#ffffff',
   base100: '#FBFBFD',
-  base200: '#F2F2F2',
-  base300: '#E5E6E6',
+  base200: '#F5F5F7',
+  base300: '#E8E8EA',
   baseContent: '#1D1D1F',
-  info: '#3ABFF8',
-  success: '#36D399',
-  warning: '#FBBD23',
-  error: '#F87272',
+  info: '#3abff8',
+  infoContent: '#ffffff',
+  success: '#36d399',
+  successContent: '#ffffff',
+  warning: '#fbbd23',
+  warningContent: '#000000',
+  error: '#f87272',
+  errorContent: '#ffffff',
   borderRadius: 16,
   fontFamily: googleFonts['SF Pro']
 };
 
-// Dark mode DaisyUI-inspired color scheme
+// Dark mode Apple-inspired color scheme (using DaisyUI business theme as base)
 export const appleDarkColorScheme: EnhancedColorScheme = {
   primary: '#0A84FF',
-  primaryContent: '#FFFFFF',
+  primaryContent: '#ffffff',
   secondary: '#FFFFFF',
   secondaryContent: '#000000',
   accent: '#FF453A',
-  accentContent: '#FFFFFF',
-  neutral: '#191D24',
-  neutralContent: '#A6ADBB',
+  accentContent: '#ffffff',
+  neutral: '#23282e',
+  neutralContent: '#ffffff',
   base100: '#000000',
-  base200: '#0D0D0D',
-  base300: '#1A1A1A',
+  base200: '#1C1C1E',
+  base300: '#2C2C2E',
   baseContent: '#FFFFFF',
-  info: '#3ABFF8',
-  success: '#36D399',
-  warning: '#FBBD23',
-  error: '#F87272',
+  info: '#3abff8',
+  infoContent: '#ffffff',
+  success: '#36d399',
+  successContent: '#ffffff',
+  warning: '#fbbd23',
+  warningContent: '#000000',
+  error: '#f87272',
+  errorContent: '#ffffff',
   borderRadius: 16,
   fontFamily: googleFonts['SF Pro']
 };

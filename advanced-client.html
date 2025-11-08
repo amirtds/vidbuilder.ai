@@ -346,6 +346,62 @@
             border-radius: 4px;
             font-size: 12px;
         }
+        
+        /* Theme selector styles - following DESIGN.md */
+        .theme-select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #e5e5e5;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        
+        .theme-select:hover,
+        .theme-select:focus {
+            border-color: #4b6bfb;
+            outline: none;
+        }
+        
+        .theme-preview-container {
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .theme-color-chips {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+        
+        .color-chip {
+            height: 60px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        
+        .color-chip:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .color-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 4px 8px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
@@ -408,41 +464,65 @@
             </div>
             
             <div class="form-group">
-                <label for="daisyui-theme">🎨 DaisyUI Theme</label>
-                <select id="daisyui-theme" style="font-size: 16px;">
-                    <option value="light">☀️ Light</option>
-                    <option value="dark">🌙 Dark</option>
-                    <option value="cupcake">🧁 Cupcake</option>
-                    <option value="bumblebee">🐝 Bumblebee</option>
-                    <option value="emerald">💚 Emerald</option>
-                    <option value="corporate">💼 Corporate</option>
-                    <option value="synthwave">🌆 Synthwave</option>
-                    <option value="retro">📻 Retro</option>
-                    <option value="cyberpunk">🤖 Cyberpunk</option>
-                    <option value="valentine">💝 Valentine</option>
-                    <option value="halloween">🎃 Halloween</option>
-                    <option value="garden">🌿 Garden</option>
-                    <option value="forest">🌲 Forest</option>
-                    <option value="aqua">🌊 Aqua</option>
-                    <option value="lofi">🎧 Lofi</option>
-                    <option value="pastel">🎨 Pastel</option>
-                    <option value="fantasy">🦄 Fantasy</option>
-                    <option value="wireframe">📐 Wireframe</option>
-                    <option value="black">⚫ Black</option>
-                    <option value="luxury">💎 Luxury</option>
-                    <option value="dracula">🧛 Dracula</option>
-                    <option value="cmyk">🖨️ CMYK</option>
-                    <option value="autumn">🍂 Autumn</option>
-                    <option value="business">📊 Business</option>
-                    <option value="acid">🌈 Acid</option>
-                    <option value="lemonade">🍋 Lemonade</option>
-                    <option value="night">🌃 Night</option>
-                    <option value="coffee">☕ Coffee</option>
-                    <option value="winter" selected>❄️ Winter</option>
+                <label for="theme-selector">🎨 Theme</label>
+                <select id="theme-selector" class="theme-select">
+                    <optgroup label="Light Themes">
+                        <option value="light">Light - Clean & Modern</option>
+                        <option value="cupcake">Cupcake - Soft & Playful</option>
+                        <option value="bumblebee">Bumblebee - Warm Yellow</option>
+                        <option value="emerald">Emerald - Fresh Green</option>
+                        <option value="corporate" selected>Corporate - Professional Blue</option>
+                        <option value="retro">Retro - Vintage Style</option>
+                        <option value="valentine">Valentine - Pink & Romantic</option>
+                        <option value="garden">Garden - Natural</option>
+                        <option value="lofi">Lo-Fi - Minimalist B&W</option>
+                        <option value="pastel">Pastel - Soft Colors</option>
+                        <option value="fantasy">Fantasy - Purple Magic</option>
+                        <option value="wireframe">Wireframe - Sketch Style</option>
+                        <option value="winter">Winter - Cool Blue</option>
+                    </optgroup>
+                    <optgroup label="Dark Themes">
+                        <option value="dark">Dark - Classic Dark</option>
+                        <option value="synthwave">Synthwave - Neon Retro</option>
+                        <option value="cyberpunk">Cyberpunk - Yellow Neon</option>
+                        <option value="halloween">Halloween - Orange & Purple</option>
+                        <option value="business">Business - Dark Professional</option>
+                        <option value="night">Night - Deep Blue</option>
+                        <option value="nord">Nord - Nordic Style</option>
+                    </optgroup>
                 </select>
-                <small style="color: #666; display: block; margin-top: 8px;">
-                    Theme controls all colors following DaisyUI design system
-                </small>
+                <div id="theme-preview" class="theme-preview-container" style="margin-top: 15px;">
+                    <div class="theme-color-chips">
+                        <div class="color-chip" id="preview-primary" title="Primary">
+                            <span class="color-label">Primary</span>
+                        </div>
+                        <div class="color-chip" id="preview-secondary" title="Secondary">
+                            <span class="color-label">Secondary</span>
+                        </div>
+                        <div class="color-chip" id="preview-accent" title="Accent">
+                            <span class="color-label">Accent</span>
+                        </div>
+                        <div class="color-chip" id="preview-background" title="Background">
+                            <span class="color-label">Background</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="font-family">Font Family</label>
+                <select id="font-family">
+                    <option value="SF Pro" selected>SF Pro (Apple)</option>
+                    <option value="Inter">Inter</option>
+                    <option value="Helvetica Neue">Helvetica Neue</option>
+                    <option value="Roboto">Roboto</option>
+                    <option value="Open Sans">Open Sans</option>
+                    <option value="Montserrat">Montserrat</option>
+                    <option value="Playfair Display">Playfair Display</option>
+                    <option value="Poppins">Poppins</option>
+                    <option value="Raleway">Raleway</option>
+                    <option value="Lato">Lato</option>
+                </select>
             </div>
             
             <div class="form-group">

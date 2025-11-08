@@ -18,7 +18,7 @@ export const SummaryPointsScene: React.FC<{content: any; style: EnhancedColorSch
   return (
     <AbsoluteFill
       style={{
-        background: style.backgroundGradient || style.background,
+        background: style.base100 || style.base100,
         padding: 80,
         fontFamily: style.fontFamily,
       }}
@@ -26,7 +26,7 @@ export const SummaryPointsScene: React.FC<{content: any; style: EnhancedColorSch
       <h2
         style={{
           fontSize: 48,
-          color: style.text,
+          color: style.baseContent,
           marginBottom: 60,
           fontWeight: 700,
           textAlign: 'center',
@@ -79,7 +79,7 @@ export const SummaryPointsScene: React.FC<{content: any; style: EnhancedColorSch
               <div
                 style={{
                   fontSize: 18,
-                  color: style.text,
+                  color: style.baseContent,
                   fontWeight: 500,
                   lineHeight: 1.4,
                 }}
@@ -109,7 +109,7 @@ export const FormulaScene: React.FC<{content: any; style: EnhancedColorScheme}> 
   return (
     <AbsoluteFill
       style={{
-        background: style.background,
+        background: style.base100,
         justifyContent: 'center',
         alignItems: 'center',
         fontFamily: style.fontFamily,
@@ -121,7 +121,7 @@ export const FormulaScene: React.FC<{content: any; style: EnhancedColorScheme}> 
           <h2
             style={{
               fontSize: 36,
-              color: style.text,
+              color: style.baseContent,
               marginBottom: 40,
               fontWeight: 600,
             }}
@@ -133,12 +133,12 @@ export const FormulaScene: React.FC<{content: any; style: EnhancedColorScheme}> 
         <div
           style={{
             fontSize: 48,
-            color: style.text,
+            color: style.baseContent,
             fontWeight: 500,
             marginBottom: 40,
             fontFamily: "'Times New Roman', serif",
             padding: 40,
-            background: `linear-gradient(135deg, ${style.primary}05, ${style.secondary}05)`,
+            background: `${style.primary}05`,
             borderRadius: style.borderRadius,
             display: 'inline-block',
           }}
@@ -150,7 +150,7 @@ export const FormulaScene: React.FC<{content: any; style: EnhancedColorScheme}> 
           <div
             style={{
               fontSize: 22,
-              color: style.textLight,
+              color: style.neutralContent,
               maxWidth: 700,
               margin: '0 auto',
               lineHeight: 1.6,
@@ -187,7 +187,7 @@ export const FormulaScene: React.FC<{content: any; style: EnhancedColorScheme}> 
             <div
               style={{
                 fontSize: 20,
-                color: style.text,
+                color: style.baseContent,
                 fontFamily: "'Monaco', monospace",
               }}
             >
@@ -212,7 +212,7 @@ export const VocabularyScene: React.FC<{content: any; style: EnhancedColorScheme
   return (
     <AbsoluteFill
       style={{
-        background: style.backgroundGradient || style.background,
+        background: style.base100 || style.base100,
         justifyContent: 'center',
         alignItems: 'center',
         fontFamily: style.fontFamily,
@@ -223,7 +223,7 @@ export const VocabularyScene: React.FC<{content: any; style: EnhancedColorScheme
           style={{
             fontSize: 72,
             fontWeight: 700,
-            color: style.text,
+            color: style.baseContent,
             marginBottom: 30,
           }}
         >
@@ -234,7 +234,7 @@ export const VocabularyScene: React.FC<{content: any; style: EnhancedColorScheme
           <div
             style={{
               fontSize: 28,
-              color: style.textLight,
+              color: style.neutralContent,
               marginBottom: 30,
               fontStyle: 'italic',
             }}
@@ -249,7 +249,7 @@ export const VocabularyScene: React.FC<{content: any; style: EnhancedColorScheme
               display: 'inline-block',
               padding: '8px 20px',
               background: style.primary,
-              color: '#fff',
+              color: style.primaryContent,
               borderRadius: 20,
               fontSize: 16,
               fontWeight: 600,
@@ -263,7 +263,7 @@ export const VocabularyScene: React.FC<{content: any; style: EnhancedColorScheme
         <div
           style={{
             fontSize: 32,
-            color: style.text,
+            color: style.baseContent,
             lineHeight: 1.5,
             marginBottom: 40,
           }}
@@ -279,7 +279,7 @@ export const VocabularyScene: React.FC<{content: any; style: EnhancedColorScheme
               borderRadius: style.borderRadius,
               boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
               fontSize: 24,
-              color: style.textLight,
+              color: style.neutralContent,
               fontStyle: 'italic',
             }}
           >
@@ -302,7 +302,7 @@ export const InteractiveTimelineScene: React.FC<{content: any; style: EnhancedCo
   return (
     <AbsoluteFill
       style={{
-        background: style.background,
+        background: style.base100,
         padding: 60,
         fontFamily: style.fontFamily,
       }}
@@ -311,7 +311,7 @@ export const InteractiveTimelineScene: React.FC<{content: any; style: EnhancedCo
         <h2
           style={{
             fontSize: 42,
-            color: style.text,
+            color: style.baseContent,
             textAlign: 'center',
             marginBottom: 60,
             fontWeight: 700,
@@ -383,7 +383,7 @@ export const InteractiveTimelineScene: React.FC<{content: any; style: EnhancedCo
               <div
                 style={{
                   flex: 1,
-                  background: isCurrent ? `linear-gradient(135deg, ${style.primary}10, ${style.secondary}10)` : '#fff',
+                  background: isCurrent ? `${style.primary}10` : '#fff',
                   padding: 25,
                   borderRadius: style.borderRadius,
                   boxShadow: isCurrent ? '0 10px 40px rgba(0,0,0,0.1)' : '0 5px 20px rgba(0,0,0,0.05)',
@@ -394,7 +394,7 @@ export const InteractiveTimelineScene: React.FC<{content: any; style: EnhancedCo
                 <div
                   style={{
                     fontSize: 20,
-                    color: style.text,
+                    color: style.baseContent,
                     fontWeight: 600,
                     marginBottom: 10,
                   }}
@@ -405,7 +405,7 @@ export const InteractiveTimelineScene: React.FC<{content: any; style: EnhancedCo
                   <div
                     style={{
                       fontSize: 16,
-                      color: style.textLight,
+                      color: style.neutralContent,
                       lineHeight: 1.4,
                     }}
                   >
@@ -452,7 +452,7 @@ export const AchievementBadgeScene: React.FC<{content: any; style: EnhancedColor
   return (
     <AbsoluteFill
       style={{
-        background: `linear-gradient(135deg, ${style.primary}, ${style.secondary})`,
+        background: style.primary,
         justifyContent: 'center',
         alignItems: 'center',
         fontFamily: style.fontFamily,
@@ -529,7 +529,7 @@ export const AchievementBadgeScene: React.FC<{content: any; style: EnhancedColor
           <div
             style={{
               fontSize: 24,
-              color: style.text,
+              color: style.baseContent,
               fontWeight: 700,
               textAlign: 'center',
               padding: '0 40px',
@@ -547,7 +547,7 @@ export const AchievementBadgeScene: React.FC<{content: any; style: EnhancedColor
             position: 'absolute',
             bottom: 100,
             fontSize: 32,
-            color: '#fff',
+            color: style.primaryContent,
             fontWeight: 600,
             opacity: starBurst,
           }}
