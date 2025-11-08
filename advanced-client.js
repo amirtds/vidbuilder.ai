@@ -76,7 +76,6 @@ let currentConfig = {
         textLight: '#86868B',
         textMuted: '#D2D2D7',
         background: '#FBFBFD',
-        backgroundGradient: 'linear-gradient(135deg, #FBFBFD 0%, #F5F5F7 100%)',
         borderRadius: 16,
         fontFamily: 'SF Pro'
     },
@@ -1229,25 +1228,16 @@ async function generateVideo() {
     const generateBtn = document.getElementById('generate-btn');
     const statusDiv = document.getElementById('status');
     
-    // Update color scheme from inputs
-    const primaryColor = document.getElementById('primary-color').value;
-    const secondaryColor = document.getElementById('secondary-color').value;
-    const accentColor = document.getElementById('accent-color').value;
-    const textColor = document.getElementById('text-color').value;
-    const borderRadius = parseInt(document.getElementById('border-radius').value);
-    const fontFamily = document.getElementById('font-family').value;
+    // Get selected DaisyUI theme
+    const themeName = document.getElementById('daisyui-theme').value;
+    const themeColors = getThemeColors(themeName);
     
+    // Apply theme colors to config (following DESIGN.md: DaisyUI colors only, no gradients)
+    currentConfig.theme = themeName;
     currentConfig.colorScheme = {
-        primary: primaryColor,
-        secondary: secondaryColor,
-        accent: accentColor,
-        text: textColor,
-        textLight: '#86868B',
-        textMuted: '#D2D2D7',
-        background: '#FBFBFD',
-        backgroundGradient: `linear-gradient(135deg, ${primaryColor} 0%, ${secondaryColor} 100%)`,
-        borderRadius: borderRadius,
-        fontFamily: fontFamily
+        ...themeColors,
+        borderRadius: 16,
+        fontFamily: 'system-ui, -apple-system, sans-serif' // DESIGN.md: use system fonts
     };
     
     // Update music configuration

@@ -1,14 +1,21 @@
-// Enhanced Color scheme with gradients
+// DaisyUI Theme-based color scheme (DESIGN.md compliant: no gradients, solid colors only)
 export interface EnhancedColorScheme {
   primary: string;
+  primaryContent: string;
   secondary: string;
+  secondaryContent: string;
   accent: string;
-  text: string;
-  textLight: string;
-  textMuted: string;
-  background: string;
-  backgroundGradient?: string;
-  overlayGradient?: string;
+  accentContent: string;
+  neutral: string;
+  neutralContent: string;
+  base100: string;
+  base200: string;
+  base300: string;
+  baseContent: string;
+  info: string;
+  success: string;
+  warning: string;
+  error: string;
   borderRadius: number;
   fontFamily: string;
 }
@@ -50,32 +57,46 @@ export const googleFonts = {
   'Lato': "'Lato', sans-serif"
 };
 
-// Default Apple-inspired color scheme
+// Default DaisyUI-inspired color scheme (light theme)
 export const appleColorScheme: EnhancedColorScheme = {
   primary: '#0071E3',
+  primaryContent: '#FFFFFF',
   secondary: '#000000',
+  secondaryContent: '#FFFFFF',
   accent: '#FF3B30',
-  text: '#1D1D1F',
-  textLight: '#86868B',
-  textMuted: '#D2D2D7',
-  background: '#FBFBFD',
-  backgroundGradient: 'linear-gradient(135deg, #FBFBFD 0%, #F5F5F7 100%)',
-  overlayGradient: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 100%)',
+  accentContent: '#FFFFFF',
+  neutral: '#3D4451',
+  neutralContent: '#FFFFFF',
+  base100: '#FBFBFD',
+  base200: '#F2F2F2',
+  base300: '#E5E6E6',
+  baseContent: '#1D1D1F',
+  info: '#3ABFF8',
+  success: '#36D399',
+  warning: '#FBBD23',
+  error: '#F87272',
   borderRadius: 16,
   fontFamily: googleFonts['SF Pro']
 };
 
-// Dark mode Apple-inspired color scheme
+// Dark mode DaisyUI-inspired color scheme
 export const appleDarkColorScheme: EnhancedColorScheme = {
   primary: '#0A84FF',
+  primaryContent: '#FFFFFF',
   secondary: '#FFFFFF',
+  secondaryContent: '#000000',
   accent: '#FF453A',
-  text: '#FFFFFF',
-  textLight: '#98989F',
-  textMuted: '#48484A',
-  background: '#000000',
-  backgroundGradient: 'linear-gradient(135deg, #000000 0%, #1C1C1E 100%)',
-  overlayGradient: 'linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 100%)',
+  accentContent: '#FFFFFF',
+  neutral: '#191D24',
+  neutralContent: '#A6ADBB',
+  base100: '#000000',
+  base200: '#0D0D0D',
+  base300: '#1A1A1A',
+  baseContent: '#FFFFFF',
+  info: '#3ABFF8',
+  success: '#36D399',
+  warning: '#FBBD23',
+  error: '#F87272',
   borderRadius: 16,
   fontFamily: googleFonts['SF Pro']
 };

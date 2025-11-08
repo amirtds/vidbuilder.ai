@@ -147,7 +147,7 @@ export const StatsDashboardScene: React.FC<{content: any; style: EnhancedColorSc
   return (
     <AbsoluteFill
       style={{
-        background: style.backgroundGradient || style.background,
+        background: style.background,
         padding: 80,
         fontFamily: style.fontFamily,
       }}
@@ -332,7 +332,7 @@ export const TimelineScene: React.FC<{content: any; style: EnhancedColorScheme}>
   return (
     <AbsoluteFill
       style={{
-        background: style.backgroundGradient || style.background,
+        background: style.background,
         padding: 60,
         fontFamily: style.fontFamily,
       }}
@@ -653,7 +653,7 @@ export const IconGridScene: React.FC<{content: any; style: EnhancedColorScheme}>
                 style={{
                   width: 80,
                   height: 80,
-                  background: `linear-gradient(135deg, ${style.primary}20, ${style.secondary}20)`,
+                  background: `${style.primary}20`,
                   borderRadius: style.borderRadius,
                   display: 'flex',
                   alignItems: 'center',
@@ -960,7 +960,7 @@ export const CountdownScene: React.FC<{content: any; style: EnhancedColorScheme}
   return (
     <AbsoluteFill
       style={{
-        background: `linear-gradient(135deg, ${style.primary}, ${style.secondary})`,
+        background: style.primary,
         justifyContent: 'center',
         alignItems: 'center',
         fontFamily: style.fontFamily,

@@ -408,46 +408,41 @@
             </div>
             
             <div class="form-group">
-                <label>Color Scheme</label>
-                <div class="color-inputs">
-                    <div class="color-input-group">
-                        <input type="color" id="primary-color" value="#667eea">
-                        <input type="text" value="#667eea" placeholder="Primary">
-                    </div>
-                    <div class="color-input-group">
-                        <input type="color" id="secondary-color" value="#764ba2">
-                        <input type="text" value="#764ba2" placeholder="Secondary">
-                    </div>
-                    <div class="color-input-group">
-                        <input type="color" id="accent-color" value="#f093fb">
-                        <input type="text" value="#f093fb" placeholder="Accent">
-                    </div>
-                    <div class="color-input-group">
-                        <input type="color" id="text-color" value="#ffffff">
-                        <input type="text" value="#ffffff" placeholder="Text">
-                    </div>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label for="border-radius">Border Radius</label>
-                <input type="number" id="border-radius" min="0" max="50" value="16">
-            </div>
-            
-            <div class="form-group">
-                <label for="font-family">Font Family</label>
-                <select id="font-family">
-                    <option value="SF Pro" selected>SF Pro (Apple)</option>
-                    <option value="Inter">Inter</option>
-                    <option value="Helvetica Neue">Helvetica Neue</option>
-                    <option value="Roboto">Roboto</option>
-                    <option value="Open Sans">Open Sans</option>
-                    <option value="Montserrat">Montserrat</option>
-                    <option value="Playfair Display">Playfair Display</option>
-                    <option value="Poppins">Poppins</option>
-                    <option value="Raleway">Raleway</option>
-                    <option value="Lato">Lato</option>
+                <label for="daisyui-theme">🎨 DaisyUI Theme</label>
+                <select id="daisyui-theme" style="font-size: 16px;">
+                    <option value="light">☀️ Light</option>
+                    <option value="dark">🌙 Dark</option>
+                    <option value="cupcake">🧁 Cupcake</option>
+                    <option value="bumblebee">🐝 Bumblebee</option>
+                    <option value="emerald">💚 Emerald</option>
+                    <option value="corporate">💼 Corporate</option>
+                    <option value="synthwave">🌆 Synthwave</option>
+                    <option value="retro">📻 Retro</option>
+                    <option value="cyberpunk">🤖 Cyberpunk</option>
+                    <option value="valentine">💝 Valentine</option>
+                    <option value="halloween">🎃 Halloween</option>
+                    <option value="garden">🌿 Garden</option>
+                    <option value="forest">🌲 Forest</option>
+                    <option value="aqua">🌊 Aqua</option>
+                    <option value="lofi">🎧 Lofi</option>
+                    <option value="pastel">🎨 Pastel</option>
+                    <option value="fantasy">🦄 Fantasy</option>
+                    <option value="wireframe">📐 Wireframe</option>
+                    <option value="black">⚫ Black</option>
+                    <option value="luxury">💎 Luxury</option>
+                    <option value="dracula">🧛 Dracula</option>
+                    <option value="cmyk">🖨️ CMYK</option>
+                    <option value="autumn">🍂 Autumn</option>
+                    <option value="business">📊 Business</option>
+                    <option value="acid">🌈 Acid</option>
+                    <option value="lemonade">🍋 Lemonade</option>
+                    <option value="night">🌃 Night</option>
+                    <option value="coffee">☕ Coffee</option>
+                    <option value="winter" selected>❄️ Winter</option>
                 </select>
+                <small style="color: #666; display: block; margin-top: 8px;">
+                    Theme controls all colors following DaisyUI design system
+                </small>
             </div>
             
             <div class="form-group">
@@ -600,6 +595,7 @@
         </div>
     </div>
     
+    <script src="advanced-client-daisyui-themes.js"></script>
     <script src="advanced-client.js"></script>
 </body>
 </html>
