@@ -35,6 +35,9 @@ import {
   AchievementBadgeScene
 } from './scenes/EducationalScenes2';
 
+// Import brand/utility scenes
+import { BrandWatermarkScene } from './scenes/BrandWatermarkScene';
+
 // Additional educational scenes from EducationalScenes2 (originally 6-9)
 const MindMapScene = ConceptExplanationScene;
 const ProgressTrackerScene = LearningObjectivesScene;
@@ -94,6 +97,9 @@ export const enhancedSceneTemplates: {[key: string]: React.FC<any>} = {
   'comparison': ComparisonScene,
   'key-takeaways': KeyTakeawaysScene,
   'quiz': QuizScene,
+  
+  // Brand/Utility Scenes
+  'brand-watermark': BrandWatermarkScene,
 };
 
 export interface EnhancedVideoConfig {

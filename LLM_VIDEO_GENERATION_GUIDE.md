@@ -185,6 +185,59 @@ All text fields support **markdown-style color formatting** to highlight specifi
 
 ## 🎬 Scene Types & Specifications
 
+### Brand/Utility Scenes (1 Type)
+
+#### Brand Watermark Scene
+**Type:** `brand-watermark`  
+**Best For:** Video opening, brand intro, company identity  
+**Duration:** 3-5 seconds (flexible - animations adapt automatically)  
+**Note:** ⚠️ **Music should NOT start during this scene** - Typing sound plays
+
+```json
+{
+  "type": "brand-watermark",
+  "duration": 3,
+  "content": {
+    "logo": "https://example.com/logo.png",
+    "companyName": "ShortRentals AI",
+    "tagline": "Direct Booking Made Simple"
+  }
+}
+```
+
+**Fields:**
+- `logo` (optional): Logo image URL (use high-quality PNG)
+- `companyName` (required): Company/brand name (displays in **primary color**)
+- `tagline` (optional): Short tagline or slogan
+- `logoSize` (optional): Logo size in px (default: 300)
+- `fontSize` (optional): Company name size (default: 64)
+- `taglineSize` (optional): Tagline font size (default: 28)
+
+**Dynamic Animation Timeline:**
+- **First 25%:** Logo appears in CENTER with elegant fade and scale
+- **25-40%:** Logo smoothly moves up
+- **40-85%:** Company name types in (adapts to available time)
+- **85-100%:** Tagline fades in (if present)
+
+**Key Features:**
+- ✅ **Dynamic timing** - Animations adapt to any duration (3-10 seconds)
+- ✅ **Center logo** - Appears elegantly in center (no balloon effect)
+- ✅ **Typing sound** - Plays during company name typing
+- ✅ **Primary color** - Company name uses theme's primary color
+- ✅ **Flexible** - Works perfectly with 3s, 4s, or 5s duration
+
+**Audio:**
+- Typing sound effect (plays during company name typing)
+- No background music (music starts in next scene)
+
+**Best Practices:**
+- Use high-quality, transparent PNG logo
+- Keep company name short (2-4 words)
+- Tagline should be brief (4-6 words max)
+- Place at start of video before hero-title
+
+---
+
 ### Promotional Scenes (11 Types)
 
 #### 1. Hero Title Scene (Professional)
@@ -221,12 +274,13 @@ All text fields support **markdown-style color formatting** to highlight specifi
 - `lineHeight` (optional): Title line height (default: 1.05 - compact)
 
 **Professional Animations:**
-- **Cinematic entrance** with custom Bezier easing (Apple-style)
-- **Blur-to-focus** effect (20px → 0px blur)
-- **Smooth slide-up** (80px → 0px) over 35 frames
-- **Delayed subtitle** entrance (starts frame 25) for visual hierarchy
-- **Subtle breathe** animation for polish (1.0 → 1.01 scale)
-- **Multi-stage opacity** for depth (0 → 0.5 → 1.0)
+- **Typewriter effect** - Text types in character by character
+- **Delayed subtitle** - Starts after title finishes typing
+- **Smooth fade-in** - Quick, subtle entrance
+- **Dynamic timing** - Automatically adapts to scene duration
+  - With subtitle: Title uses 50% of time, subtitle uses remaining 50%
+  - Without subtitle: Title uses 85% of time
+- **Flexible duration** - Works with 3-10 seconds (animations adapt)
 
 **Typography Excellence:**
 - **Extra large, bold headlines** (120px default, responsive)

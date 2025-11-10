@@ -331,6 +331,25 @@ function updateSceneFields() {
     let fields = '';
     
     switch(type) {
+        // Brand/Intro scenes
+        case 'brand-watermark':
+            fields = `
+                <div class="form-group">
+                    <label>Logo URL</label>
+                    <input type="text" id="field-logo" placeholder="https://example.com/logo.png">
+                    <small style="color: #777;">Use transparent PNG for best results</small>
+                </div>
+                <div class="form-group">
+                    <label>Company Name</label>
+                    <input type="text" id="field-company-name" placeholder="Your Company Name">
+                </div>
+                <div class="form-group">
+                    <label>Tagline (Optional)</label>
+                    <input type="text" id="field-tagline" placeholder="Your company tagline">
+                </div>
+            `;
+            break;
+            
         // New Apple-style promotional scenes
         case 'minimal-title':
             fields = `
@@ -1041,6 +1060,14 @@ function buildSceneContent(type) {
     let content = {};
     
     switch(type) {
+        case 'brand-watermark':
+            content = {
+                logo: document.getElementById('field-logo')?.value || '',
+                companyName: document.getElementById('field-company-name')?.value || 'Company Name',
+                tagline: document.getElementById('field-tagline')?.value || ''
+            };
+            break;
+            
         case 'minimal-title':
             content = {
                 superTitle: document.getElementById('field-supertitle')?.value || '',

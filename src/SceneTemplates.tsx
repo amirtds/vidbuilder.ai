@@ -1,6 +1,7 @@
 import React from 'react';
 import { AbsoluteFill, useCurrentFrame, useVideoConfig, spring, interpolate, Img, Easing } from 'remotion';
 import { parseFormattedText } from './utils/textFormatting';
+import { getTypedText, getTypingProgress, TypingCursor } from './utils/typingEffect';
 
 // Color scheme interface - compatible with DaisyUI ThemeColors
 export interface ColorScheme {
@@ -73,50 +74,35 @@ export const educationalColorScheme: ColorScheme = {
 // Professional Hero Title Scene - Apple/Nike inspired design
 export const HeroTitleScene: React.FC<{content: any; style: ColorScheme}> = ({content, style}) => {
   const frame = useCurrentFrame();
-  const {fps} = useVideoConfig();
+  const {fps, durationInFrames} = useVideoConfig();
   const {width, height} = useVideoConfig();
   
-  // Cinematic entrance: smooth ease-out with perfect timing
-  const titleProgress = interpolate(
+  // DYNAMIC typing timing based on scene duration
+  const totalFrames = durationInFrames;
+  
+  // Calculate dynamic timing
+  const titleEndFrame = content.subtitle 
+    ? Math.floor(totalFrames * 0.50) // If subtitle exists, title takes 50% of time
+    : Math.floor(totalFrames * 0.85); // If no subtitle, title takes 85% of time
+  
+  const titleTypingDuration = Math.min(titleEndFrame, (content.title || '').length * 2.5);
+  const titleTypingProgress = getTypingProgress(frame, 0, titleTypingDuration, 'linear');
+  
+  const subtitleStartFrame = titleTypingDuration + 5; // Small delay after title finishes
+  const subtitleAvailableFrames = totalFrames - subtitleStartFrame;
+  const subtitleTypingDuration = content.subtitle 
+    ? Math.min(subtitleAvailableFrames, content.subtitle.length * 2.5) 
+    : 0;
+  const subtitleTypingProgress = getTypingProgress(frame, subtitleStartFrame, subtitleTypingDuration, 'linear');
+
+  // Fade in animation (subtle, quick)
+  const titleOpacity = interpolate(frame, [0, 10], [0, 1], { extrapolateRight: 'clamp' });
+  const subtitleOpacity = interpolate(
     frame,
-    [0, 35],
+    [subtitleStartFrame, subtitleStartFrame + 10],
     [0, 1],
-    {
-      extrapolateRight: 'clamp',
-      easing: Easing.bezier(0.16, 1, 0.3, 1), // Custom ease-out (Apple-style)
-    }
+    { extrapolateRight: 'clamp' }
   );
-
-  // Title animations
-  const titleY = interpolate(titleProgress, [0, 1], [80, 0]);
-  const titleOpacity = interpolate(titleProgress, [0, 0.3, 1], [0, 0.5, 1]);
-  const titleBlur = interpolate(titleProgress, [0, 0.5, 1], [20, 5, 0]);
-
-  // Subtitle entrance: delayed for hierarchy
-  const subtitleProgress = interpolate(
-    frame,
-    [25, 60],
-    [0, 1],
-    {
-      extrapolateRight: 'clamp',
-      easing: Easing.bezier(0.16, 1, 0.3, 1),
-    }
-  );
-
-  const subtitleY = interpolate(subtitleProgress, [0, 1], [60, 0]);
-  const subtitleOpacity = interpolate(subtitleProgress, [0, 0.4, 1], [0, 0.6, 1]);
-
-  // Subtle continuous animation for polish
-  const breathe = spring({
-    fps,
-    frame: frame - 40,
-    config: {
-      damping: 100,
-      mass: 1,
-      stiffness: 50,
-    },
-  });
-  const breatheScale = interpolate(breathe, [0, 1], [1, 1.01]);
 
   // Parse formatted text with color markers
   const titleParts = parseFormattedText(content.title || '', {
@@ -159,15 +145,13 @@ export const HeroTitleScene: React.FC<{content: any; style: ColorScheme}> = ({co
           width: '100%',
         }}
       >
-        {/* Title */}
+        {/* Title with Typing Effect */}
         <div
           style={{
             fontSize: titleFontSize,
             fontWeight: content.fontWeight || 900,
             textAlign: 'center',
-            transform: `translateY(${titleY}px) scale(${breatheScale})`,
             opacity: titleOpacity,
-            filter: `blur(${titleBlur}px)`,
             letterSpacing: content.letterSpacing || -3.5,
             lineHeight: content.lineHeight || 1.05,
             maxWidth: '95%',
@@ -177,17 +161,20 @@ export const HeroTitleScene: React.FC<{content: any; style: ColorScheme}> = ({co
             MozOsxFontSmoothing: 'grayscale',
           }}
         >
-          {titleParts}
+          {getTypedText({
+            text: content.title || '',
+            progress: titleTypingProgress,
+            formattedParts: titleParts,
+          })}
         </div>
 
-        {/* Subtitle */}
+        {/* Subtitle with Typing Effect */}
         {content.subtitle && (
           <div
             style={{
               fontSize: subtitleFontSize,
               fontWeight: content.subtitleWeight || 500,
               textAlign: 'center',
-              transform: `translateY(${subtitleY}px)`,
               opacity: subtitleOpacity,
               marginTop: height >= 2160 ? 48 : 36,
               letterSpacing: 0.3,
@@ -198,7 +185,11 @@ export const HeroTitleScene: React.FC<{content: any; style: ColorScheme}> = ({co
               MozOsxFontSmoothing: 'grayscale',
             }}
           >
-            {subtitleParts}
+            {getTypedText({
+              text: content.subtitle,
+              progress: subtitleTypingProgress,
+              formattedParts: subtitleParts || [],
+            })}
           </div>
         )}
       </div>

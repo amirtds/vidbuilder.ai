@@ -39,7 +39,8 @@ export const DAISYUI_THEMES = [
   'winter',
   'dim',
   'nord',
-  'sunset'
+  'sunset',
+  'shortrentals'
 ] as const;
 
 export type DaisyUITheme = typeof DAISYUI_THEMES[number];
@@ -821,6 +822,29 @@ export const THEME_COLORS: Record<DaisyUITheme, ThemeColors> = {
     errorContent: '#470000',
     borderRadius: 8,
   },
+  shortrentals: {
+    primary: '#FF385C',
+    primaryContent: '#ffffff',
+    secondary: '#FF385C',
+    secondaryContent: '#ffffff',
+    accent: '#37cdbe',
+    accentContent: '#163835',
+    neutral: '#3d4451',
+    neutralContent: '#ffffff',
+    base100: '#ffffff',
+    base200: '#f2f2f2',
+    base300: '#e5e5e5',
+    baseContent: '#1f2937',
+    info: '#3abff8',
+    infoContent: '#002e3f',
+    success: '#36d399',
+    successContent: '#003320',
+    warning: '#fbbd23',
+    warningContent: '#382800',
+    error: '#f87272',
+    errorContent: '#470000',
+    borderRadius: 8,
+  }
 };
 
 /**
