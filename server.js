@@ -155,6 +155,11 @@ app.post('/api/generate-video', upload.array('screenshots', 10), async (req, res
       codec: 'h264',
       outputLocation: outputPath,
       inputProps,
+      // High-quality 4K rendering settings
+      videoBitrate: '20M', // 20 Mbps for 4K quality
+      pixelFormat: 'yuv420p',
+      encodingMaxRate: '25M',
+      encodingBufferSize: '50M',
       onProgress: ({ progress }) => {
         console.log(`Rendering progress: ${Math.round(progress * 100)}%`);
       },
@@ -365,6 +370,11 @@ app.post('/api/generate-flexible-video', upload.array('images', 20), async (req,
       codec: 'h264',
       outputLocation: outputPath,
       inputProps: videoConfig,
+      // High-quality 4K rendering settings
+      videoBitrate: '20M', // 20 Mbps for 4K quality
+      pixelFormat: 'yuv420p',
+      encodingMaxRate: '25M',
+      encodingBufferSize: '50M',
       onProgress: ({ progress }) => {
         console.log(`Rendering progress: ${Math.round(progress * 100)}%`);
       },
@@ -556,6 +566,18 @@ const startServer = async () => {
     await createDirectories();
     
     app.listen(PORT, () => {
+      console.log(`\n🎬 Video Generator Server Started`);
+      console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+      console.log(`📹 Video Quality: 4K Ultra HD (3840x2160)`);
+      console.log(`🎯 Bitrate: 20 Mbps (Professional Grade)`);
+      console.log(`⚡ Frame Rate: 30 fps`);
+      console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+      console.log(`🌐 Server: http://localhost:${PORT}`);
+      console.log(`📤 Upload endpoint: http://localhost:${PORT}/api/generate-video`);
+      console.log(`🎨 Flexible video: http://localhost:${PORT}/api/generate-flexible-video`);
+      console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+      console.log(`💡 To change quality: Edit video-quality-config.js`);
+      console.log(`📖 Guide: See VIDEO_QUALITY_GUIDE.md\n`);
       console.log(`✨ AI Video Generator Backend is running on http://localhost:${PORT}`);
       console.log(`\nAvailable endpoints:`);
       console.log(`  POST   /api/generate-video - Generate a new promotional video`);
