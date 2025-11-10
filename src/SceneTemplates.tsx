@@ -278,48 +278,85 @@ export const ProductShowcaseScene: React.FC<{content: any; style: ColorScheme}> 
   );
 };
 
-// Feature List Scene
+// Feature List Scene - Clean Apple-style Design (DESIGN.md compliant)
 export const FeatureListScene: React.FC<{content: any; style: ColorScheme}> = ({content, style}) => {
   const frame = useCurrentFrame();
+  const {width, height} = useVideoConfig();
   
   const features = content.features || [];
+  
+  // Responsive sizing
+  const baseFontSize = width >= 3840 ? 1 : width >= 1920 ? 0.8 : 0.6;
+  const titleSize = 96 * baseFontSize;
+  const featureTitleSize = 52 * baseFontSize;
+  const featureTextSize = 36 * baseFontSize;
+  const iconSize = 80 * baseFontSize;
+  
+  // Title animation - smooth fade in only
+  const titleOpacity = interpolate(frame, [0, 20], [0, 1], { 
+    extrapolateRight: 'clamp',
+    easing: Easing.out(Easing.ease)
+  });
   
   return (
     <AbsoluteFill
       style={{
-        background: style.base100 || "#fff",
-        padding: '80px',
+        background: style.base100 || '#fff',
+        padding: '100px 120px',
         justifyContent: 'center',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif',
       }}
     >
+      {/* Title - Clean and bold */}
       {content.title && (
-        <h2
+        <div
           style={{
-            fontSize: 56,
-            color: style.baseContent || "#000",
-            marginBottom: 60,
-            fontWeight: 'bold',
+            fontSize: titleSize,
+            color: style.baseContent || '#000',
+            marginBottom: 80,
+            fontWeight: 900,
             textAlign: 'center',
-            textShadow: '0 2px 10px rgba(0,0,0,0.2)',
+            letterSpacing: -3.5,
+            opacity: titleOpacity,
+            WebkitFontSmoothing: 'antialiased',
+            MozOsxFontSmoothing: 'grayscale',
           }}
         >
           {content.title}
-        </h2>
+        </div>
       )}
-      <div style={{display: 'flex', flexDirection: 'column', gap: 30}}>
+      
+      {/* Features List - Clean cards */}
+      <div style={{
+        display: 'flex', 
+        flexDirection: 'column', 
+        gap: 32,
+        maxWidth: width * 0.8,
+        margin: '0 auto',
+      }}>
         {features.map((feature: any, i: number) => {
-          const delay = i * 15;
+          // Smooth staggered entrance - slide in only (no scale glitch)
+          const delay = 25 + (i * 10);
+          const animDuration = 20;
+          
           const opacity = interpolate(
             frame,
-            [delay, delay + 15],
+            [delay, delay + animDuration],
             [0, 1],
-            {extrapolateRight: 'clamp'}
+            {
+              extrapolateRight: 'clamp',
+              easing: Easing.out(Easing.ease)
+            }
           );
-          const translateX = interpolate(
+          
+          const translateY = interpolate(
             frame,
-            [delay, delay + 15],
-            [-50, 0],
-            {extrapolateRight: 'clamp'}
+            [delay, delay + animDuration],
+            [40, 0],
+            {
+              extrapolateRight: 'clamp',
+              easing: Easing.out(Easing.ease)
+            }
           );
           
           return (
@@ -327,25 +364,63 @@ export const FeatureListScene: React.FC<{content: any; style: ColorScheme}> = ({
               key={i}
               style={{
                 opacity,
-                transform: `translateX(${translateX}px)`,
-                fontSize: 32,
-                color: style.baseContent || "#000",
-                padding: '25px 40px',
-                background: `${style.primary}20`,
-                borderLeft: `4px solid ${style.primary}`,
-                borderRadius: style.borderRadius / 2,
-                backdropFilter: 'blur(10px)',
+                transform: `translateY(${translateY}px)`,
                 display: 'flex',
                 alignItems: 'center',
-                gap: 20,
+                gap: 40,
+                padding: '48px 56px',
+                background: style.base100 || '#fff',
+                borderRadius: 16,
+                border: `1px solid ${style.base300 || '#e5e5e5'}`,
               }}
             >
-              {feature.icon && <span style={{fontSize: 40}}>{feature.icon}</span>}
-              <div>
+              {/* Icon Container - Solid color circle */}
+              {feature.icon && (
+                <div
+                  style={{
+                    fontSize: iconSize,
+                    width: iconSize + 32,
+                    height: iconSize + 32,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: style.primary || '#4b6bfb',
+                    borderRadius: '50%',
+                    flexShrink: 0,
+                  }}
+                >
+                  <span style={{
+                    fontSize: iconSize * 0.55,
+                  }}>
+                    {feature.icon}
+                  </span>
+                </div>
+              )}
+              
+              {/* Text Content */}
+              <div style={{ flex: 1 }}>
                 {feature.title && (
-                  <div style={{fontWeight: 'bold', marginBottom: 5}}>{feature.title}</div>
+                  <div style={{
+                    fontSize: featureTitleSize,
+                    fontWeight: 700,
+                    marginBottom: 12,
+                    color: style.baseContent || '#000',
+                    letterSpacing: -1.2,
+                    WebkitFontSmoothing: 'antialiased',
+                    MozOsxFontSmoothing: 'grayscale',
+                  }}>
+                    {feature.title}
+                  </div>
                 )}
-                <div style={{color: style.baseContent || "#000"}}>{feature.text || feature}</div>
+                <div style={{
+                  fontSize: featureTextSize,
+                  color: style.neutral || '#666',
+                  fontWeight: 400,
+                  lineHeight: 1.4,
+                  letterSpacing: -0.3,
+                }}>
+                  {feature.text || feature}
+                </div>
               </div>
             </div>
           );
