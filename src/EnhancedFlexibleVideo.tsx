@@ -1,5 +1,6 @@
 import React from 'react';
-import { Sequence, Audio, useVideoConfig } from 'remotion';
+import { AbsoluteFill, Sequence, useVideoConfig } from 'remotion';
+import { BackgroundMusic } from './components/BackgroundMusic';
 import { EnhancedColorScheme, EnhancedSceneConfig } from './scenes/types';
 
 // Import all promotional scenes
@@ -128,14 +129,16 @@ export const EnhancedFlexibleVideo: React.FC<EnhancedVideoConfig> = ({
   
   return (
     <>
-      {/* Background Music */}
+      {/* Background Music with fade-in and fade-out */}
       {music?.enabled && music?.url && (
         <Sequence from={0} durationInFrames={totalFrames}>
-          <Audio
+          <BackgroundMusic
             src={music.url}
             volume={music.volume || 0.3}
+            fadeInDuration={music.fadeIn || 2}
+            fadeOutDuration={music.fadeOut || 3}
             startFrom={0}
-            endAt={totalFrames}
+            totalDurationInFrames={totalFrames}
           />
         </Sequence>
       )}

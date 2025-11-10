@@ -119,7 +119,7 @@ Select ONE theme for your entire video. The theme controls all colors automatica
   "trackId": "upbeat-1",
   "volume": 0.3,
   "fadeIn": 2,
-  "fadeOut": 2
+  "fadeOut": 3
 }
 ```
 
@@ -127,8 +127,16 @@ Select ONE theme for your entire video. The theme controls all colors automatica
 - `enabled` (boolean): Enable/disable music
 - `trackId` (string): One of the 10 track IDs above
 - `volume` (number): 0.0 to 1.0 (recommended: 0.2-0.4)
-- `fadeIn` (number): Fade in duration in seconds
-- `fadeOut` (number): Fade out duration in seconds
+- `fadeIn` (number): Fade in duration in seconds (default: 2)
+  - Music gradually increases from silence to full volume
+  - Creates a smooth, professional start
+- `fadeOut` (number): Fade out duration in seconds (default: 3)
+  - Music gradually decreases to silence at video end
+  - **Critical for preventing abrupt music cuts**
+  - Ensures viewers know the video is ending naturally
+
+**Why Fade-Out Matters:**
+Without fade-out, music cuts abruptly when the video ends, confusing viewers who hear the music "just getting started." The fade-out effect signals that the video is concluding, creating a professional, polished finish.
 
 ---
 

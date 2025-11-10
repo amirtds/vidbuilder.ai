@@ -7,12 +7,20 @@ import {
   ColorScheme,
   SceneConfig
 } from './SceneTemplates';
+import { BackgroundMusic } from './components/BackgroundMusic';
 
 export interface VideoConfig {
   title: string;
   type: 'promotional' | 'educational' | 'custom';
   colorScheme?: ColorScheme;
   scenes: SceneConfig[];
+  music?: {
+    enabled: boolean;
+    url?: string;
+    volume?: number;
+    fadeIn?: number;
+    fadeOut?: number;
+  };
   fps?: number;
   resolution?: {
     width: number;
@@ -25,6 +33,7 @@ export const FlexibleVideo: React.FC<VideoConfig> = ({
   type,
   colorScheme,
   scenes,
+  music,
 }) => {
   const {fps} = useVideoConfig();
   
@@ -32,10 +41,28 @@ export const FlexibleVideo: React.FC<VideoConfig> = ({
   const defaultScheme = type === 'educational' ? educationalColorScheme : defaultColorScheme;
   const activeColorScheme = colorScheme || defaultScheme;
   
+  // Calculate total video duration
+  const totalFrames = scenes.reduce((acc, scene) => acc + Math.floor(scene.duration * fps), 0);
+  
   let currentFrame = 0;
   
   return (
     <>
+      {/* Background Music with fade-in and fade-out */}
+      {music?.enabled && music?.url && (
+        <Sequence from={0} durationInFrames={totalFrames}>
+          <BackgroundMusic
+            src={music.url}
+            volume={music.volume || 0.3}
+            fadeInDuration={music.fadeIn || 2}
+            fadeOutDuration={music.fadeOut || 3}
+            startFrom={0}
+            totalDurationInFrames={totalFrames}
+          />
+        </Sequence>
+      )}
+      
+      {/* Scenes */}
       {scenes.map((scene, index) => {
         const SceneComponent = getSceneTemplate(scene.type);
         
