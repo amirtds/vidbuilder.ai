@@ -1,13 +1,6 @@
 import React from 'react';
-import {
-  AbsoluteFill,
-  Img,
-  interpolate,
-  spring,
-  useCurrentFrame,
-  useVideoConfig,
-  Easing
-} from 'remotion';
+import { AbsoluteFill, useCurrentFrame, useVideoConfig, spring, interpolate, Img, Easing } from 'remotion';
+import { parseFormattedText } from './utils/textFormatting';
 
 // Color scheme interface - compatible with DaisyUI ThemeColors
 export interface ColorScheme {
@@ -77,63 +70,138 @@ export const educationalColorScheme: ColorScheme = {
 
 // =============== PROMOTIONAL TEMPLATES ===============
 
-// Hero Title Scene
+// Professional Hero Title Scene - Apple/Nike inspired design
 export const HeroTitleScene: React.FC<{content: any; style: ColorScheme}> = ({content, style}) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
+  const {width, height} = useVideoConfig();
   
-  const scale = spring({
-    fps,
+  // Cinematic entrance: smooth ease-out with perfect timing
+  const titleProgress = interpolate(
     frame,
+    [0, 35],
+    [0, 1],
+    {
+      extrapolateRight: 'clamp',
+      easing: Easing.bezier(0.16, 1, 0.3, 1), // Custom ease-out (Apple-style)
+    }
+  );
+
+  // Title animations
+  const titleY = interpolate(titleProgress, [0, 1], [80, 0]);
+  const titleOpacity = interpolate(titleProgress, [0, 0.3, 1], [0, 0.5, 1]);
+  const titleBlur = interpolate(titleProgress, [0, 0.5, 1], [20, 5, 0]);
+
+  // Subtitle entrance: delayed for hierarchy
+  const subtitleProgress = interpolate(
+    frame,
+    [25, 60],
+    [0, 1],
+    {
+      extrapolateRight: 'clamp',
+      easing: Easing.bezier(0.16, 1, 0.3, 1),
+    }
+  );
+
+  const subtitleY = interpolate(subtitleProgress, [0, 1], [60, 0]);
+  const subtitleOpacity = interpolate(subtitleProgress, [0, 0.4, 1], [0, 0.6, 1]);
+
+  // Subtle continuous animation for polish
+  const breathe = spring({
+    fps,
+    frame: frame - 40,
     config: {
-      damping: 10,
-      mass: 0.5,
-      stiffness: 100,
+      damping: 100,
+      mass: 1,
+      stiffness: 50,
     },
   });
+  const breatheScale = interpolate(breathe, [0, 1], [1, 1.01]);
 
-  const opacity = interpolate(frame, [0, 20], [0, 1], {
-    extrapolateRight: 'clamp',
+  // Parse formatted text with color markers
+  const titleParts = parseFormattedText(content.title || '', {
+    primaryColor: style.primary || '#667eea',
+    secondaryColor: style.secondary || '#764ba2',
+    accentColor: style.accent || '#f093fb',
+    defaultColor: style.baseContent || '#000',
   });
+
+  const subtitleParts = content.subtitle ? parseFormattedText(content.subtitle, {
+    primaryColor: style.primary || '#667eea',
+    secondaryColor: style.secondary || '#764ba2',
+    accentColor: style.accent || '#f093fb',
+    defaultColor: style.neutral || '#666',
+  }) : null;
+
+  // Responsive font sizing based on resolution
+  const baseFontSize = width >= 3840 ? 1 : width >= 1920 ? 0.8 : 0.6;
+  const titleFontSize = (content.fontSize || 120) * baseFontSize;
+  const subtitleFontSize = (content.subtitleSize || 44) * baseFontSize;
 
   return (
     <AbsoluteFill
       style={{
-        background: style.base100 || "#fff",
+        background: style.base100 || '#fff',
         justifyContent: 'center',
         alignItems: 'center',
+        fontFamily: style.fontFamily || 'SF Pro Display, -apple-system, BlinkMacSystemFont, sans-serif',
+        padding: '0 5%',
       }}
     >
+      {/* Main Title Container */}
       <div
         style={{
-          fontSize: content.fontSize || 80,
-          fontWeight: 'bold',
-          color: style.baseContent || "#000",
-          textAlign: 'center',
-          transform: `scale(${scale})`,
-          opacity,
-          textShadow: '0 4px 20px rgba(0,0,0,0.3)',
-          fontFamily: 'SF Pro Display, Arial, sans-serif',
-          padding: '0 40px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          maxWidth: '1600px',
+          width: '100%',
         }}
       >
-        {content.title}
-      </div>
-      {content.subtitle && (
+        {/* Title */}
         <div
           style={{
-            fontSize: 32,
-            color: style.baseContent || "#000",
-            marginTop: 30,
-            opacity: interpolate(frame, [20, 40], [0, 1], {
-              extrapolateRight: 'clamp',
-            }),
+            fontSize: titleFontSize,
+            fontWeight: content.fontWeight || 900,
             textAlign: 'center',
+            transform: `translateY(${titleY}px) scale(${breatheScale})`,
+            opacity: titleOpacity,
+            filter: `blur(${titleBlur}px)`,
+            letterSpacing: content.letterSpacing || -3.5,
+            lineHeight: content.lineHeight || 1.05,
+            maxWidth: '95%',
+            wordWrap: 'break-word',
+            hyphens: 'none',
+            WebkitFontSmoothing: 'antialiased',
+            MozOsxFontSmoothing: 'grayscale',
           }}
         >
-          {content.subtitle}
+          {titleParts}
         </div>
-      )}
+
+        {/* Subtitle */}
+        {content.subtitle && (
+          <div
+            style={{
+              fontSize: subtitleFontSize,
+              fontWeight: content.subtitleWeight || 500,
+              textAlign: 'center',
+              transform: `translateY(${subtitleY}px)`,
+              opacity: subtitleOpacity,
+              marginTop: height >= 2160 ? 48 : 36,
+              letterSpacing: 0.3,
+              lineHeight: 1.5,
+              maxWidth: '90%',
+              wordWrap: 'break-word',
+              WebkitFontSmoothing: 'antialiased',
+              MozOsxFontSmoothing: 'grayscale',
+            }}
+          >
+            {subtitleParts}
+          </div>
+        )}
+      </div>
     </AbsoluteFill>
   );
 };

@@ -140,11 +140,106 @@ Without fade-out, music cuts abruptly when the video ends, confusing viewers who
 
 ---
 
+## 🎨 Text Color Formatting
+
+All text fields support **markdown-style color formatting** to highlight specific words:
+
+### Formatting Syntax
+
+- `**text**` → Applies **primary color** (theme's primary)
+- `***text***` → Applies **secondary color** (theme's secondary)
+- `****text****` → Applies **accent color** (theme's accent)
+
+### Examples
+
+```json
+{
+  "title": "Turn your **Airbnb listings** into a ***direct booking*** website"
+}
+```
+
+**Result:** "Airbnb listings" in primary color, "direct booking" in secondary color
+
+```json
+{
+  "subtitle": "Boost revenue with **zero platform fees** and ****premium features****"
+}
+```
+
+**Result:** "zero platform fees" in primary, "premium features" in accent
+
+### Best Practices
+
+✅ **Do:**
+- Highlight 1-3 key phrases per text block
+- Use primary color for main emphasis
+- Use secondary for supporting emphasis
+- Keep formatting consistent across scenes
+
+❌ **Don't:**
+- Over-format (max 30% of text)
+- Mix too many colors in one sentence
+- Format entire sentences
+
+---
+
 ## 🎬 Scene Types & Specifications
 
-### Promotional Scenes (10 Types)
+### Promotional Scenes (11 Types)
 
-#### 1. Minimal Title Scene
+#### 1. Hero Title Scene (Professional)
+**Type:** `hero-title`  
+**Best For:** Bold opening statements, product launches, hero moments  
+**Duration:** 4-6 seconds  
+**Design:** Apple/Nike inspired cinematic style
+
+```json
+{
+  "type": "hero-title",
+  "duration": 5,
+  "content": {
+    "title": "Turn your **Airbnb listings** into a ***direct booking*** website",
+    "subtitle": "Hosts using Direct Booking Sites keep up to **18% more revenue**",
+    "fontSize": 120,
+    "fontWeight": 900,
+    "subtitleSize": 44,
+    "subtitleWeight": 500,
+    "letterSpacing": -3.5,
+    "lineHeight": 1.05
+  }
+}
+```
+
+**Fields:**
+- `title` (required): Main headline (supports color formatting, auto line-breaks)
+- `subtitle` (optional): Supporting text (supports color formatting)
+- `fontSize` (optional): Title size in px (default: 120, auto-scales for 4K/1080p)
+- `fontWeight` (optional): Title weight (default: 900 - extra black)
+- `subtitleSize` (optional): Subtitle size in px (default: 44)
+- `subtitleWeight` (optional): Subtitle weight (default: 500 - medium)
+- `letterSpacing` (optional): Title letter spacing (default: -3.5px - very tight)
+- `lineHeight` (optional): Title line height (default: 1.05 - compact)
+
+**Professional Animations:**
+- **Cinematic entrance** with custom Bezier easing (Apple-style)
+- **Blur-to-focus** effect (20px → 0px blur)
+- **Smooth slide-up** (80px → 0px) over 35 frames
+- **Delayed subtitle** entrance (starts frame 25) for visual hierarchy
+- **Subtle breathe** animation for polish (1.0 → 1.01 scale)
+- **Multi-stage opacity** for depth (0 → 0.5 → 1.0)
+
+**Typography Excellence:**
+- **Extra large, bold headlines** (120px default, responsive)
+- **Very tight letter spacing** (-3.5px) for modern, premium look
+- **Ultra-heavy font weight** (900) for maximum impact
+- **Compact line height** (1.05) for powerful presence
+- **Auto line-breaking** for long titles
+- **Anti-aliased rendering** for crisp text
+- **Responsive sizing** (auto-adjusts for 4K/1080p/720p)
+
+---
+
+#### 2. Minimal Title Scene
 **Type:** `minimal-title`  
 **Best For:** Opening titles, announcements  
 **Duration:** 2-4 seconds
@@ -750,12 +845,13 @@ Without fade-out, music cuts abruptly when the video ends, confusing viewers who
   },
   "scenes": [
     {
-      "type": "minimal-title",
-      "duration": 3,
+      "type": "hero-title",
+      "duration": 4,
       "content": {
-        "superTitle": "INTRODUCING",
-        "title": "NextGen Platform",
-        "subtitle": "The Future of Productivity"
+        "title": "Launch **NextGen Platform** in ***minutes***",
+        "subtitle": "The future of ****productivity****",
+        "fontSize": 96,
+        "fontWeight": 800
       }
     },
     {
