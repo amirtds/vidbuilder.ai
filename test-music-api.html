@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Music API</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+        .status {
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .track-list {
+            list-style: none;
+            padding: 0;
+        }
+        .track-item {
+            padding: 12px;
+            margin: 8px 0;
+            background: #f8f9fa;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .track-item:hover {
+            background: #e9ecef;
+        }
+        .play-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .play-btn:hover {
+            background: #218838;
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎵 Music API Test</h1>
+        
+        <button onclick="testAPI()">Test /api/music-tracks</button>
+        
+        <div id="status"></div>
+        <div id="results"></div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3000';
+        let currentAudio = null;
+
+        async function testAPI() {
+            const statusDiv = document.getElementById('status');
+            const resultsDiv = document.getElementById('results');
+            
+            statusDiv.innerHTML = '<div class="status info">⏳ Testing API endpoint...</div>';
+            resultsDiv.innerHTML = '';
+            
+            try {
+                console.log('Fetching:', `${API_URL}/api/music-tracks`);
+                const response = await fetch(`${API_URL}/api/music-tracks`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                console.log('Response:', data);
+                
+                if (data.tracks && data.tracks.length > 0) {
+                    statusDiv.innerHTML = `
+                        <div class="status success">
+                            ✅ Success! Found ${data.tracks.length} tracks
+                        </div>
+                    `;
+                    
+                    resultsDiv.innerHTML = `
+                        <h3>Available Tracks:</h3>
+                        <ul class="track-list">
+                            ${data.tracks.map(track => `
+                                <li class="track-item">
+                                    <div>
+                                        <strong>${track.name}</strong><br>
+                                        <small style="color: #666;">ID: ${track.id} | File: ${track.filename}</small>
+                                    </div>
+                                    <button class="play-btn" onclick="playTrack('${track.url}', '${track.name}')">
+                                        ▶️ Play
+                                    </button>
+                                </li>
+                            `).join('')}
+                        </ul>
+                        
+                        <h3>Raw JSON Response:</h3>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    statusDiv.innerHTML = `
+                        <div class="status error">
+                            ⚠️ No tracks found in src/tracks folder
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                statusDiv.innerHTML = `
+                    <div class="status error">
+                        ❌ Error: ${error.message}<br><br>
+                        <strong>Troubleshooting:</strong><br>
+                        1. Is the server running? (node server.js)<br>
+                        2. Is it on port 3000?<br>
+                        3. Check browser console for details
+                    </div>
+                `;
+            }
+        }
+
+        function playTrack(url, name) {
+            // Stop current audio if playing
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+            }
+            
+            // Play new track
+            currentAudio = new Audio(`${API_URL}${url}`);
+            currentAudio.volume = 0.3;
+            currentAudio.play()
+                .then(() => {
+                    console.log(`Playing: ${name}`);
+                    alert(`Now playing: ${name}\n\nCheck browser console for details.`);
+                })
+                .catch(err => {
+                    console.error('Playback error:', err);
+                    alert(`Error playing track: ${err.message}`);
+                });
+            
+            // Auto-stop when finished
+            currentAudio.addEventListener('ended', () => {
+                console.log('Playback finished');
+                currentAudio = null;
+            });
+        }
+
+        // Auto-test on load
+        window.addEventListener('DOMContentLoaded', () => {
+            testAPI();
+        });
+    </script>
+</body>
+</html>

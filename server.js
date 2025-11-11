@@ -3,6 +3,7 @@ const multer = require('multer');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs').promises;
+const fsSync = require('fs'); // Add sync fs for readdir callback
 const { bundle } = require('@remotion/bundler');
 const { renderMedia, selectComposition } = require('@remotion/renderer');
 const { v4: uuidv4 } = require('uuid');
@@ -15,6 +16,52 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Serve static files from the root directory
+app.use(express.static(__dirname));
+
+// Serve music files from src/tracks
+app.use('/tracks', express.static(path.join(__dirname, 'src', 'tracks')));
+
+// API endpoint to list available music tracks
+app.get('/api/music-tracks', (req, res) => {
+  const tracksDir = path.join(__dirname, 'src', 'tracks');
+  
+  fsSync.readdir(tracksDir, (err, files) => {
+    if (err) {
+      console.error('Error reading tracks directory:', err);
+      return res.status(500).json({ error: 'Failed to read music tracks', details: err.message });
+    }
+    
+    // Filter for MP3 files only
+    const mp3Files = files.filter(file => file.toLowerCase().endsWith('.mp3'));
+    
+    // Create track objects with clean names
+    const tracks = mp3Files.map((file, index) => {
+      // Clean up the filename to create a display name
+      let name = file.replace('.mp3', '');
+      // Remove numbers and hyphens, capitalize words
+      name = name
+        .replace(/[-_]/g, ' ')
+        .replace(/\s*\d+\s*/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+      
+      return {
+        id: `track-${index + 1}`,
+        name: name,
+        filename: file,
+        url: `/tracks/${encodeURIComponent(file)}`
+      };
+    });
+    
+    console.log(`✅ Music API: Loaded ${tracks.length} tracks from src/tracks`);
+    res.json({ tracks });
+  });
+});
 
 // Serve static files from temp directory for Remotion to access
 app.use('/temp', express.static(path.join(__dirname, 'temp')));
@@ -273,68 +320,25 @@ app.post('/api/generate-flexible-video', upload.array('images', 20), async (req,
       }
     });
     
-    // Resolve music URL from trackId - Expanded library with 45 tracks
+    // Resolve music URL from trackId - Use local tracks from src/tracks folder
     if (videoConfig.music && videoConfig.music.enabled && videoConfig.music.trackId) {
-      const musicLibrary = {
-        // Corporate
-        'corp-1': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
-        'corp-2': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
-        'corp-3': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
-        'corp-4': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
-        'corp-5': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
-        'corp-6': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
-        'corp-7': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3',
-        'corp-8': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
-        'corp-9': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
-        'corp-10': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3',
-        // Upbeat
-        'upbeat-1': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3',
-        'upbeat-2': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3',
-        'upbeat-3': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3',
-        'upbeat-4': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3',
-        'upbeat-5': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3',
-        'upbeat-6': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3',
-        'upbeat-7': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
-        'upbeat-8': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
-        // Electronic/Tech
-        'tech-1': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
-        'tech-2': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
-        'tech-3': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
-        'tech-4': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
-        'tech-5': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3',
-        'tech-6': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
-        'tech-7': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
-        'tech-8': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3',
-        // Calm/Ambient
-        'calm-1': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3',
-        'calm-2': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3',
-        'calm-3': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3',
-        'calm-4': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3',
-        'calm-5': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3',
-        'calm-6': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3',
-        // Cinematic/Epic
-        'epic-1': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
-        'epic-2': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
-        'epic-3': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
-        'epic-4': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
-        'epic-5': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
-        'epic-6': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
-        'epic-7': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3',
-        'epic-8': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
-        // Motivational
-        'motiv-1': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
-        'motiv-2': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3',
-        'motiv-3': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3',
-        'motiv-4': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3',
-        'motiv-5': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3'
-      };
+      // Build music library from local files
+      const tracksDir = path.join(__dirname, 'src', 'tracks');
+      const files = fsSync.readdirSync(tracksDir).filter(file => file.toLowerCase().endsWith('.mp3'));
+      
+      const musicLibrary = {};
+      files.forEach((file, index) => {
+        const trackId = `track-${index + 1}`;
+        const musicUrl = `http://localhost:${PORT}/tracks/${encodeURIComponent(file)}`;
+        musicLibrary[trackId] = musicUrl;
+      });
       
       const musicUrl = musicLibrary[videoConfig.music.trackId];
       if (musicUrl) {
         videoConfig.music.url = musicUrl;
-        console.log(`Music track resolved: ${videoConfig.music.trackId} -> ${musicUrl}`);
+        console.log(`🎵 Music track resolved: ${videoConfig.music.trackId} -> ${musicUrl}`);
       } else {
-        console.warn(`Music track not found: ${videoConfig.music.trackId}`);
+        console.warn(`⚠️ Music track not found: ${videoConfig.music.trackId}`);
       }
     }
     

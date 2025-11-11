@@ -33,65 +33,51 @@ function getFontFamily(fontName) {
     return fontFamilyMap[fontName] || fontName;
 }
 
-// Available music tracks - Expanded library with 45 tracks
-const availableMusic = [
-    // Corporate (10 tracks)
-    { id: 'corp-1', name: 'Corporate Success', genre: 'corporate', mood: 'professional', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' },
-    { id: 'corp-2', name: 'Innovation Drive', genre: 'corporate', mood: 'motivational', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3' },
-    { id: 'corp-3', name: 'Business Momentum', genre: 'corporate', mood: 'professional', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3' },
-    { id: 'corp-4', name: 'Executive Suite', genre: 'corporate', mood: 'sophisticated', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3' },
-    { id: 'corp-5', name: 'Startup Energy', genre: 'corporate', mood: 'energetic', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3' },
-    { id: 'corp-6', name: 'Professional Edge', genre: 'corporate', mood: 'confident', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3' },
-    { id: 'corp-7', name: 'Market Leader', genre: 'corporate', mood: 'powerful', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3' },
-    { id: 'corp-8', name: 'Growth Strategy', genre: 'corporate', mood: 'optimistic', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3' },
-    { id: 'corp-9', name: 'Team Synergy', genre: 'corporate', mood: 'collaborative', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3' },
-    { id: 'corp-10', name: 'Vision Forward', genre: 'corporate', mood: 'inspiring', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3' },
+// Available music tracks - Loaded dynamically from server
+let availableMusic = [];
+
+// Load music tracks from server
+async function loadMusicTracks() {
+    const select = document.getElementById('music-track');
+    const trackCount = document.getElementById('track-count');
     
-    // Upbeat (8 tracks)
-    { id: 'upbeat-1', name: 'Happy Days', genre: 'upbeat', mood: 'happy', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3' },
-    { id: 'upbeat-2', name: 'Sunny Vibes', genre: 'upbeat', mood: 'joyful', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3' },
-    { id: 'upbeat-3', name: 'Feel Good Groove', genre: 'upbeat', mood: 'uplifting', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3' },
-    { id: 'upbeat-4', name: 'Celebration Time', genre: 'upbeat', mood: 'festive', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3' },
-    { id: 'upbeat-5', name: 'Positive Energy', genre: 'upbeat', mood: 'energetic', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3' },
-    { id: 'upbeat-6', name: 'Summer Breeze', genre: 'upbeat', mood: 'carefree', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3' },
-    { id: 'upbeat-7', name: 'Bright Horizons', genre: 'upbeat', mood: 'optimistic', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' },
-    { id: 'upbeat-8', name: 'Good Times Roll', genre: 'upbeat', mood: 'fun', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3' },
+    if (!select) {
+        console.error('Music track select element not found');
+        return;
+    }
     
-    // Electronic/Tech (8 tracks)
-    { id: 'tech-1', name: 'Digital Future', genre: 'electronic', mood: 'modern', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3' },
-    { id: 'tech-2', name: 'Innovation Lab', genre: 'electronic', mood: 'professional', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3' },
-    { id: 'tech-3', name: 'Cyber Pulse', genre: 'electronic', mood: 'energetic', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3' },
-    { id: 'tech-4', name: 'AI Revolution', genre: 'electronic', mood: 'futuristic', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3' },
-    { id: 'tech-5', name: 'Code Matrix', genre: 'electronic', mood: 'focused', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3' },
-    { id: 'tech-6', name: 'Neon Nights', genre: 'electronic', mood: 'atmospheric', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3' },
-    { id: 'tech-7', name: 'Data Stream', genre: 'electronic', mood: 'dynamic', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3' },
-    { id: 'tech-8', name: 'Silicon Valley', genre: 'electronic', mood: 'innovative', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3' },
-    
-    // Calm/Ambient (6 tracks)
-    { id: 'calm-1', name: 'Peaceful Moments', genre: 'ambient', mood: 'calm', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3' },
-    { id: 'calm-2', name: 'Zen Garden', genre: 'ambient', mood: 'peaceful', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3' },
-    { id: 'calm-3', name: 'Mindful Meditation', genre: 'ambient', mood: 'meditative', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3' },
-    { id: 'calm-4', name: 'Gentle Waves', genre: 'ambient', mood: 'soothing', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3' },
-    { id: 'calm-5', name: 'Soft Focus', genre: 'ambient', mood: 'contemplative', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3' },
-    { id: 'calm-6', name: 'Tranquil Space', genre: 'ambient', mood: 'spacious', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3' },
-    
-    // Cinematic/Epic (8 tracks)
-    { id: 'epic-1', name: 'Epic Journey', genre: 'cinematic', mood: 'dramatic', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' },
-    { id: 'epic-2', name: 'Rising Action', genre: 'cinematic', mood: 'inspiring', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3' },
-    { id: 'epic-3', name: 'Hero\'s Theme', genre: 'cinematic', mood: 'heroic', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3' },
-    { id: 'epic-4', name: 'Cinematic Glory', genre: 'cinematic', mood: 'triumphant', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3' },
-    { id: 'epic-5', name: 'Orchestral Rise', genre: 'cinematic', mood: 'building', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3' },
-    { id: 'epic-6', name: 'Adventure Awaits', genre: 'cinematic', mood: 'adventurous', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3' },
-    { id: 'epic-7', name: 'Dramatic Tension', genre: 'cinematic', mood: 'tense', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3' },
-    { id: 'epic-8', name: 'Victory March', genre: 'cinematic', mood: 'victorious', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3' },
-    
-    // Motivational (5 tracks)
-    { id: 'motiv-1', name: 'Inspire Greatness', genre: 'motivational', mood: 'inspiring', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3' },
-    { id: 'motiv-2', name: 'Dream Big', genre: 'motivational', mood: 'aspirational', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3' },
-    { id: 'motiv-3', name: 'Unstoppable', genre: 'motivational', mood: 'powerful', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3' },
-    { id: 'motiv-4', name: 'Breakthrough', genre: 'motivational', mood: 'triumphant', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3' },
-    { id: 'motiv-5', name: 'Rise Above', genre: 'motivational', mood: 'empowering', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3' }
-];
+    try {
+        console.log('Loading music tracks from:', `${API_URL}/api/music-tracks`);
+        const response = await fetch(`${API_URL}/api/music-tracks`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        availableMusic = data.tracks || [];
+        
+        // Update the dropdown
+        if (availableMusic.length > 0) {
+            select.innerHTML = availableMusic.map(track => 
+                `<option value="${track.id}">${track.name}</option>`
+            ).join('');
+            trackCount.textContent = `(${availableMusic.length} tracks available)`;
+            console.log(`✅ Loaded ${availableMusic.length} music tracks`);
+        } else {
+            select.innerHTML = '<option value="">No tracks found in src/tracks folder</option>';
+            trackCount.textContent = '(0 tracks)';
+            console.warn('No music tracks found in src/tracks folder');
+        }
+    } catch (error) {
+        console.error('❌ Error loading music tracks:', error);
+        select.innerHTML = '<option value="">⚠️ Server not running - Start server to load tracks</option>';
+        trackCount.textContent = '';
+        
+        // Show helpful error message
+        console.log('💡 To fix: Run "node server.js" in terminal');
+    }
+}
 
 // Global audio player for music preview
 let currentAudio = null;
@@ -1673,7 +1659,10 @@ function playMusicPreview() {
     const trackSelect = document.getElementById('music-track');
     const selectedTrack = availableMusic.find(track => track.id === trackSelect.value);
     
-    if (!selectedTrack) return;
+    if (!selectedTrack) {
+        console.warn('No track selected');
+        return;
+    }
     
     // Stop current audio if playing
     if (currentAudio) {
@@ -1681,17 +1670,29 @@ function playMusicPreview() {
         currentAudio = null;
     }
     
-    // Create and play new audio
-    currentAudio = new Audio(selectedTrack.url);
-    currentAudio.volume = parseInt(document.getElementById('music-volume').value) / 100;
-    currentAudio.play();
+    // Create full URL for audio
+    const audioUrl = `${API_URL}${selectedTrack.url}`;
+    console.log('Playing track:', selectedTrack.name, 'from', audioUrl);
     
-    // Update button states
-    document.getElementById('play-music-btn').style.display = 'none';
-    document.getElementById('pause-music-btn').style.display = 'inline-block';
+    // Create and play new audio
+    currentAudio = new Audio(audioUrl);
+    currentAudio.volume = parseInt(document.getElementById('music-volume').value) / 100;
+    
+    currentAudio.play()
+        .then(() => {
+            console.log('✅ Playback started');
+            // Update button states
+            document.getElementById('play-music-btn').style.display = 'none';
+            document.getElementById('pause-music-btn').style.display = 'inline-block';
+        })
+        .catch(error => {
+            console.error('❌ Playback error:', error);
+            alert(`Error playing track: ${error.message}\n\nCheck browser console for details.`);
+        });
     
     // Reset button when audio ends
     currentAudio.addEventListener('ended', function() {
+        console.log('Playback finished');
         document.getElementById('play-music-btn').style.display = 'inline-block';
         document.getElementById('pause-music-btn').style.display = 'none';
     });
@@ -1701,6 +1702,7 @@ function pauseMusicPreview() {
     if (currentAudio) {
         currentAudio.pause();
         currentAudio = null;
+        console.log('⏸️ Playback stopped');
     }
     
     // Update button states
@@ -1723,31 +1725,61 @@ window.addEventListener('DOMContentLoaded', () => {
     updateJSONEditor();
     updatePreview();
     
+    // Load music tracks from server
+    loadMusicTracks();
+    
     // Setup music toggle
     const musicEnabled = document.getElementById('music-enabled');
     if (musicEnabled) {
         musicEnabled.addEventListener('change', function() {
             document.getElementById('music-options').style.display = this.checked ? 'block' : 'none';
             
-            // Stop music preview if music is disabled
-            if (!this.checked && currentAudio) {
-                pauseMusicPreview();
+            // Update config and JSON
+            if (this.checked) {
+                const musicTrack = document.getElementById('music-track').value;
+                const musicVolume = parseInt(document.getElementById('music-volume').value) / 100;
+                currentConfig.music = {
+                    enabled: true,
+                    trackId: musicTrack,
+                    volume: musicVolume,
+                    fadeIn: 2,
+                    fadeOut: 2
+                };
+            } else {
+                currentConfig.music = { enabled: false };
+                // Stop music preview if music is disabled
+                if (currentAudio) {
+                    pauseMusicPreview();
+                }
             }
+            updateJSONEditor();
         });
     }
     
     // Setup volume display and update
     const musicVolume = document.getElementById('music-volume');
     if (musicVolume) {
-        musicVolume.addEventListener('input', updateMusicVolume);
+        musicVolume.addEventListener('input', function() {
+            updateMusicVolume();
+            // Update config if music is enabled
+            if (document.getElementById('music-enabled').checked) {
+                currentConfig.music.volume = parseInt(this.value) / 100;
+                updateJSONEditor();
+            }
+        });
     }
     
-    // Stop music preview when track changes
+    // Stop music preview when track changes and update JSON
     const musicTrack = document.getElementById('music-track');
     if (musicTrack) {
         musicTrack.addEventListener('change', function() {
             if (currentAudio) {
                 pauseMusicPreview();
+            }
+            // Update config if music is enabled
+            if (document.getElementById('music-enabled').checked) {
+                currentConfig.music.trackId = this.value;
+                updateJSONEditor();
             }
         });
     }
