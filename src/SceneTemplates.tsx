@@ -282,21 +282,21 @@ export const ProductShowcaseScene: React.FC<{content: any; style: ColorScheme}> 
     }
   ) : 1;
   
-  // Caption animation - stays visible throughout, only fades during transitions
+  // Caption animation - synchronized with image, no independent fading
   const captionOpacity = interpolate(
     localFrame,
-    [15, 30, 75, 90],
-    [0, 1, 1, 0],
+    [20, 30, 85, 90],
+    [0, 1, 1, 1],
     { 
       extrapolateRight: 'clamp',
-      easing: Easing.inOut(Easing.ease)
+      easing: Easing.out(Easing.ease)
     }
   );
   
   const captionY = interpolate(
     localFrame,
-    [15, 35],
-    [20, 0],
+    [20, 35],
+    [15, 0],
     { 
       extrapolateRight: 'clamp',
       easing: Easing.out(Easing.cubic)
