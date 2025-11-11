@@ -244,10 +244,11 @@ export const ProductShowcaseScene: React.FC<{content: any; style: ColorScheme}> 
     easing: Easing.out(Easing.exp),
   });
   
-  // Image cycling with longer transitions
+  // Image cycling with longer transitions - no looping
   const imageDuration = 90; // 3 seconds per image for more premium feel
-  const currentIndex = hasImages ? Math.floor(frame / imageDuration) % images.length : 0;
-  const localFrame = frame % imageDuration;
+  const rawIndex = hasImages ? Math.floor(frame / imageDuration) : 0;
+  const currentIndex = hasImages ? Math.min(rawIndex, images.length - 1) : 0; // Clamp to last image
+  const localFrame = currentIndex < images.length - 1 ? frame % imageDuration : imageDuration - 1; // Hold on last frame
   
   // Dramatic crossfade between images
   const imageOpacity = hasImages ? interpolate(
@@ -430,7 +431,7 @@ export const ProductShowcaseScene: React.FC<{content: any; style: ColorScheme}> 
 // Feature List Scene - Clean Apple-style Design (DESIGN.md compliant)
 export const FeatureListScene: React.FC<{content: any; style: ColorScheme}> = ({content, style}) => {
   const frame = useCurrentFrame();
-  const {width, height} = useVideoConfig();
+  const {width, height, durationInFrames} = useVideoConfig();
   
   const features = content.features || [];
   
@@ -492,8 +493,11 @@ export const FeatureListScene: React.FC<{content: any; style: ColorScheme}> = ({
         zIndex: 1,
       }}>
         {features.map((feature: any, i: number) => {
-          // Smooth staggered entrance - slide in only (no scale glitch)
-          const delay = 25 + (i * 10);
+          // Dynamic delay based on scene duration and number of features
+          const titleDuration = 20; // Title animation duration
+          const availableTime = durationInFrames - titleDuration - 30; // Reserve 30 frames at end
+          const itemDelay = features.length > 1 ? availableTime / features.length : 0;
+          const delay = titleDuration + (i * itemDelay);
           const animDuration = 20;
           
           const opacity = interpolate(

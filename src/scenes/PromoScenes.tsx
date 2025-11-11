@@ -404,7 +404,7 @@ export const SplitScreenScene: React.FC<{content: any; style: EnhancedColorSchem
 // 3. Statistics Dashboard Scene - Cinematic Impact
 export const StatsDashboardScene: React.FC<{content: any; style: EnhancedColorScheme}> = ({content, style}) => {
   const frame = useCurrentFrame();
-  const {fps, width} = useVideoConfig();
+  const {fps, width, durationInFrames} = useVideoConfig();
   const stats = content.stats || [];
   
   // Responsive sizing
@@ -470,7 +470,11 @@ export const StatsDashboardScene: React.FC<{content: any; style: EnhancedColorSc
         }}
       >
         {stats.map((stat: any, i: number) => {
-          const delay = 20 + i * 15; // Start after title
+          // Dynamic delay based on scene duration and number of items
+          const titleDuration = 35; // Title animation duration
+          const availableTime = durationInFrames - titleDuration - 30; // Reserve 30 frames at end
+          const itemDelay = stats.length > 1 ? availableTime / stats.length : 0;
+          const delay = titleDuration + (i * itemDelay);
 
           // Dramatic spring entrance
           const scale = spring({
@@ -1278,36 +1282,35 @@ export const PricingCardsScene: React.FC<{content: any; style: EnhancedColorSche
                 </div>
               )}
               
-              {/* Price - Large and bold with primary color */}
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'baseline',
-                  marginBottom: 8,
-                  gap: 8,
-                }}
-              >
-                <span
-                  style={{
-                    fontSize: priceSize,
-                    color: style.primary,
-                    fontWeight: 900,
-                    letterSpacing: -3,
-                    lineHeight: 0.9,
-                  }}
-                >
-                  {plan.price}
-                </span>
-                <span
+              {/* Period - Above price for cleaner layout */}
+              {plan.period && (
+                <div
                   style={{
                     fontSize: periodSize,
                     color: style.baseContent,
                     opacity: 0.6,
                     fontWeight: 500,
+                    marginBottom: 12,
+                    textAlign: 'left',
+                    textTransform: 'lowercase',
                   }}
                 >
                   {plan.period}
-                </span>
+                </div>
+              )}
+              
+              {/* Price - Large and bold with primary color */}
+              <div
+                style={{
+                  fontSize: priceSize,
+                  color: style.primary,
+                  fontWeight: 900,
+                  letterSpacing: -3,
+                  lineHeight: 0.9,
+                  marginBottom: 8,
+                }}
+              >
+                {plan.price}
               </div>
               
               {/* Billing info */}
