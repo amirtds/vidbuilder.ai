@@ -248,13 +248,14 @@ export const ProductShowcaseScene: React.FC<{content: any; style: ColorScheme}> 
   const imageDuration = 90; // 3 seconds per image for more premium feel
   const rawIndex = hasImages ? Math.floor(frame / imageDuration) : 0;
   const currentIndex = hasImages ? Math.min(rawIndex, images.length - 1) : 0; // Clamp to last image
-  const localFrame = currentIndex < images.length - 1 ? frame % imageDuration : imageDuration - 1; // Hold on last frame
+  const isLastImage = currentIndex === images.length - 1;
+  const localFrame = !isLastImage ? frame % imageDuration : 45; // Hold last image at peak opacity (frame 45 = full opacity)
   
-  // Dramatic crossfade between images
+  // Dramatic crossfade between images - last image stays at full opacity
   const imageOpacity = hasImages ? interpolate(
     localFrame,
     [0, 20, 70, 90],
-    [0, 1, 1, 0],
+    [0, 1, 1, isLastImage ? 1 : 0], // Last image doesn't fade out
     { 
       extrapolateRight: 'clamp',
       easing: Easing.inOut(Easing.ease)
