@@ -1007,23 +1007,25 @@ export const TimelineScene: React.FC<{content: any; style: EnhancedColorScheme}>
   );
 };
 
-// 6. Pricing Cards Scene - Cinematic Pricing
+// 6. Pricing Cards Scene - Modern Glassmorphism (Loom-Inspired)
 export const PricingCardsScene: React.FC<{content: any; style: EnhancedColorScheme}> = ({content, style}) => {
   const frame = useCurrentFrame();
   const {fps, width} = useVideoConfig();
   const plans = content.plans || [];
   
-  // Responsive sizing - EVEN LARGER for better readability
+  // Responsive sizing
   const baseFontSize = width >= 3840 ? 1 : width >= 1920 ? 0.8 : 0.6;
   const singleCardMultiplier = plans.length === 1 ? 1.25 : 1;
   const titleSize = 96 * baseFontSize;
-  const planNameSize = 64 * baseFontSize * singleCardMultiplier; // Increased from 48
-  const priceSize = 140 * baseFontSize * singleCardMultiplier; // Increased from 120
-  const periodSize = 32 * baseFontSize * singleCardMultiplier; // Increased from 28
-  const featureSize = 28 * baseFontSize * singleCardMultiplier; // Increased from 24
-  const badgeSize = 20 * baseFontSize * singleCardMultiplier; // Increased from 16
-  const cardWidth = plans.length === 1 ? 650 * baseFontSize : 420 * baseFontSize;
-  const cardPadding = plans.length === 1 ? 80 * baseFontSize : 60 * baseFontSize;
+  const planNameSize = 56 * baseFontSize * singleCardMultiplier;
+  const descSize = 22 * baseFontSize * singleCardMultiplier;
+  const priceSize = 120 * baseFontSize * singleCardMultiplier;
+  const periodSize = 28 * baseFontSize * singleCardMultiplier;
+  const featureSize = 26 * baseFontSize * singleCardMultiplier;
+  const badgeSize = 18 * baseFontSize * singleCardMultiplier;
+  const buttonSize = 24 * baseFontSize * singleCardMultiplier;
+  const cardWidth = plans.length === 1 ? 700 * baseFontSize : 450 * baseFontSize;
+  const cardPadding = plans.length === 1 ? 70 * baseFontSize : 50 * baseFontSize;
   
   // Title entrance
   const titleOpacity = interpolate(frame, [0, 30], [0, 1], {
@@ -1158,175 +1160,234 @@ export const PricingCardsScene: React.FC<{content: any; style: EnhancedColorSche
           // Subtle continuous pulse for featured card
           const pulse = featured ? Math.sin((frame - delay) * 0.08) * 0.02 + 1 : 1;
           
+          // Glassmorphism effect - translucent background
+          const cardBackground = featured 
+            ? `linear-gradient(135deg, ${style.primary}15, ${style.secondary}10)`
+            : `${style.base100}80`;
+          
           return (
             <div
               key={i}
               style={{
                 width: cardWidth,
-                minHeight: '700px', // Increased from 600px
-                background: featured ? style.primary : style.base200,
-                borderRadius: 32, // Slightly larger radius
+                minHeight: '750px',
+                background: cardBackground,
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+                borderRadius: 28,
                 padding: cardPadding,
-                border: featured ? 'none' : `3px solid ${style.base300}`,
+                border: featured 
+                  ? `2px solid ${style.primary}40`
+                  : `2px solid ${style.base300}60`,
                 transform: `scale(${scale * featuredScale}) translateY(${cardY}px)`,
                 opacity,
                 filter: `blur(${blur}px)`,
-                boxShadow: featured ? `0 0 ${30 * glowIntensity}px ${style.primary}40, 0 30px 60px rgba(0,0,0,0.3)` : 'none',
+                boxShadow: featured 
+                  ? `0 0 ${40 * glowIntensity}px ${style.primary}30, 0 20px 60px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.1)`
+                  : '0 10px 40px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.05)',
                 overflow: 'hidden',
                 position: 'relative',
                 display: 'flex',
                 flexDirection: 'column',
               }}
             >
-              {/* Popular ribbon for featured cards */}
+              {/* Gradient overlay for featured card */}
               {featured && (
                 <div
                   style={{
                     position: 'absolute',
-                    top: 20,
-                    right: -10,
-                    background: style.accent,
-                    color: style.accentContent,
-                    padding: '8px 20px',
-                    fontSize: 14,
-                    fontWeight: 800,
-                    textTransform: 'uppercase',
-                    letterSpacing: 1,
-                    transform: 'rotate(3deg)',
-                    boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+                    inset: 0,
+                    background: `linear-gradient(135deg, ${style.primary}08, ${style.secondary}05)`,
+                    pointerEvents: 'none',
+                    borderRadius: 28,
                   }}
-                >
-                  Most Popular
-                </div>
+                />
               )}
               
-              {plan.badge && !featured && (
+              {/* Most Popular Badge */}
+              {featured && (
                 <div
                   style={{
-                    background: style.accent,
-                    color: style.accentContent,
-                    padding: '8px 16px',
-                    borderRadius: 20,
+                    position: 'absolute',
+                    top: -2,
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    background: `linear-gradient(135deg, ${style.primary}, ${style.secondary})`,
+                    color: style.primaryContent,
+                    padding: '10px 28px',
                     fontSize: badgeSize,
                     fontWeight: 700,
-                    display: 'inline-block',
-                    marginBottom: 25,
                     textTransform: 'uppercase',
-                    letterSpacing: 1,
-                    alignSelf: 'flex-start',
+                    letterSpacing: 1.5,
+                    borderRadius: '0 0 16px 16px',
+                    boxShadow: `0 4px 12px ${style.primary}40`,
                   }}
                 >
-                  {plan.badge}
+                  MOST POPULAR
                 </div>
               )}
               
-              {/* Plan name with proper spacing */}
+              {/* Plan name with gradient text for featured */}
               <div
                 style={{
                   fontSize: planNameSize,
-                  color: featured ? style.primaryContent : style.baseContent,
-                  fontWeight: 900,
-                  marginBottom: 15,
-                  marginTop: featured ? 50 : 20, // Extra space for ribbon
-                  letterSpacing: -1.5,
+                  background: featured 
+                    ? `linear-gradient(135deg, ${style.primary}, ${style.secondary})`
+                    : 'transparent',
+                  WebkitBackgroundClip: featured ? 'text' : 'unset',
+                  WebkitTextFillColor: featured ? 'transparent' : style.baseContent,
+                  backgroundClip: featured ? 'text' : 'unset',
+                  fontWeight: 800,
+                  marginBottom: 12,
+                  marginTop: featured ? 55 : 25,
+                  letterSpacing: -1,
                   lineHeight: 1.1,
-                  textAlign: 'center',
+                  textAlign: 'left',
                 }}
               >
                 {plan.name}
               </div>
-              {/* Price with center alignment */}
+              
+              {/* Description */}
+              {plan.description && (
+                <div
+                  style={{
+                    fontSize: descSize,
+                    color: style.baseContent,
+                    opacity: 0.7,
+                    marginBottom: 35,
+                    lineHeight: 1.5,
+                    textAlign: 'left',
+                  }}
+                >
+                  {plan.description}
+                </div>
+              )}
+              
+              {/* Price - Large and bold */}
               <div
                 style={{
-                  fontSize: priceSize,
-                  color: featured ? style.primaryContent : style.primary,
-                  fontWeight: 900,
+                  display: 'flex',
+                  alignItems: 'baseline',
                   marginBottom: 8,
-                  letterSpacing: -4,
-                  lineHeight: 0.9,
-                  textAlign: 'center',
+                  gap: 8,
                 }}
               >
-                {plan.price}
+                <span
+                  style={{
+                    fontSize: priceSize,
+                    color: style.baseContent,
+                    fontWeight: 900,
+                    letterSpacing: -3,
+                    lineHeight: 0.9,
+                  }}
+                >
+                  {plan.price}
+                </span>
+                <span
+                  style={{
+                    fontSize: periodSize,
+                    color: style.baseContent,
+                    opacity: 0.6,
+                    fontWeight: 500,
+                  }}
+                >
+                  {plan.period}
+                </span>
               </div>
               
-              {/* Period with center alignment */}
-              <div
-                style={{
-                  fontSize: periodSize,
-                  color: featured ? style.primaryContent : style.neutral,
-                  opacity: featured ? 0.85 : 0.7,
-                  marginBottom: 40,
-                  fontWeight: 500,
-                  letterSpacing: -0.5,
-                  textAlign: 'center',
-                }}
-              >
-                {plan.period}
-              </div>
+              {/* Billing info */}
+              {plan.billingInfo && (
+                <div
+                  style={{
+                    fontSize: descSize * 0.85,
+                    color: style.baseContent,
+                    opacity: 0.5,
+                    marginBottom: 35,
+                  }}
+                >
+                  {plan.billingInfo}
+                </div>
+              )}
               
-              {/* Separator line */}
-              <div
-                style={{
-                  width: '100%',
-                  height: 1,
-                  background: featured ? style.primaryContent : style.base300,
-                  opacity: 0.3,
-                  marginBottom: 30,
-                }}
-              />
-              
-              {/* Feature list */}
+              {/* Feature list with minimal checkmarks */}
               <ul
                 style={{
                   listStyle: 'none',
                   padding: 0,
                   margin: 0,
                   flex: 1,
+                  marginBottom: 35,
                 }}
               >
-                {plan.features?.map((feature: string, j: number) => (
-                  <li
-                    key={j}
-                    style={{
-                      fontSize: featureSize,
-                      color: featured ? style.primaryContent : style.baseContent,
-                      opacity: featured ? 0.95 : 0.9,
-                      marginBottom: 22,
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      lineHeight: 1.5,
-                      fontWeight: 500,
-                    }}
-                  >
-                    <span style={{
-                      marginRight: 14, 
-                      color: featured ? style.primaryContent : style.primary,
-                      fontSize: 28,
-                      fontWeight: 800,
-                      lineHeight: 1,
-                    }}>✓</span>
-                    <span>{feature}</span>
-                  </li>
-                ))}
+                {plan.features?.map((feature: string, j: number) => {
+                  // Stagger feature animations
+                  const featureDelay = delay + 50 + j * 5;
+                  const featureOpacity = interpolate(
+                    frame,
+                    [featureDelay, featureDelay + 20],
+                    [0, 1],
+                    { extrapolateRight: 'clamp' }
+                  );
+                  
+                  return (
+                    <li
+                      key={j}
+                      style={{
+                        fontSize: featureSize,
+                        color: style.baseContent,
+                        opacity: featureOpacity * 0.85,
+                        marginBottom: 18,
+                        display: 'flex',
+                        alignItems: 'center',
+                        lineHeight: 1.5,
+                        fontWeight: 400,
+                      }}
+                    >
+                      <span style={{
+                        marginRight: 14,
+                        width: 24,
+                        height: 24,
+                        borderRadius: '50%',
+                        background: featured 
+                          ? `linear-gradient(135deg, ${style.primary}, ${style.secondary})`
+                          : style.primary,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: style.primaryContent,
+                        fontSize: 16,
+                        fontWeight: 900,
+                        flexShrink: 0,
+                      }}>✓</span>
+                      <span>{feature}</span>
+                    </li>
+                  );
+                })}
               </ul>
               
-              {/* Call-to-action button */}
+              {/* Vibrant CTA button with gradient */}
               <div
                 style={{
-                  marginTop: 30,
-                  padding: '16px 32px',
-                  background: featured ? style.primaryContent : style.primary,
-                  color: featured ? style.primary : style.primaryContent,
-                  borderRadius: 12,
-                  fontSize: 18,
+                  marginTop: 'auto',
+                  padding: '20px 40px',
+                  background: featured 
+                    ? `linear-gradient(135deg, ${style.primary}, ${style.secondary})`
+                    : style.primary,
+                  color: style.primaryContent,
+                  borderRadius: 16,
+                  fontSize: buttonSize,
                   fontWeight: 700,
                   textAlign: 'center',
                   cursor: 'pointer',
-                  border: `2px solid ${featured ? style.primaryContent : style.primary}`,
+                  boxShadow: featured 
+                    ? `0 8px 24px ${style.primary}40, 0 4px 8px rgba(0,0,0,0.1)`
+                    : `0 4px 16px ${style.primary}30`,
+                  border: 'none',
+                  transition: 'transform 0.2s ease',
                 }}
               >
-                {featured ? 'Start Free Trial' : 'Get Started'}
+                {plan.buttonText || (featured ? 'Try for free' : 'Sign up')}
               </div>
             </div>
           );
