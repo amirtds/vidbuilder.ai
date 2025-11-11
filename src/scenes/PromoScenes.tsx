@@ -567,9 +567,23 @@ export const StatsDashboardScene: React.FC<{content: any; style: EnhancedColorSc
                   letterSpacing: -1.5,
                   filter: `blur(${blur}px)`,
                   transform: `translateY(${-y}px)`,
+                  display: 'flex',
+                  alignItems: 'baseline',
+                  gap: 8,
                 }}
               >
-                {displayValue}
+                <span>{displayValue}</span>
+                {stat.suffix && (
+                  <span
+                    style={{
+                      fontSize: valueSize * 0.6,
+                      fontWeight: 700,
+                      opacity: 0.8,
+                    }}
+                  >
+                    {stat.suffix}
+                  </span>
+                )}
               </div>
               <div
                 style={{
@@ -1264,7 +1278,7 @@ export const PricingCardsScene: React.FC<{content: any; style: EnhancedColorSche
                 </div>
               )}
               
-              {/* Price - Large and bold */}
+              {/* Price - Large and bold with primary color */}
               <div
                 style={{
                   display: 'flex',
@@ -1276,7 +1290,7 @@ export const PricingCardsScene: React.FC<{content: any; style: EnhancedColorSche
                 <span
                   style={{
                     fontSize: priceSize,
-                    color: style.baseContent,
+                    color: style.primary,
                     fontWeight: 900,
                     letterSpacing: -3,
                     lineHeight: 0.9,
@@ -1317,7 +1331,6 @@ export const PricingCardsScene: React.FC<{content: any; style: EnhancedColorSche
                   padding: 0,
                   margin: 0,
                   flex: 1,
-                  marginBottom: 35,
                 }}
               >
                 {plan.features?.map((feature: string, j: number) => {
@@ -1365,30 +1378,6 @@ export const PricingCardsScene: React.FC<{content: any; style: EnhancedColorSche
                   );
                 })}
               </ul>
-              
-              {/* Vibrant CTA button with gradient */}
-              <div
-                style={{
-                  marginTop: 'auto',
-                  padding: '20px 40px',
-                  background: featured 
-                    ? `linear-gradient(135deg, ${style.primary}, ${style.secondary})`
-                    : style.primary,
-                  color: style.primaryContent,
-                  borderRadius: 16,
-                  fontSize: buttonSize,
-                  fontWeight: 700,
-                  textAlign: 'center',
-                  cursor: 'pointer',
-                  boxShadow: featured 
-                    ? `0 8px 24px ${style.primary}40, 0 4px 8px rgba(0,0,0,0.1)`
-                    : `0 4px 16px ${style.primary}30`,
-                  border: 'none',
-                  transition: 'transform 0.2s ease',
-                }}
-              >
-                {plan.buttonText || (featured ? 'Try for free' : 'Sign up')}
-              </div>
             </div>
           );
         })}

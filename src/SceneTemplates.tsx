@@ -282,10 +282,10 @@ export const ProductShowcaseScene: React.FC<{content: any; style: ColorScheme}> 
     }
   ) : 1;
   
-  // Caption parallax
+  // Caption animation - stays visible throughout, only fades during transitions
   const captionOpacity = interpolate(
     localFrame,
-    [15, 35, 70, 80],
+    [15, 30, 75, 90],
     [0, 1, 1, 0],
     { 
       extrapolateRight: 'clamp',
@@ -295,8 +295,8 @@ export const ProductShowcaseScene: React.FC<{content: any; style: ColorScheme}> 
   
   const captionY = interpolate(
     localFrame,
-    [15, 40],
-    [30, 0],
+    [15, 35],
+    [20, 0],
     { 
       extrapolateRight: 'clamp',
       easing: Easing.out(Easing.cubic)

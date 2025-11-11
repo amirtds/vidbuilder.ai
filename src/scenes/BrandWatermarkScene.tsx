@@ -199,7 +199,7 @@ export const BrandWatermarkScene: React.FC<{
         </div>
       )}
 
-      {/* Company Name - Professional with solid color */}
+      {/* Company Name - Professional with baseContent color for better contrast */}
       {frame >= companyStartFrame && (
         <div
           style={{
@@ -211,7 +211,7 @@ export const BrandWatermarkScene: React.FC<{
             fontWeight: 800,
             textAlign: 'center',
             opacity: companyOpacity,
-            color: style.primary || '#4b6bfb',
+            color: style.baseContent || '#1f2937',
             letterSpacing: -2,
             WebkitFontSmoothing: 'antialiased',
             MozOsxFontSmoothing: 'grayscale',
