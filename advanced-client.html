@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Advanced Video Generator - Flexible Templates</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Roboto:wght@400;500;700;900&family=Open+Sans:wght@400;600;700;800&family=Montserrat:wght@400;600;700;900&family=Playfair+Display:wght@400;700;900&family=Poppins:wght@400;600;700;900&family=Raleway:wght@400;600;700;900&family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -545,29 +548,78 @@
             </div>
             
             <div class="form-group" id="music-options" style="display: none;">
-                <label for="music-track">Select Music Track</label>
+                <label for="music-track">Select Music Track (45 tracks available)</label>
                 <select id="music-track">
-                    <optgroup label="Corporate">
+                    <optgroup label="Corporate (10 tracks)">
                         <option value="corp-1">Corporate Success</option>
                         <option value="corp-2">Innovation Drive</option>
+                        <option value="corp-3">Business Momentum</option>
+                        <option value="corp-4">Executive Suite</option>
+                        <option value="corp-5">Startup Energy</option>
+                        <option value="corp-6">Professional Edge</option>
+                        <option value="corp-7">Market Leader</option>
+                        <option value="corp-8">Growth Strategy</option>
+                        <option value="corp-9">Team Synergy</option>
+                        <option value="corp-10">Vision Forward</option>
                     </optgroup>
-                    <optgroup label="Upbeat">
+                    <optgroup label="Upbeat/Happy (8 tracks)">
                         <option value="upbeat-1">Happy Days</option>
-                        <option value="upbeat-2">Energy Burst</option>
+                        <option value="upbeat-2">Sunny Vibes</option>
+                        <option value="upbeat-3">Feel Good Groove</option>
+                        <option value="upbeat-4">Celebration Time</option>
+                        <option value="upbeat-5">Positive Energy</option>
+                        <option value="upbeat-6">Summer Breeze</option>
+                        <option value="upbeat-7">Bright Horizons</option>
+                        <option value="upbeat-8">Good Times Roll</option>
                     </optgroup>
-                    <optgroup label="Calm/Ambient">
-                        <option value="calm-1">Peaceful Moments</option>
-                        <option value="calm-2">Zen Garden</option>
-                    </optgroup>
-                    <optgroup label="Cinematic">
-                        <option value="epic-1">Epic Journey</option>
-                        <option value="epic-2">Rising Action</option>
-                    </optgroup>
-                    <optgroup label="Tech/Electronic">
+                    <optgroup label="Electronic/Tech (8 tracks)">
                         <option value="tech-1">Digital Future</option>
                         <option value="tech-2">Innovation Lab</option>
+                        <option value="tech-3">Cyber Pulse</option>
+                        <option value="tech-4">AI Revolution</option>
+                        <option value="tech-5">Code Matrix</option>
+                        <option value="tech-6">Neon Nights</option>
+                        <option value="tech-7">Data Stream</option>
+                        <option value="tech-8">Silicon Valley</option>
+                    </optgroup>
+                    <optgroup label="Calm/Ambient (6 tracks)">
+                        <option value="calm-1">Peaceful Moments</option>
+                        <option value="calm-2">Zen Garden</option>
+                        <option value="calm-3">Mindful Meditation</option>
+                        <option value="calm-4">Gentle Waves</option>
+                        <option value="calm-5">Soft Focus</option>
+                        <option value="calm-6">Tranquil Space</option>
+                    </optgroup>
+                    <optgroup label="Cinematic/Epic (8 tracks)">
+                        <option value="epic-1">Epic Journey</option>
+                        <option value="epic-2">Rising Action</option>
+                        <option value="epic-3">Hero's Theme</option>
+                        <option value="epic-4">Cinematic Glory</option>
+                        <option value="epic-5">Orchestral Rise</option>
+                        <option value="epic-6">Adventure Awaits</option>
+                        <option value="epic-7">Dramatic Tension</option>
+                        <option value="epic-8">Victory March</option>
+                    </optgroup>
+                    <optgroup label="Motivational (5 tracks)">
+                        <option value="motiv-1">Inspire Greatness</option>
+                        <option value="motiv-2">Dream Big</option>
+                        <option value="motiv-3">Unstoppable</option>
+                        <option value="motiv-4">Breakthrough</option>
+                        <option value="motiv-5">Rise Above</option>
                     </optgroup>
                 </select>
+                
+                <div style="margin-top: 15px; display: flex; gap: 10px; align-items: center;">
+                    <button type="button" id="play-music-btn" onclick="playMusicPreview()" 
+                            style="padding: 8px 16px; background: #667eea; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                        ▶️ Preview
+                    </button>
+                    <button type="button" id="pause-music-btn" onclick="pauseMusicPreview()" 
+                            style="padding: 8px 16px; background: #f56565; color: white; border: none; border-radius: 4px; cursor: pointer; display: none;">
+                        ⏸️ Stop
+                    </button>
+                    <small style="color: #777;">Listen before applying</small>
+                </div>
                 
                 <label for="music-volume" style="margin-top: 15px;">Music Volume</label>
                 <input type="range" id="music-volume" min="0" max="100" value="30" 

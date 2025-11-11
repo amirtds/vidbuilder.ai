@@ -1,6 +1,6 @@
 const API_URL = 'http://localhost:3000';
 
-// Available fonts
+// Available fonts with proper CSS font-family mappings
 const availableFonts = [
     'Inter',
     'SF Pro',
@@ -14,19 +14,87 @@ const availableFonts = [
     'Lato'
 ];
 
-// Available music tracks
+// Map UI font names to proper CSS font-family strings
+const fontFamilyMap = {
+    'SF Pro': '"SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif',
+    'Inter': '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    'Helvetica Neue': '"Helvetica Neue", Helvetica, Arial, sans-serif',
+    'Roboto': '"Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    'Open Sans': '"Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    'Montserrat': '"Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    'Playfair Display': '"Playfair Display", Georgia, serif',
+    'Poppins': '"Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    'Raleway': '"Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    'Lato': '"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
+};
+
+// Helper function to get proper font-family CSS string
+function getFontFamily(fontName) {
+    return fontFamilyMap[fontName] || fontName;
+}
+
+// Available music tracks - Expanded library with 45 tracks
 const availableMusic = [
-    { id: 'corp-1', name: 'Corporate Success', genre: 'corporate', mood: 'professional' },
-    { id: 'corp-2', name: 'Innovation Drive', genre: 'corporate', mood: 'motivational' },
-    { id: 'upbeat-1', name: 'Happy Days', genre: 'upbeat', mood: 'happy' },
-    { id: 'upbeat-2', name: 'Energy Burst', genre: 'electronic', mood: 'energetic' },
-    { id: 'calm-1', name: 'Peaceful Moments', genre: 'ambient', mood: 'calm' },
-    { id: 'calm-2', name: 'Zen Garden', genre: 'ambient', mood: 'peaceful' },
-    { id: 'epic-1', name: 'Epic Journey', genre: 'cinematic', mood: 'dramatic' },
-    { id: 'epic-2', name: 'Rising Action', genre: 'cinematic', mood: 'inspiring' },
-    { id: 'tech-1', name: 'Digital Future', genre: 'electronic', mood: 'modern' },
-    { id: 'tech-2', name: 'Innovation Lab', genre: 'electronic', mood: 'professional' }
+    // Corporate (10 tracks)
+    { id: 'corp-1', name: 'Corporate Success', genre: 'corporate', mood: 'professional', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' },
+    { id: 'corp-2', name: 'Innovation Drive', genre: 'corporate', mood: 'motivational', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3' },
+    { id: 'corp-3', name: 'Business Momentum', genre: 'corporate', mood: 'professional', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3' },
+    { id: 'corp-4', name: 'Executive Suite', genre: 'corporate', mood: 'sophisticated', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3' },
+    { id: 'corp-5', name: 'Startup Energy', genre: 'corporate', mood: 'energetic', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3' },
+    { id: 'corp-6', name: 'Professional Edge', genre: 'corporate', mood: 'confident', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3' },
+    { id: 'corp-7', name: 'Market Leader', genre: 'corporate', mood: 'powerful', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3' },
+    { id: 'corp-8', name: 'Growth Strategy', genre: 'corporate', mood: 'optimistic', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3' },
+    { id: 'corp-9', name: 'Team Synergy', genre: 'corporate', mood: 'collaborative', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3' },
+    { id: 'corp-10', name: 'Vision Forward', genre: 'corporate', mood: 'inspiring', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3' },
+    
+    // Upbeat (8 tracks)
+    { id: 'upbeat-1', name: 'Happy Days', genre: 'upbeat', mood: 'happy', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3' },
+    { id: 'upbeat-2', name: 'Sunny Vibes', genre: 'upbeat', mood: 'joyful', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3' },
+    { id: 'upbeat-3', name: 'Feel Good Groove', genre: 'upbeat', mood: 'uplifting', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3' },
+    { id: 'upbeat-4', name: 'Celebration Time', genre: 'upbeat', mood: 'festive', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3' },
+    { id: 'upbeat-5', name: 'Positive Energy', genre: 'upbeat', mood: 'energetic', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3' },
+    { id: 'upbeat-6', name: 'Summer Breeze', genre: 'upbeat', mood: 'carefree', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3' },
+    { id: 'upbeat-7', name: 'Bright Horizons', genre: 'upbeat', mood: 'optimistic', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' },
+    { id: 'upbeat-8', name: 'Good Times Roll', genre: 'upbeat', mood: 'fun', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3' },
+    
+    // Electronic/Tech (8 tracks)
+    { id: 'tech-1', name: 'Digital Future', genre: 'electronic', mood: 'modern', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3' },
+    { id: 'tech-2', name: 'Innovation Lab', genre: 'electronic', mood: 'professional', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3' },
+    { id: 'tech-3', name: 'Cyber Pulse', genre: 'electronic', mood: 'energetic', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3' },
+    { id: 'tech-4', name: 'AI Revolution', genre: 'electronic', mood: 'futuristic', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3' },
+    { id: 'tech-5', name: 'Code Matrix', genre: 'electronic', mood: 'focused', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3' },
+    { id: 'tech-6', name: 'Neon Nights', genre: 'electronic', mood: 'atmospheric', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3' },
+    { id: 'tech-7', name: 'Data Stream', genre: 'electronic', mood: 'dynamic', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3' },
+    { id: 'tech-8', name: 'Silicon Valley', genre: 'electronic', mood: 'innovative', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3' },
+    
+    // Calm/Ambient (6 tracks)
+    { id: 'calm-1', name: 'Peaceful Moments', genre: 'ambient', mood: 'calm', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3' },
+    { id: 'calm-2', name: 'Zen Garden', genre: 'ambient', mood: 'peaceful', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3' },
+    { id: 'calm-3', name: 'Mindful Meditation', genre: 'ambient', mood: 'meditative', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3' },
+    { id: 'calm-4', name: 'Gentle Waves', genre: 'ambient', mood: 'soothing', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3' },
+    { id: 'calm-5', name: 'Soft Focus', genre: 'ambient', mood: 'contemplative', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3' },
+    { id: 'calm-6', name: 'Tranquil Space', genre: 'ambient', mood: 'spacious', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3' },
+    
+    // Cinematic/Epic (8 tracks)
+    { id: 'epic-1', name: 'Epic Journey', genre: 'cinematic', mood: 'dramatic', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' },
+    { id: 'epic-2', name: 'Rising Action', genre: 'cinematic', mood: 'inspiring', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3' },
+    { id: 'epic-3', name: 'Hero\'s Theme', genre: 'cinematic', mood: 'heroic', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3' },
+    { id: 'epic-4', name: 'Cinematic Glory', genre: 'cinematic', mood: 'triumphant', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3' },
+    { id: 'epic-5', name: 'Orchestral Rise', genre: 'cinematic', mood: 'building', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3' },
+    { id: 'epic-6', name: 'Adventure Awaits', genre: 'cinematic', mood: 'adventurous', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3' },
+    { id: 'epic-7', name: 'Dramatic Tension', genre: 'cinematic', mood: 'tense', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3' },
+    { id: 'epic-8', name: 'Victory March', genre: 'cinematic', mood: 'victorious', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3' },
+    
+    // Motivational (5 tracks)
+    { id: 'motiv-1', name: 'Inspire Greatness', genre: 'motivational', mood: 'inspiring', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3' },
+    { id: 'motiv-2', name: 'Dream Big', genre: 'motivational', mood: 'aspirational', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3' },
+    { id: 'motiv-3', name: 'Unstoppable', genre: 'motivational', mood: 'powerful', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3' },
+    { id: 'motiv-4', name: 'Breakthrough', genre: 'motivational', mood: 'triumphant', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3' },
+    { id: 'motiv-5', name: 'Rise Above', genre: 'motivational', mood: 'empowering', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3' }
 ];
+
+// Global audio player for music preview
+let currentAudio = null;
 
 // Scene type definitions with all new types
 const sceneTypes = {
@@ -80,9 +148,14 @@ let currentConfig = {
     scenes: []
 };
 
-// Initialize theme
+// Initialize theme with fontFamily
 if (typeof DAISYUI_THEMES !== 'undefined') {
-    currentConfig.colorScheme = DAISYUI_THEMES.corporate;
+    const fontFamilySelector = document.getElementById('font-family');
+    const initialFont = fontFamilySelector ? fontFamilySelector.value : 'SF Pro';
+    currentConfig.colorScheme = {
+        ...DAISYUI_THEMES.corporate,
+        fontFamily: getFontFamily(initialFont)
+    };
 }
 
 // Template configurations
@@ -1514,7 +1587,7 @@ async function generateVideo() {
         if (typeof DAISYUI_THEMES !== 'undefined' && DAISYUI_THEMES[themeName]) {
             currentConfig.colorScheme = {
                 ...DAISYUI_THEMES[themeName],
-                fontFamily: fontFamily
+                fontFamily: getFontFamily(fontFamily)
             };
         }
     }
@@ -1595,8 +1668,115 @@ async function generateVideo() {
     }
 }
 
+// Music preview player functions
+function playMusicPreview() {
+    const trackSelect = document.getElementById('music-track');
+    const selectedTrack = availableMusic.find(track => track.id === trackSelect.value);
+    
+    if (!selectedTrack) return;
+    
+    // Stop current audio if playing
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio = null;
+    }
+    
+    // Create and play new audio
+    currentAudio = new Audio(selectedTrack.url);
+    currentAudio.volume = parseInt(document.getElementById('music-volume').value) / 100;
+    currentAudio.play();
+    
+    // Update button states
+    document.getElementById('play-music-btn').style.display = 'none';
+    document.getElementById('pause-music-btn').style.display = 'inline-block';
+    
+    // Reset button when audio ends
+    currentAudio.addEventListener('ended', function() {
+        document.getElementById('play-music-btn').style.display = 'inline-block';
+        document.getElementById('pause-music-btn').style.display = 'none';
+    });
+}
+
+function pauseMusicPreview() {
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio = null;
+    }
+    
+    // Update button states
+    document.getElementById('play-music-btn').style.display = 'inline-block';
+    document.getElementById('pause-music-btn').style.display = 'none';
+}
+
+function updateMusicVolume() {
+    const volume = parseInt(document.getElementById('music-volume').value) / 100;
+    document.getElementById('volume-display').textContent = document.getElementById('music-volume').value;
+    
+    // Update current audio volume if playing
+    if (currentAudio) {
+        currentAudio.volume = volume;
+    }
+}
+
 // Initialize JSON editor with default config
 window.addEventListener('DOMContentLoaded', () => {
     updateJSONEditor();
     updatePreview();
+    
+    // Setup music toggle
+    const musicEnabled = document.getElementById('music-enabled');
+    if (musicEnabled) {
+        musicEnabled.addEventListener('change', function() {
+            document.getElementById('music-options').style.display = this.checked ? 'block' : 'none';
+            
+            // Stop music preview if music is disabled
+            if (!this.checked && currentAudio) {
+                pauseMusicPreview();
+            }
+        });
+    }
+    
+    // Setup volume display and update
+    const musicVolume = document.getElementById('music-volume');
+    if (musicVolume) {
+        musicVolume.addEventListener('input', updateMusicVolume);
+    }
+    
+    // Stop music preview when track changes
+    const musicTrack = document.getElementById('music-track');
+    if (musicTrack) {
+        musicTrack.addEventListener('change', function() {
+            if (currentAudio) {
+                pauseMusicPreview();
+            }
+        });
+    }
+    
+    // Update fontFamily when user changes font selector
+    const fontFamilySelector = document.getElementById('font-family');
+    if (fontFamilySelector) {
+        fontFamilySelector.addEventListener('change', function() {
+            if (currentConfig.colorScheme) {
+                currentConfig.colorScheme.fontFamily = getFontFamily(this.value);
+                updateJSONEditor();
+            }
+        });
+    }
+    
+    // Update fontFamily when theme changes
+    const themeSelector = document.getElementById('theme-selector');
+    if (themeSelector) {
+        themeSelector.addEventListener('change', function() {
+            const themeName = this.value;
+            const fontFamily = fontFamilySelector ? fontFamilySelector.value : 'SF Pro';
+            if (typeof DAISYUI_THEMES !== 'undefined' && DAISYUI_THEMES[themeName]) {
+                currentConfig.theme = themeName;
+                currentConfig.colorScheme = {
+                    ...DAISYUI_THEMES[themeName],
+                    fontFamily: getFontFamily(fontFamily)
+                };
+                updateJSONEditor();
+            }
+        });
+    }
 });

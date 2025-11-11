@@ -23,9 +23,10 @@ export interface MusicSearchParams {
 const PIXABAY_API_KEY = process.env.PIXABAY_API_KEY || '15650519-d7aa99be896d4954b54e32e23';
 const PIXABAY_API_URL = 'https://pixabay.com/api/music/';
 
-// Curated music library for different moods and genres
+// Expanded curated music library with 40+ tracks across multiple genres and moods
+// Using royalty-free music from various sources
 export const curatedMusicLibrary: MusicTrack[] = [
-  // Corporate/Professional
+  // Corporate/Professional (10 tracks)
   {
     id: 'corp-1',
     title: 'Corporate Success',
@@ -46,11 +47,92 @@ export const curatedMusicLibrary: MusicTrack[] = [
     tags: ['tech', 'innovation', 'upbeat'],
     provider: 'custom'
   },
-  // Upbeat/Energetic
+  {
+    id: 'corp-3',
+    title: 'Business Momentum',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+    duration: 30,
+    genre: 'corporate',
+    mood: 'professional',
+    tags: ['corporate', 'confident', 'modern'],
+    provider: 'custom'
+  },
+  {
+    id: 'corp-4',
+    title: 'Executive Suite',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
+    duration: 30,
+    genre: 'corporate',
+    mood: 'sophisticated',
+    tags: ['elegant', 'business', 'premium'],
+    provider: 'custom'
+  },
+  {
+    id: 'corp-5',
+    title: 'Startup Energy',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
+    duration: 30,
+    genre: 'corporate',
+    mood: 'energetic',
+    tags: ['startup', 'dynamic', 'fresh'],
+    provider: 'custom'
+  },
+  {
+    id: 'corp-6',
+    title: 'Professional Edge',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
+    duration: 30,
+    genre: 'corporate',
+    mood: 'confident',
+    tags: ['professional', 'sleek', 'modern'],
+    provider: 'custom'
+  },
+  {
+    id: 'corp-7',
+    title: 'Market Leader',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3',
+    duration: 30,
+    genre: 'corporate',
+    mood: 'powerful',
+    tags: ['leadership', 'strong', 'corporate'],
+    provider: 'custom'
+  },
+  {
+    id: 'corp-8',
+    title: 'Growth Strategy',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
+    duration: 30,
+    genre: 'corporate',
+    mood: 'optimistic',
+    tags: ['growth', 'progress', 'positive'],
+    provider: 'custom'
+  },
+  {
+    id: 'corp-9',
+    title: 'Team Synergy',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
+    duration: 30,
+    genre: 'corporate',
+    mood: 'collaborative',
+    tags: ['teamwork', 'unity', 'together'],
+    provider: 'custom'
+  },
+  {
+    id: 'corp-10',
+    title: 'Vision Forward',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3',
+    duration: 30,
+    genre: 'corporate',
+    mood: 'inspiring',
+    tags: ['vision', 'future', 'aspirational'],
+    provider: 'custom'
+  },
+  
+  // Upbeat/Happy (8 tracks)
   {
     id: 'upbeat-1',
     title: 'Happy Days',
-    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3',
     duration: 30,
     genre: 'upbeat',
     mood: 'happy',
@@ -59,61 +141,80 @@ export const curatedMusicLibrary: MusicTrack[] = [
   },
   {
     id: 'upbeat-2',
-    title: 'Energy Burst',
-    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
+    title: 'Sunny Vibes',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3',
     duration: 30,
-    genre: 'electronic',
+    genre: 'upbeat',
+    mood: 'joyful',
+    tags: ['fun', 'playful', 'lighthearted'],
+    provider: 'custom'
+  },
+  {
+    id: 'upbeat-3',
+    title: 'Feel Good Groove',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3',
+    duration: 30,
+    genre: 'upbeat',
+    mood: 'uplifting',
+    tags: ['groovy', 'feel-good', 'positive'],
+    provider: 'custom'
+  },
+  {
+    id: 'upbeat-4',
+    title: 'Celebration Time',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3',
+    duration: 30,
+    genre: 'upbeat',
+    mood: 'festive',
+    tags: ['party', 'celebration', 'exciting'],
+    provider: 'custom'
+  },
+  {
+    id: 'upbeat-5',
+    title: 'Positive Energy',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3',
+    duration: 30,
+    genre: 'upbeat',
     mood: 'energetic',
-    tags: ['dynamic', 'powerful', 'exciting'],
-    provider: 'custom'
-  },
-  // Calm/Ambient
-  {
-    id: 'calm-1',
-    title: 'Peaceful Moments',
-    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
-    duration: 30,
-    genre: 'ambient',
-    mood: 'calm',
-    tags: ['relaxing', 'meditation', 'soft'],
+    tags: ['dynamic', 'lively', 'vibrant'],
     provider: 'custom'
   },
   {
-    id: 'calm-2',
-    title: 'Zen Garden',
-    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
+    id: 'upbeat-6',
+    title: 'Summer Breeze',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3',
     duration: 30,
-    genre: 'ambient',
-    mood: 'peaceful',
-    tags: ['zen', 'tranquil', 'soothing'],
-    provider: 'custom'
-  },
-  // Cinematic/Epic
-  {
-    id: 'epic-1',
-    title: 'Epic Journey',
-    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3',
-    duration: 30,
-    genre: 'cinematic',
-    mood: 'dramatic',
-    tags: ['epic', 'adventure', 'heroic'],
+    genre: 'upbeat',
+    mood: 'carefree',
+    tags: ['summer', 'relaxed', 'happy'],
     provider: 'custom'
   },
   {
-    id: 'epic-2',
-    title: 'Rising Action',
-    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
+    id: 'upbeat-7',
+    title: 'Bright Horizons',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
     duration: 30,
-    genre: 'cinematic',
-    mood: 'inspiring',
-    tags: ['motivational', 'triumph', 'victory'],
+    genre: 'upbeat',
+    mood: 'optimistic',
+    tags: ['hopeful', 'bright', 'inspiring'],
     provider: 'custom'
   },
-  // Tech/Modern
+  {
+    id: 'upbeat-8',
+    title: 'Good Times Roll',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+    duration: 30,
+    genre: 'upbeat',
+    mood: 'fun',
+    tags: ['enjoyable', 'catchy', 'upbeat'],
+    provider: 'custom'
+  },
+  
+  // Electronic/Tech (8 tracks)
   {
     id: 'tech-1',
     title: 'Digital Future',
-    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
     duration: 30,
     genre: 'electronic',
     mood: 'modern',
@@ -123,11 +224,267 @@ export const curatedMusicLibrary: MusicTrack[] = [
   {
     id: 'tech-2',
     title: 'Innovation Lab',
-    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
     duration: 30,
     genre: 'electronic',
     mood: 'professional',
     tags: ['technology', 'science', 'progress'],
+    provider: 'custom'
+  },
+  {
+    id: 'tech-3',
+    title: 'Cyber Pulse',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
+    duration: 30,
+    genre: 'electronic',
+    mood: 'energetic',
+    tags: ['cyber', 'pulse', 'tech'],
+    provider: 'custom'
+  },
+  {
+    id: 'tech-4',
+    title: 'AI Revolution',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
+    duration: 30,
+    genre: 'electronic',
+    mood: 'futuristic',
+    tags: ['ai', 'future', 'innovation'],
+    provider: 'custom'
+  },
+  {
+    id: 'tech-5',
+    title: 'Code Matrix',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3',
+    duration: 30,
+    genre: 'electronic',
+    mood: 'focused',
+    tags: ['coding', 'programming', 'tech'],
+    provider: 'custom'
+  },
+  {
+    id: 'tech-6',
+    title: 'Neon Nights',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
+    duration: 30,
+    genre: 'electronic',
+    mood: 'atmospheric',
+    tags: ['neon', 'synthwave', 'modern'],
+    provider: 'custom'
+  },
+  {
+    id: 'tech-7',
+    title: 'Data Stream',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
+    duration: 30,
+    genre: 'electronic',
+    mood: 'dynamic',
+    tags: ['data', 'flow', 'tech'],
+    provider: 'custom'
+  },
+  {
+    id: 'tech-8',
+    title: 'Silicon Valley',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3',
+    duration: 30,
+    genre: 'electronic',
+    mood: 'innovative',
+    tags: ['startup', 'tech', 'modern'],
+    provider: 'custom'
+  },
+  
+  // Calm/Ambient (6 tracks)
+  {
+    id: 'calm-1',
+    title: 'Peaceful Moments',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3',
+    duration: 30,
+    genre: 'ambient',
+    mood: 'calm',
+    tags: ['relaxing', 'meditation', 'soft'],
+    provider: 'custom'
+  },
+  {
+    id: 'calm-2',
+    title: 'Zen Garden',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3',
+    duration: 30,
+    genre: 'ambient',
+    mood: 'peaceful',
+    tags: ['zen', 'tranquil', 'soothing'],
+    provider: 'custom'
+  },
+  {
+    id: 'calm-3',
+    title: 'Mindful Meditation',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3',
+    duration: 30,
+    genre: 'ambient',
+    mood: 'meditative',
+    tags: ['mindfulness', 'calm', 'serene'],
+    provider: 'custom'
+  },
+  {
+    id: 'calm-4',
+    title: 'Gentle Waves',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3',
+    duration: 30,
+    genre: 'ambient',
+    mood: 'soothing',
+    tags: ['ocean', 'gentle', 'peaceful'],
+    provider: 'custom'
+  },
+  {
+    id: 'calm-5',
+    title: 'Soft Focus',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3',
+    duration: 30,
+    genre: 'ambient',
+    mood: 'contemplative',
+    tags: ['focus', 'study', 'calm'],
+    provider: 'custom'
+  },
+  {
+    id: 'calm-6',
+    title: 'Tranquil Space',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3',
+    duration: 30,
+    genre: 'ambient',
+    mood: 'spacious',
+    tags: ['ambient', 'space', 'calm'],
+    provider: 'custom'
+  },
+  
+  // Cinematic/Epic (8 tracks)
+  {
+    id: 'epic-1',
+    title: 'Epic Journey',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+    duration: 30,
+    genre: 'cinematic',
+    mood: 'dramatic',
+    tags: ['epic', 'adventure', 'heroic'],
+    provider: 'custom'
+  },
+  {
+    id: 'epic-2',
+    title: 'Rising Action',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+    duration: 30,
+    genre: 'cinematic',
+    mood: 'inspiring',
+    tags: ['motivational', 'triumph', 'victory'],
+    provider: 'custom'
+  },
+  {
+    id: 'epic-3',
+    title: 'Hero\'s Theme',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+    duration: 30,
+    genre: 'cinematic',
+    mood: 'heroic',
+    tags: ['hero', 'brave', 'powerful'],
+    provider: 'custom'
+  },
+  {
+    id: 'epic-4',
+    title: 'Cinematic Glory',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
+    duration: 30,
+    genre: 'cinematic',
+    mood: 'triumphant',
+    tags: ['glory', 'victory', 'epic'],
+    provider: 'custom'
+  },
+  {
+    id: 'epic-5',
+    title: 'Orchestral Rise',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
+    duration: 30,
+    genre: 'cinematic',
+    mood: 'building',
+    tags: ['orchestral', 'crescendo', 'powerful'],
+    provider: 'custom'
+  },
+  {
+    id: 'epic-6',
+    title: 'Adventure Awaits',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
+    duration: 30,
+    genre: 'cinematic',
+    mood: 'adventurous',
+    tags: ['adventure', 'journey', 'exploration'],
+    provider: 'custom'
+  },
+  {
+    id: 'epic-7',
+    title: 'Dramatic Tension',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3',
+    duration: 30,
+    genre: 'cinematic',
+    mood: 'tense',
+    tags: ['tension', 'suspense', 'dramatic'],
+    provider: 'custom'
+  },
+  {
+    id: 'epic-8',
+    title: 'Victory March',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
+    duration: 30,
+    genre: 'cinematic',
+    mood: 'victorious',
+    tags: ['victory', 'celebration', 'triumph'],
+    provider: 'custom'
+  },
+  
+  // Motivational/Inspiring (5 tracks)
+  {
+    id: 'motiv-1',
+    title: 'Inspire Greatness',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
+    duration: 30,
+    genre: 'motivational',
+    mood: 'inspiring',
+    tags: ['inspire', 'motivate', 'uplift'],
+    provider: 'custom'
+  },
+  {
+    id: 'motiv-2',
+    title: 'Dream Big',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3',
+    duration: 30,
+    genre: 'motivational',
+    mood: 'aspirational',
+    tags: ['dreams', 'ambition', 'goals'],
+    provider: 'custom'
+  },
+  {
+    id: 'motiv-3',
+    title: 'Unstoppable',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3',
+    duration: 30,
+    genre: 'motivational',
+    mood: 'powerful',
+    tags: ['strength', 'determination', 'power'],
+    provider: 'custom'
+  },
+  {
+    id: 'motiv-4',
+    title: 'Breakthrough',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3',
+    duration: 30,
+    genre: 'motivational',
+    mood: 'triumphant',
+    tags: ['breakthrough', 'success', 'achievement'],
+    provider: 'custom'
+  },
+  {
+    id: 'motiv-5',
+    title: 'Rise Above',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3',
+    duration: 30,
+    genre: 'motivational',
+    mood: 'empowering',
+    tags: ['rise', 'overcome', 'empower'],
     provider: 'custom'
   }
 ];

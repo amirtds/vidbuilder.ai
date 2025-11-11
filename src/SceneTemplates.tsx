@@ -1,5 +1,6 @@
 import React from 'react';
 import { AbsoluteFill, useCurrentFrame, useVideoConfig, spring, interpolate, Img, Easing } from 'remotion';
+import { ProfessionalBackground } from './scenes/ProfessionalBackground';
 import { parseFormattedText } from './utils/textFormatting';
 import { getTypedText, getTypingProgress, TypingCursor } from './utils/typingEffect';
 
@@ -130,128 +131,13 @@ export const HeroTitleScene: React.FC<{content: any; style: ColorScheme}> = ({co
         background: style.base100 || '#fff',
         justifyContent: 'center',
         alignItems: 'center',
-        fontFamily: style.fontFamily || 'SF Pro Display, -apple-system, BlinkMacSystemFont, sans-serif',
+        fontFamily: style.fontFamily || '-apple-system, BlinkMacSystemFont, sans-serif',
         padding: '0 5%',
         position: 'relative',
         overflow: 'hidden',
       }}
     >
-      {/* Flowing horizontal lines background */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage: `repeating-linear-gradient(0deg, ${style.baseContent || '#000'} 0, ${style.baseContent || '#000'} 1px, transparent 0, transparent 60px)`,
-          backgroundPosition: `0 ${frame * 0.2}px`,
-          opacity: interpolate(frame, [0, 60, 120], [0.025, 0.04, 0.025], {
-            extrapolateRight: 'clamp',
-            easing: Easing.inOut(Easing.ease),
-          }),
-          zIndex: 0,
-        }}
-      />
-      {/* Multiple animated squares - top left */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '15%',
-          left: '5%',
-          width: 120,
-          height: 120,
-          border: `3px solid ${style.primary || '#667eea'}`,
-          opacity: interpolate(frame, [0, 60, 120], [0.06, 0.12, 0.06], {
-            extrapolateRight: 'clamp',
-            easing: Easing.inOut(Easing.ease),
-          }),
-          transform: `rotate(${frame * 0.3}deg) scale(${1 + Math.sin(frame * 0.04) * 0.1})`,
-          zIndex: 0,
-        }}
-      />
-      {/* Top right square */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '20%',
-          right: '8%',
-          width: 90,
-          height: 90,
-          border: `3px solid ${style.secondary || '#764ba2'}`,
-          opacity: interpolate(frame, [0, 60, 120], [0.05, 0.10, 0.05], {
-            extrapolateRight: 'clamp',
-            easing: Easing.inOut(Easing.ease),
-          }),
-          transform: `rotate(${45 + frame * 0.35}deg) scale(${1 + Math.sin(frame * 0.05) * 0.12})`,
-          zIndex: 0,
-        }}
-      />
-      {/* Bottom left square */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '18%',
-          left: '8%',
-          width: 80,
-          height: 80,
-          border: `3px solid ${style.accent || '#f093fb'}`,
-          opacity: interpolate(frame, [0, 60, 120], [0.05, 0.11, 0.05], {
-            extrapolateRight: 'clamp',
-            easing: Easing.inOut(Easing.ease),
-          }),
-          transform: `rotate(${-frame * 0.28}deg) scale(${1 + Math.cos(frame * 0.045) * 0.11})`,
-          zIndex: 0,
-        }}
-      />
-      {/* Bottom right square */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '15%',
-          right: '5%',
-          width: 100,
-          height: 100,
-          border: `3px solid ${style.primary || '#667eea'}`,
-          opacity: interpolate(frame, [0, 60, 120], [0.06, 0.12, 0.06], {
-            extrapolateRight: 'clamp',
-            easing: Easing.inOut(Easing.ease),
-          }),
-          transform: `rotate(${-frame * 0.25}deg) scale(${1 + Math.cos(frame * 0.04) * 0.1})`,
-          zIndex: 0,
-        }}
-      />
-      {/* Center top small square */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '10%',
-          left: '50%',
-          width: 70,
-          height: 70,
-          border: `2px solid ${style.accent || '#f093fb'}`,
-          opacity: interpolate(frame, [0, 60, 120], [0.04, 0.09, 0.04], {
-            extrapolateRight: 'clamp',
-            easing: Easing.inOut(Easing.ease),
-          }),
-          transform: `translateX(-50%) rotate(${45 - frame * 0.32}deg) scale(${1 + Math.sin(frame * 0.06) * 0.13})`,
-          zIndex: 0,
-        }}
-      />
-      {/* Center bottom small square */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '12%',
-          left: '50%',
-          width: 65,
-          height: 65,
-          border: `2px solid ${style.secondary || '#764ba2'}`,
-          opacity: interpolate(frame, [0, 60, 120], [0.04, 0.08, 0.04], {
-            extrapolateRight: 'clamp',
-            easing: Easing.inOut(Easing.ease),
-          }),
-          transform: `translateX(-50%) rotate(${frame * 0.27}deg) scale(${1 + Math.cos(frame * 0.055) * 0.12})`,
-          zIndex: 0,
-        }}
-      />
+      <ProfessionalBackground style={style as any} />
       
       {/* Main Title Container */}
       <div
@@ -425,127 +311,12 @@ export const ProductShowcaseScene: React.FC<{content: any; style: ColorScheme}> 
         alignItems: 'center',
         flexDirection: 'column',
         padding: '80px',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif',
+        fontFamily: style.fontFamily || '-apple-system, BlinkMacSystemFont, sans-serif',
         position: 'relative',
         overflow: 'hidden',
       }}
     >
-      {/* Flowing horizontal lines background */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage: `repeating-linear-gradient(0deg, ${style.baseContent || '#000'} 0, ${style.baseContent || '#000'} 1px, transparent 0, transparent 60px)`,
-          backgroundPosition: `0 ${frame * 0.2}px`,
-          opacity: interpolate(frame, [0, 60, 120], [0.025, 0.04, 0.025], {
-            extrapolateRight: 'clamp',
-            easing: Easing.inOut(Easing.ease),
-          }),
-          zIndex: 0,
-        }}
-      />
-      {/* Multiple animated squares - top left */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '15%',
-          left: '5%',
-          width: 120,
-          height: 120,
-          border: `3px solid ${style.primary || '#667eea'}`,
-          opacity: interpolate(frame, [0, 60, 120], [0.06, 0.12, 0.06], {
-            extrapolateRight: 'clamp',
-            easing: Easing.inOut(Easing.ease),
-          }),
-          transform: `rotate(${frame * 0.3}deg) scale(${1 + Math.sin(frame * 0.04) * 0.1})`,
-          zIndex: 0,
-        }}
-      />
-      {/* Top right square */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '20%',
-          right: '8%',
-          width: 90,
-          height: 90,
-          border: `3px solid ${style.secondary || '#764ba2'}`,
-          opacity: interpolate(frame, [0, 60, 120], [0.05, 0.10, 0.05], {
-            extrapolateRight: 'clamp',
-            easing: Easing.inOut(Easing.ease),
-          }),
-          transform: `rotate(${45 + frame * 0.35}deg) scale(${1 + Math.sin(frame * 0.05) * 0.12})`,
-          zIndex: 0,
-        }}
-      />
-      {/* Bottom left square */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '18%',
-          left: '8%',
-          width: 80,
-          height: 80,
-          border: `3px solid ${style.accent || '#f093fb'}`,
-          opacity: interpolate(frame, [0, 60, 120], [0.05, 0.11, 0.05], {
-            extrapolateRight: 'clamp',
-            easing: Easing.inOut(Easing.ease),
-          }),
-          transform: `rotate(${-frame * 0.28}deg) scale(${1 + Math.cos(frame * 0.045) * 0.11})`,
-          zIndex: 0,
-        }}
-      />
-      {/* Bottom right square */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '15%',
-          right: '5%',
-          width: 100,
-          height: 100,
-          border: `3px solid ${style.primary || '#667eea'}`,
-          opacity: interpolate(frame, [0, 60, 120], [0.06, 0.12, 0.06], {
-            extrapolateRight: 'clamp',
-            easing: Easing.inOut(Easing.ease),
-          }),
-          transform: `rotate(${-frame * 0.25}deg) scale(${1 + Math.cos(frame * 0.04) * 0.1})`,
-          zIndex: 0,
-        }}
-      />
-      {/* Center top small square */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '10%',
-          left: '50%',
-          width: 70,
-          height: 70,
-          border: `2px solid ${style.accent || '#f093fb'}`,
-          opacity: interpolate(frame, [0, 60, 120], [0.04, 0.09, 0.04], {
-            extrapolateRight: 'clamp',
-            easing: Easing.inOut(Easing.ease),
-          }),
-          transform: `translateX(-50%) rotate(${45 - frame * 0.32}deg) scale(${1 + Math.sin(frame * 0.06) * 0.13})`,
-          zIndex: 0,
-        }}
-      />
-      {/* Center bottom small square */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '12%',
-          left: '50%',
-          width: 65,
-          height: 65,
-          border: `2px solid ${style.secondary || '#764ba2'}`,
-          opacity: interpolate(frame, [0, 60, 120], [0.04, 0.08, 0.04], {
-            extrapolateRight: 'clamp',
-            easing: Easing.inOut(Easing.ease),
-          }),
-          transform: `translateX(-50%) rotate(${frame * 0.27}deg) scale(${1 + Math.cos(frame * 0.055) * 0.12})`,
-          zIndex: 0,
-        }}
-      />
+      <ProfessionalBackground style={style as any} />
       
       {/* Title - DRAMATIC cinematic entrance */}
       {content.title && (
@@ -593,8 +364,8 @@ export const ProductShowcaseScene: React.FC<{content: any; style: ColorScheme}> 
       {hasImages && (
         <div
           style={{
-            width: '90%',
-            maxWidth: '1400px',
+            width: '95%',
+            maxWidth: '1800px',
             height: '70%',
             opacity: imageEntranceOpacity,
             borderRadius: 20,
@@ -622,10 +393,9 @@ export const ProductShowcaseScene: React.FC<{content: any; style: ColorScheme}> 
             <Img
               src={images[currentIndex]}
               style={{
-                maxWidth: '100%',
-                maxHeight: '100%',
-                width: 'auto',
+                width: '100%',
                 height: 'auto',
+                maxHeight: '100%',
                 objectFit: 'contain',
               }}
             />
@@ -683,127 +453,12 @@ export const FeatureListScene: React.FC<{content: any; style: ColorScheme}> = ({
         background: style.base100 || '#fff',
         padding: '100px 120px',
         justifyContent: 'center',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif',
+        fontFamily: style.fontFamily || '-apple-system, BlinkMacSystemFont, sans-serif',
         position: 'relative',
         overflow: 'hidden',
       }}
     >
-      {/* Flowing horizontal lines background */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage: `repeating-linear-gradient(0deg, ${style.baseContent || '#000'} 0, ${style.baseContent || '#000'} 1px, transparent 0, transparent 60px)`,
-          backgroundPosition: `0 ${frame * 0.2}px`,
-          opacity: interpolate(frame, [0, 60, 120], [0.025, 0.04, 0.025], {
-            extrapolateRight: 'clamp',
-            easing: Easing.inOut(Easing.ease),
-          }),
-          zIndex: 0,
-        }}
-      />
-      {/* Multiple animated squares - top left */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '15%',
-          left: '5%',
-          width: 120,
-          height: 120,
-          border: `3px solid ${style.primary || '#667eea'}`,
-          opacity: interpolate(frame, [0, 60, 120], [0.06, 0.12, 0.06], {
-            extrapolateRight: 'clamp',
-            easing: Easing.inOut(Easing.ease),
-          }),
-          transform: `rotate(${frame * 0.3}deg) scale(${1 + Math.sin(frame * 0.04) * 0.1})`,
-          zIndex: 0,
-        }}
-      />
-      {/* Top right square */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '20%',
-          right: '8%',
-          width: 90,
-          height: 90,
-          border: `3px solid ${style.secondary || '#764ba2'}`,
-          opacity: interpolate(frame, [0, 60, 120], [0.05, 0.10, 0.05], {
-            extrapolateRight: 'clamp',
-            easing: Easing.inOut(Easing.ease),
-          }),
-          transform: `rotate(${45 + frame * 0.35}deg) scale(${1 + Math.sin(frame * 0.05) * 0.12})`,
-          zIndex: 0,
-        }}
-      />
-      {/* Bottom left square */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '18%',
-          left: '8%',
-          width: 80,
-          height: 80,
-          border: `3px solid ${style.accent || '#f093fb'}`,
-          opacity: interpolate(frame, [0, 60, 120], [0.05, 0.11, 0.05], {
-            extrapolateRight: 'clamp',
-            easing: Easing.inOut(Easing.ease),
-          }),
-          transform: `rotate(${-frame * 0.28}deg) scale(${1 + Math.cos(frame * 0.045) * 0.11})`,
-          zIndex: 0,
-        }}
-      />
-      {/* Bottom right square */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '15%',
-          right: '5%',
-          width: 100,
-          height: 100,
-          border: `3px solid ${style.primary || '#667eea'}`,
-          opacity: interpolate(frame, [0, 60, 120], [0.06, 0.12, 0.06], {
-            extrapolateRight: 'clamp',
-            easing: Easing.inOut(Easing.ease),
-          }),
-          transform: `rotate(${-frame * 0.25}deg) scale(${1 + Math.cos(frame * 0.04) * 0.1})`,
-          zIndex: 0,
-        }}
-      />
-      {/* Center top small square */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '10%',
-          left: '50%',
-          width: 70,
-          height: 70,
-          border: `2px solid ${style.accent || '#f093fb'}`,
-          opacity: interpolate(frame, [0, 60, 120], [0.04, 0.09, 0.04], {
-            extrapolateRight: 'clamp',
-            easing: Easing.inOut(Easing.ease),
-          }),
-          transform: `translateX(-50%) rotate(${45 - frame * 0.32}deg) scale(${1 + Math.sin(frame * 0.06) * 0.13})`,
-          zIndex: 0,
-        }}
-      />
-      {/* Center bottom small square */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '12%',
-          left: '50%',
-          width: 65,
-          height: 65,
-          border: `2px solid ${style.secondary || '#764ba2'}`,
-          opacity: interpolate(frame, [0, 60, 120], [0.04, 0.08, 0.04], {
-            extrapolateRight: 'clamp',
-            easing: Easing.inOut(Easing.ease),
-          }),
-          transform: `translateX(-50%) rotate(${frame * 0.27}deg) scale(${1 + Math.cos(frame * 0.055) * 0.12})`,
-          zIndex: 0,
-        }}
-      />
+      <ProfessionalBackground style={style as any} />
       
       {/* Title - Clean and bold */}
       {content.title && (
@@ -814,7 +469,7 @@ export const FeatureListScene: React.FC<{content: any; style: ColorScheme}> = ({
             marginBottom: 80,
             fontWeight: 900,
             textAlign: 'center',
-            letterSpacing: -3.5,
+            letterSpacing: -3,
             opacity: titleOpacity,
             WebkitFontSmoothing: 'antialiased',
             MozOsxFontSmoothing: 'grayscale',
@@ -973,127 +628,12 @@ export const CTAScene: React.FC<{content: any; style: ColorScheme}> = ({content,
         alignItems: 'center',
         flexDirection: 'column',
         padding: '100px 80px',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif',
+        fontFamily: style.fontFamily || '-apple-system, BlinkMacSystemFont, sans-serif',
         position: 'relative',
         overflow: 'hidden',
       }}
     >
-      {/* Flowing horizontal lines background */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage: `repeating-linear-gradient(0deg, ${style.baseContent || '#000'} 0, ${style.baseContent || '#000'} 1px, transparent 0, transparent 60px)`,
-          backgroundPosition: `0 ${frame * 0.2}px`,
-          opacity: interpolate(frame, [0, 60, 120], [0.025, 0.04, 0.025], {
-            extrapolateRight: 'clamp',
-            easing: Easing.inOut(Easing.ease),
-          }),
-          zIndex: 0,
-        }}
-      />
-      {/* Multiple animated squares - top left */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '15%',
-          left: '5%',
-          width: 120,
-          height: 120,
-          border: `3px solid ${style.primary || '#667eea'}`,
-          opacity: interpolate(frame, [0, 60, 120], [0.06, 0.12, 0.06], {
-            extrapolateRight: 'clamp',
-            easing: Easing.inOut(Easing.ease),
-          }),
-          transform: `rotate(${frame * 0.3}deg) scale(${1 + Math.sin(frame * 0.04) * 0.1})`,
-          zIndex: 0,
-        }}
-      />
-      {/* Top right square */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '20%',
-          right: '8%',
-          width: 90,
-          height: 90,
-          border: `3px solid ${style.secondary || '#764ba2'}`,
-          opacity: interpolate(frame, [0, 60, 120], [0.05, 0.10, 0.05], {
-            extrapolateRight: 'clamp',
-            easing: Easing.inOut(Easing.ease),
-          }),
-          transform: `rotate(${45 + frame * 0.35}deg) scale(${1 + Math.sin(frame * 0.05) * 0.12})`,
-          zIndex: 0,
-        }}
-      />
-      {/* Bottom left square */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '18%',
-          left: '8%',
-          width: 80,
-          height: 80,
-          border: `3px solid ${style.accent || '#f093fb'}`,
-          opacity: interpolate(frame, [0, 60, 120], [0.05, 0.11, 0.05], {
-            extrapolateRight: 'clamp',
-            easing: Easing.inOut(Easing.ease),
-          }),
-          transform: `rotate(${-frame * 0.28}deg) scale(${1 + Math.cos(frame * 0.045) * 0.11})`,
-          zIndex: 0,
-        }}
-      />
-      {/* Bottom right square */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '15%',
-          right: '5%',
-          width: 100,
-          height: 100,
-          border: `3px solid ${style.primary || '#667eea'}`,
-          opacity: interpolate(frame, [0, 60, 120], [0.06, 0.12, 0.06], {
-            extrapolateRight: 'clamp',
-            easing: Easing.inOut(Easing.ease),
-          }),
-          transform: `rotate(${-frame * 0.25}deg) scale(${1 + Math.cos(frame * 0.04) * 0.1})`,
-          zIndex: 0,
-        }}
-      />
-      {/* Center top small square */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '10%',
-          left: '50%',
-          width: 70,
-          height: 70,
-          border: `2px solid ${style.accent || '#f093fb'}`,
-          opacity: interpolate(frame, [0, 60, 120], [0.04, 0.09, 0.04], {
-            extrapolateRight: 'clamp',
-            easing: Easing.inOut(Easing.ease),
-          }),
-          transform: `translateX(-50%) rotate(${45 - frame * 0.32}deg) scale(${1 + Math.sin(frame * 0.06) * 0.13})`,
-          zIndex: 0,
-        }}
-      />
-      {/* Center bottom small square */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '12%',
-          left: '50%',
-          width: 65,
-          height: 65,
-          border: `2px solid ${style.secondary || '#764ba2'}`,
-          opacity: interpolate(frame, [0, 60, 120], [0.04, 0.08, 0.04], {
-            extrapolateRight: 'clamp',
-            easing: Easing.inOut(Easing.ease),
-          }),
-          transform: `translateX(-50%) rotate(${frame * 0.27}deg) scale(${1 + Math.cos(frame * 0.055) * 0.12})`,
-          zIndex: 0,
-        }}
-      />
+      {/* No background - clean focus on CTA */}
       
       {/* Title - Bold and impactful */}
       {content.title && (

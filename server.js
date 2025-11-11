@@ -273,19 +273,60 @@ app.post('/api/generate-flexible-video', upload.array('images', 20), async (req,
       }
     });
     
-    // Resolve music URL from trackId
+    // Resolve music URL from trackId - Expanded library with 45 tracks
     if (videoConfig.music && videoConfig.music.enabled && videoConfig.music.trackId) {
       const musicLibrary = {
+        // Corporate
         'corp-1': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
         'corp-2': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
-        'upbeat-1': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
-        'upbeat-2': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
-        'calm-1': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
-        'calm-2': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
-        'epic-1': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3',
-        'epic-2': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
-        'tech-1': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
-        'tech-2': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3'
+        'corp-3': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+        'corp-4': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
+        'corp-5': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
+        'corp-6': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
+        'corp-7': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3',
+        'corp-8': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
+        'corp-9': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
+        'corp-10': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3',
+        // Upbeat
+        'upbeat-1': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3',
+        'upbeat-2': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3',
+        'upbeat-3': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3',
+        'upbeat-4': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3',
+        'upbeat-5': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3',
+        'upbeat-6': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3',
+        'upbeat-7': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+        'upbeat-8': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+        // Electronic/Tech
+        'tech-1': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+        'tech-2': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
+        'tech-3': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
+        'tech-4': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
+        'tech-5': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3',
+        'tech-6': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
+        'tech-7': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
+        'tech-8': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3',
+        // Calm/Ambient
+        'calm-1': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3',
+        'calm-2': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3',
+        'calm-3': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3',
+        'calm-4': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3',
+        'calm-5': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3',
+        'calm-6': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3',
+        // Cinematic/Epic
+        'epic-1': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+        'epic-2': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+        'epic-3': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+        'epic-4': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
+        'epic-5': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
+        'epic-6': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
+        'epic-7': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3',
+        'epic-8': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
+        // Motivational
+        'motiv-1': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
+        'motiv-2': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3',
+        'motiv-3': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3',
+        'motiv-4': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3',
+        'motiv-5': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3'
       };
       
       const musicUrl = musicLibrary[videoConfig.music.trackId];
