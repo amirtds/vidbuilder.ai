@@ -132,8 +132,127 @@ export const HeroTitleScene: React.FC<{content: any; style: ColorScheme}> = ({co
         alignItems: 'center',
         fontFamily: style.fontFamily || 'SF Pro Display, -apple-system, BlinkMacSystemFont, sans-serif',
         padding: '0 5%',
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
+      {/* Flowing horizontal lines background */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: `repeating-linear-gradient(0deg, ${style.baseContent || '#000'} 0, ${style.baseContent || '#000'} 1px, transparent 0, transparent 60px)`,
+          backgroundPosition: `0 ${frame * 0.2}px`,
+          opacity: interpolate(frame, [0, 60, 120], [0.025, 0.04, 0.025], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          zIndex: 0,
+        }}
+      />
+      {/* Multiple animated squares - top left */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '15%',
+          left: '5%',
+          width: 120,
+          height: 120,
+          border: `3px solid ${style.primary || '#667eea'}`,
+          opacity: interpolate(frame, [0, 60, 120], [0.06, 0.12, 0.06], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          transform: `rotate(${frame * 0.3}deg) scale(${1 + Math.sin(frame * 0.04) * 0.1})`,
+          zIndex: 0,
+        }}
+      />
+      {/* Top right square */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '20%',
+          right: '8%',
+          width: 90,
+          height: 90,
+          border: `3px solid ${style.secondary || '#764ba2'}`,
+          opacity: interpolate(frame, [0, 60, 120], [0.05, 0.10, 0.05], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          transform: `rotate(${45 + frame * 0.35}deg) scale(${1 + Math.sin(frame * 0.05) * 0.12})`,
+          zIndex: 0,
+        }}
+      />
+      {/* Bottom left square */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '18%',
+          left: '8%',
+          width: 80,
+          height: 80,
+          border: `3px solid ${style.accent || '#f093fb'}`,
+          opacity: interpolate(frame, [0, 60, 120], [0.05, 0.11, 0.05], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          transform: `rotate(${-frame * 0.28}deg) scale(${1 + Math.cos(frame * 0.045) * 0.11})`,
+          zIndex: 0,
+        }}
+      />
+      {/* Bottom right square */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '15%',
+          right: '5%',
+          width: 100,
+          height: 100,
+          border: `3px solid ${style.primary || '#667eea'}`,
+          opacity: interpolate(frame, [0, 60, 120], [0.06, 0.12, 0.06], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          transform: `rotate(${-frame * 0.25}deg) scale(${1 + Math.cos(frame * 0.04) * 0.1})`,
+          zIndex: 0,
+        }}
+      />
+      {/* Center top small square */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '10%',
+          left: '50%',
+          width: 70,
+          height: 70,
+          border: `2px solid ${style.accent || '#f093fb'}`,
+          opacity: interpolate(frame, [0, 60, 120], [0.04, 0.09, 0.04], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          transform: `translateX(-50%) rotate(${45 - frame * 0.32}deg) scale(${1 + Math.sin(frame * 0.06) * 0.13})`,
+          zIndex: 0,
+        }}
+      />
+      {/* Center bottom small square */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '12%',
+          left: '50%',
+          width: 65,
+          height: 65,
+          border: `2px solid ${style.secondary || '#764ba2'}`,
+          opacity: interpolate(frame, [0, 60, 120], [0.04, 0.08, 0.04], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          transform: `translateX(-50%) rotate(${frame * 0.27}deg) scale(${1 + Math.cos(frame * 0.055) * 0.12})`,
+          zIndex: 0,
+        }}
+      />
+      
       {/* Main Title Container */}
       <div
         style={{
@@ -143,6 +262,8 @@ export const HeroTitleScene: React.FC<{content: any; style: ColorScheme}> = ({co
           justifyContent: 'center',
           maxWidth: '1600px',
           width: '100%',
+          position: 'relative',
+          zIndex: 1,
         }}
       >
         {/* Title with Typing Effect */}
@@ -197,78 +318,336 @@ export const HeroTitleScene: React.FC<{content: any; style: ColorScheme}> = ({co
   );
 };
 
-// Product Showcase Scene
+// Product Showcase Scene - Clean Apple-style Design (DESIGN.md compliant)
 export const ProductShowcaseScene: React.FC<{content: any; style: ColorScheme}> = ({content, style}) => {
   const frame = useCurrentFrame();
-  const {fps} = useVideoConfig();
+  const {fps, width, height} = useVideoConfig();
   
   const images = content.images || [];
-  if (images.length === 0) return null;
+  const hasImages = images.length > 0;
   
-  const imageDuration = 60; // 2 seconds per image at 30fps
-  const currentIndex = Math.floor(frame / imageDuration) % images.length;
+  // Responsive sizing - DRAMATIC scale
+  const baseFontSize = width >= 3840 ? 1 : width >= 1920 ? 0.8 : 0.6;
+  const titleSize = 110 * baseFontSize; // Increased from 80
+  const descSize = 50 * baseFontSize; // Increased from 40
+  const captionSize = 38 * baseFontSize; // Increased from 32
+  
+  // Cinematic title entrance with blur
+  const titleOpacity = interpolate(frame, [0, 35], [0, 1], {
+    extrapolateRight: 'clamp',
+    easing: Easing.bezier(0.19, 1, 0.22, 1) // Apple's signature easing
+  });
+  
+  const titleScale = spring({
+    frame: frame - 5,
+    fps: 30,
+    config: {
+      damping: 100,
+      stiffness: 180,
+      mass: 1.3,
+    },
+  });
+  
+  const titleY = interpolate(frame, [0, 40], [60, 0], {
+    extrapolateRight: 'clamp',
+    easing: Easing.bezier(0.16, 1, 0.3, 1)
+  });
+  
+  const titleBlur = interpolate(frame, [0, 25], [12, 0], {
+    extrapolateRight: 'clamp',
+    easing: Easing.out(Easing.exp),
+  });
+  
+  // Image cycling with longer transitions
+  const imageDuration = 90; // 3 seconds per image for more premium feel
+  const currentIndex = hasImages ? Math.floor(frame / imageDuration) % images.length : 0;
   const localFrame = frame % imageDuration;
   
-  const scale = interpolate(localFrame, [0, 15, 45, 60], [0.8, 1, 1, 0.8], {
+  // Dramatic crossfade between images
+  const imageOpacity = hasImages ? interpolate(
+    localFrame,
+    [0, 20, 70, 90],
+    [0, 1, 1, 0],
+    { 
+      extrapolateRight: 'clamp',
+      easing: Easing.inOut(Easing.ease)
+    }
+  ) : 1;
+  
+  // Image entrance - dramatic reveal
+  const imageEntranceOpacity = interpolate(frame, [30, 55], [0, 1], {
     extrapolateRight: 'clamp',
+    easing: Easing.bezier(0.19, 1, 0.22, 1)
   });
   
-  const opacity = interpolate(localFrame, [0, 10, 50, 60], [0, 1, 1, 0], {
+  const imageEntranceScale = interpolate(frame, [30, 60], [1.15, 1], {
     extrapolateRight: 'clamp',
+    easing: Easing.out(Easing.cubic)
   });
+  
+  // Ken Burns effect - subtle continuous zoom
+  const imageScale = hasImages ? interpolate(
+    localFrame,
+    [0, 90],
+    [1.08, 1],
+    { 
+      extrapolateRight: 'clamp',
+      easing: Easing.out(Easing.quad)
+    }
+  ) : 1;
+  
+  // Caption parallax
+  const captionOpacity = interpolate(
+    localFrame,
+    [15, 35, 70, 80],
+    [0, 1, 1, 0],
+    { 
+      extrapolateRight: 'clamp',
+      easing: Easing.inOut(Easing.ease)
+    }
+  );
+  
+  const captionY = interpolate(
+    localFrame,
+    [15, 40],
+    [30, 0],
+    { 
+      extrapolateRight: 'clamp',
+      easing: Easing.out(Easing.cubic)
+    }
+  );
 
   return (
     <AbsoluteFill
       style={{
-        background: style.base100 || "#fff",
+        background: style.base100 || '#fff',
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',
+        padding: '80px',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif',
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
+      {/* Flowing horizontal lines background */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: `repeating-linear-gradient(0deg, ${style.baseContent || '#000'} 0, ${style.baseContent || '#000'} 1px, transparent 0, transparent 60px)`,
+          backgroundPosition: `0 ${frame * 0.2}px`,
+          opacity: interpolate(frame, [0, 60, 120], [0.025, 0.04, 0.025], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          zIndex: 0,
+        }}
+      />
+      {/* Multiple animated squares - top left */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '15%',
+          left: '5%',
+          width: 120,
+          height: 120,
+          border: `3px solid ${style.primary || '#667eea'}`,
+          opacity: interpolate(frame, [0, 60, 120], [0.06, 0.12, 0.06], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          transform: `rotate(${frame * 0.3}deg) scale(${1 + Math.sin(frame * 0.04) * 0.1})`,
+          zIndex: 0,
+        }}
+      />
+      {/* Top right square */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '20%',
+          right: '8%',
+          width: 90,
+          height: 90,
+          border: `3px solid ${style.secondary || '#764ba2'}`,
+          opacity: interpolate(frame, [0, 60, 120], [0.05, 0.10, 0.05], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          transform: `rotate(${45 + frame * 0.35}deg) scale(${1 + Math.sin(frame * 0.05) * 0.12})`,
+          zIndex: 0,
+        }}
+      />
+      {/* Bottom left square */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '18%',
+          left: '8%',
+          width: 80,
+          height: 80,
+          border: `3px solid ${style.accent || '#f093fb'}`,
+          opacity: interpolate(frame, [0, 60, 120], [0.05, 0.11, 0.05], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          transform: `rotate(${-frame * 0.28}deg) scale(${1 + Math.cos(frame * 0.045) * 0.11})`,
+          zIndex: 0,
+        }}
+      />
+      {/* Bottom right square */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '15%',
+          right: '5%',
+          width: 100,
+          height: 100,
+          border: `3px solid ${style.primary || '#667eea'}`,
+          opacity: interpolate(frame, [0, 60, 120], [0.06, 0.12, 0.06], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          transform: `rotate(${-frame * 0.25}deg) scale(${1 + Math.cos(frame * 0.04) * 0.1})`,
+          zIndex: 0,
+        }}
+      />
+      {/* Center top small square */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '10%',
+          left: '50%',
+          width: 70,
+          height: 70,
+          border: `2px solid ${style.accent || '#f093fb'}`,
+          opacity: interpolate(frame, [0, 60, 120], [0.04, 0.09, 0.04], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          transform: `translateX(-50%) rotate(${45 - frame * 0.32}deg) scale(${1 + Math.sin(frame * 0.06) * 0.13})`,
+          zIndex: 0,
+        }}
+      />
+      {/* Center bottom small square */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '12%',
+          left: '50%',
+          width: 65,
+          height: 65,
+          border: `2px solid ${style.secondary || '#764ba2'}`,
+          opacity: interpolate(frame, [0, 60, 120], [0.04, 0.08, 0.04], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          transform: `translateX(-50%) rotate(${frame * 0.27}deg) scale(${1 + Math.cos(frame * 0.055) * 0.12})`,
+          zIndex: 0,
+        }}
+      />
+      
+      {/* Title - DRAMATIC cinematic entrance */}
       {content.title && (
         <div
           style={{
-            fontSize: 48,
-            fontWeight: 'bold',
-            color: style.baseContent || "#000",
-            marginBottom: 40,
-            textShadow: '0 2px 10px rgba(0,0,0,0.2)',
+            fontSize: titleSize,
+            fontWeight: 900, // Bolder
+            color: style.baseContent || '#000',
+            marginBottom: hasImages ? 70 : 50,
+            textAlign: 'center',
+            letterSpacing: -4, // Tighter
+            lineHeight: 0.95,
+            opacity: titleOpacity,
+            transform: `translateY(${titleY}px) scale(${titleScale})`,
+            filter: `blur(${titleBlur}px)`,
+            WebkitFontSmoothing: 'antialiased',
+            MozOsxFontSmoothing: 'grayscale',
+            textRendering: 'optimizeLegibility',
+            position: 'relative',
+            zIndex: 1,
           }}
         >
           {content.title}
         </div>
       )}
-      <div
-        style={{
-          width: '80%',
-          maxWidth: '800px',
-          height: '60%',
-          transform: `scale(${scale})`,
-          opacity,
-          borderRadius: style.borderRadius,
-          overflow: 'hidden',
-          boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
-        }}
-      >
-        <Img
-          src={images[currentIndex]}
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: content.fitMode || 'cover',
-          }}
-        />
-      </div>
-      {content.captions && content.captions[currentIndex] && (
+      
+      {/* Description (shown when no images) */}
+      {!hasImages && content.description && (
         <div
           style={{
-            fontSize: 24,
-            color: style.baseContent || "#000",
-            marginTop: 30,
-            opacity,
+            fontSize: descSize,
+            fontWeight: 400,
+            color: style.neutral || '#666',
             textAlign: 'center',
-            padding: '0 40px',
+            maxWidth: '80%',
+            lineHeight: 1.5,
+            opacity: titleOpacity,
+          }}
+        >
+          {content.description}
+        </div>
+      )}
+      
+      {/* Image Container - Cinematic reveal with dramatic effects */}
+      {hasImages && (
+        <div
+          style={{
+            width: '90%',
+            maxWidth: '1400px',
+            height: '70%',
+            opacity: imageEntranceOpacity,
+            borderRadius: 20,
+            overflow: 'hidden',
+            position: 'relative',
+            transform: `scale(${imageEntranceScale})`,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          {/* Image with Ken Burns effect */}
+          <div
+            style={{
+              width: '100%',
+              height: '100%',
+              transform: `scale(${imageScale})`,
+              transformOrigin: 'center',
+              opacity: imageOpacity,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Img
+              src={images[currentIndex]}
+              style={{
+                maxWidth: '100%',
+                maxHeight: '100%',
+                width: 'auto',
+                height: 'auto',
+                objectFit: 'contain',
+              }}
+            />
+          </div>
+        </div>
+      )}
+      
+      {/* Caption - Parallax animation */}
+      {hasImages && content.captions && content.captions[currentIndex] && (
+        <div
+          style={{
+            fontSize: captionSize,
+            color: style.neutral || '#666',
+            marginTop: 50,
+            opacity: captionOpacity * imageEntranceOpacity,
+            transform: `translateY(${captionY}px)`,
+            textAlign: 'center',
+            padding: '0 80px',
+            maxWidth: '85%',
+            fontWeight: 600, // Slightly bolder
+            letterSpacing: -1,
+            lineHeight: 1.4,
           }}
         >
           {content.captions[currentIndex]}
@@ -305,8 +684,127 @@ export const FeatureListScene: React.FC<{content: any; style: ColorScheme}> = ({
         padding: '100px 120px',
         justifyContent: 'center',
         fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif',
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
+      {/* Flowing horizontal lines background */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: `repeating-linear-gradient(0deg, ${style.baseContent || '#000'} 0, ${style.baseContent || '#000'} 1px, transparent 0, transparent 60px)`,
+          backgroundPosition: `0 ${frame * 0.2}px`,
+          opacity: interpolate(frame, [0, 60, 120], [0.025, 0.04, 0.025], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          zIndex: 0,
+        }}
+      />
+      {/* Multiple animated squares - top left */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '15%',
+          left: '5%',
+          width: 120,
+          height: 120,
+          border: `3px solid ${style.primary || '#667eea'}`,
+          opacity: interpolate(frame, [0, 60, 120], [0.06, 0.12, 0.06], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          transform: `rotate(${frame * 0.3}deg) scale(${1 + Math.sin(frame * 0.04) * 0.1})`,
+          zIndex: 0,
+        }}
+      />
+      {/* Top right square */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '20%',
+          right: '8%',
+          width: 90,
+          height: 90,
+          border: `3px solid ${style.secondary || '#764ba2'}`,
+          opacity: interpolate(frame, [0, 60, 120], [0.05, 0.10, 0.05], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          transform: `rotate(${45 + frame * 0.35}deg) scale(${1 + Math.sin(frame * 0.05) * 0.12})`,
+          zIndex: 0,
+        }}
+      />
+      {/* Bottom left square */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '18%',
+          left: '8%',
+          width: 80,
+          height: 80,
+          border: `3px solid ${style.accent || '#f093fb'}`,
+          opacity: interpolate(frame, [0, 60, 120], [0.05, 0.11, 0.05], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          transform: `rotate(${-frame * 0.28}deg) scale(${1 + Math.cos(frame * 0.045) * 0.11})`,
+          zIndex: 0,
+        }}
+      />
+      {/* Bottom right square */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '15%',
+          right: '5%',
+          width: 100,
+          height: 100,
+          border: `3px solid ${style.primary || '#667eea'}`,
+          opacity: interpolate(frame, [0, 60, 120], [0.06, 0.12, 0.06], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          transform: `rotate(${-frame * 0.25}deg) scale(${1 + Math.cos(frame * 0.04) * 0.1})`,
+          zIndex: 0,
+        }}
+      />
+      {/* Center top small square */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '10%',
+          left: '50%',
+          width: 70,
+          height: 70,
+          border: `2px solid ${style.accent || '#f093fb'}`,
+          opacity: interpolate(frame, [0, 60, 120], [0.04, 0.09, 0.04], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          transform: `translateX(-50%) rotate(${45 - frame * 0.32}deg) scale(${1 + Math.sin(frame * 0.06) * 0.13})`,
+          zIndex: 0,
+        }}
+      />
+      {/* Center bottom small square */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '12%',
+          left: '50%',
+          width: 65,
+          height: 65,
+          border: `2px solid ${style.secondary || '#764ba2'}`,
+          opacity: interpolate(frame, [0, 60, 120], [0.04, 0.08, 0.04], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          transform: `translateX(-50%) rotate(${frame * 0.27}deg) scale(${1 + Math.cos(frame * 0.055) * 0.12})`,
+          zIndex: 0,
+        }}
+      />
+      
       {/* Title - Clean and bold */}
       {content.title && (
         <div
@@ -320,19 +818,23 @@ export const FeatureListScene: React.FC<{content: any; style: ColorScheme}> = ({
             opacity: titleOpacity,
             WebkitFontSmoothing: 'antialiased',
             MozOsxFontSmoothing: 'grayscale',
+            position: 'relative',
+            zIndex: 1,
           }}
         >
           {content.title}
         </div>
       )}
       
-      {/* Features List - Clean cards */}
+      {/* Features List - 2 per row grid layout */}
       <div style={{
-        display: 'flex', 
-        flexDirection: 'column', 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(2, 1fr)', 
         gap: 32,
         maxWidth: width * 0.8,
         margin: '0 auto',
+        position: 'relative',
+        zIndex: 1,
       }}>
         {features.map((feature: any, i: number) => {
           // Smooth staggered entrance - slide in only (no scale glitch)
@@ -367,14 +869,14 @@ export const FeatureListScene: React.FC<{content: any; style: ColorScheme}> = ({
                 transform: `translateY(${translateY}px)`,
                 display: 'flex',
                 alignItems: 'center',
-                gap: 40,
-                padding: '48px 56px',
+                gap: 32,
+                padding: '36px 40px', // Reduced padding for 2-column layout
                 background: style.base100 || '#fff',
                 borderRadius: 16,
                 border: `1px solid ${style.base300 || '#e5e5e5'}`,
               }}
             >
-              {/* Icon Container - Solid color circle */}
+              {/* Icon Container - Border only circle */}
               {feature.icon && (
                 <div
                   style={{
@@ -384,7 +886,7 @@ export const FeatureListScene: React.FC<{content: any; style: ColorScheme}> = ({
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    background: style.primary || '#4b6bfb',
+                    border: `3px solid ${style.primary || '#4b6bfb'}`,
                     borderRadius: '50%',
                     flexShrink: 0,
                   }}
@@ -430,80 +932,246 @@ export const FeatureListScene: React.FC<{content: any; style: ColorScheme}> = ({
   );
 };
 
-// Call to Action Scene
+// Call to Action Scene - Clean Apple-style Design (DESIGN.md compliant)
 export const CTAScene: React.FC<{content: any; style: ColorScheme}> = ({content, style}) => {
   const frame = useCurrentFrame();
-  const {fps} = useVideoConfig();
+  const {fps, width, height} = useVideoConfig();
   
-  const buttonScale = spring({
-    fps,
-    frame: frame - 10,
-    config: {
-      damping: 10,
-      mass: 0.5,
-      stiffness: 100,
-    },
+  // Responsive sizing
+  const baseFontSize = width >= 3840 ? 1 : width >= 1920 ? 0.8 : 0.6;
+  const titleSize = (content.titleSize || 96) * baseFontSize;
+  const descSize = 40 * baseFontSize;
+  const buttonSize = 44 * baseFontSize;
+  const urgencySize = 32 * baseFontSize;
+  
+  // Smooth animations - no glitchy pulse
+  const titleOpacity = interpolate(frame, [0, 20], [0, 1], {
+    extrapolateRight: 'clamp',
+    easing: Easing.out(Easing.ease)
   });
-
-  const pulse = Math.sin(frame * 0.1) * 0.05 + 1;
+  
+  const descOpacity = interpolate(frame, [10, 30], [0, 1], {
+    extrapolateRight: 'clamp',
+    easing: Easing.out(Easing.ease)
+  });
+  
+  const buttonOpacity = interpolate(frame, [20, 40], [0, 1], {
+    extrapolateRight: 'clamp',
+    easing: Easing.out(Easing.ease)
+  });
+  
+  const buttonY = interpolate(frame, [20, 40], [20, 0], {
+    extrapolateRight: 'clamp',
+    easing: Easing.out(Easing.ease)
+  });
 
   return (
     <AbsoluteFill
       style={{
-        background: style.base100 || "#fff",
+        background: style.base100 || '#fff',
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',
-        padding: '60px',
+        padding: '100px 80px',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif',
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
+      {/* Flowing horizontal lines background */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: `repeating-linear-gradient(0deg, ${style.baseContent || '#000'} 0, ${style.baseContent || '#000'} 1px, transparent 0, transparent 60px)`,
+          backgroundPosition: `0 ${frame * 0.2}px`,
+          opacity: interpolate(frame, [0, 60, 120], [0.025, 0.04, 0.025], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          zIndex: 0,
+        }}
+      />
+      {/* Multiple animated squares - top left */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '15%',
+          left: '5%',
+          width: 120,
+          height: 120,
+          border: `3px solid ${style.primary || '#667eea'}`,
+          opacity: interpolate(frame, [0, 60, 120], [0.06, 0.12, 0.06], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          transform: `rotate(${frame * 0.3}deg) scale(${1 + Math.sin(frame * 0.04) * 0.1})`,
+          zIndex: 0,
+        }}
+      />
+      {/* Top right square */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '20%',
+          right: '8%',
+          width: 90,
+          height: 90,
+          border: `3px solid ${style.secondary || '#764ba2'}`,
+          opacity: interpolate(frame, [0, 60, 120], [0.05, 0.10, 0.05], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          transform: `rotate(${45 + frame * 0.35}deg) scale(${1 + Math.sin(frame * 0.05) * 0.12})`,
+          zIndex: 0,
+        }}
+      />
+      {/* Bottom left square */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '18%',
+          left: '8%',
+          width: 80,
+          height: 80,
+          border: `3px solid ${style.accent || '#f093fb'}`,
+          opacity: interpolate(frame, [0, 60, 120], [0.05, 0.11, 0.05], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          transform: `rotate(${-frame * 0.28}deg) scale(${1 + Math.cos(frame * 0.045) * 0.11})`,
+          zIndex: 0,
+        }}
+      />
+      {/* Bottom right square */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '15%',
+          right: '5%',
+          width: 100,
+          height: 100,
+          border: `3px solid ${style.primary || '#667eea'}`,
+          opacity: interpolate(frame, [0, 60, 120], [0.06, 0.12, 0.06], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          transform: `rotate(${-frame * 0.25}deg) scale(${1 + Math.cos(frame * 0.04) * 0.1})`,
+          zIndex: 0,
+        }}
+      />
+      {/* Center top small square */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '10%',
+          left: '50%',
+          width: 70,
+          height: 70,
+          border: `2px solid ${style.accent || '#f093fb'}`,
+          opacity: interpolate(frame, [0, 60, 120], [0.04, 0.09, 0.04], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          transform: `translateX(-50%) rotate(${45 - frame * 0.32}deg) scale(${1 + Math.sin(frame * 0.06) * 0.13})`,
+          zIndex: 0,
+        }}
+      />
+      {/* Center bottom small square */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '12%',
+          left: '50%',
+          width: 65,
+          height: 65,
+          border: `2px solid ${style.secondary || '#764ba2'}`,
+          opacity: interpolate(frame, [0, 60, 120], [0.04, 0.08, 0.04], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          transform: `translateX(-50%) rotate(${frame * 0.27}deg) scale(${1 + Math.cos(frame * 0.055) * 0.12})`,
+          zIndex: 0,
+        }}
+      />
+      
+      {/* Title - Bold and impactful */}
       {content.title && (
         <div
           style={{
-            fontSize: content.titleSize || 70,
-            color: style.baseContent || "#000",
-            marginBottom: 30,
-            fontWeight: 'bold',
+            fontSize: titleSize,
+            color: style.baseContent || '#000',
+            marginBottom: 40,
+            fontWeight: 900,
             textAlign: 'center',
+            letterSpacing: -3.5,
+            opacity: titleOpacity,
+            maxWidth: '90%',
+            WebkitFontSmoothing: 'antialiased',
+            MozOsxFontSmoothing: 'grayscale',
+            position: 'relative',
+            zIndex: 1,
           }}
         >
           {content.title}
         </div>
       )}
+      
+      {/* Description - Clean and readable */}
       {content.description && (
         <div
           style={{
-            fontSize: 28,
-            color: style.baseContent || "#000",
-            marginBottom: 50,
+            fontSize: descSize,
+            color: style.neutral || '#666',
+            marginBottom: 60,
             textAlign: 'center',
-            maxWidth: '80%',
+            maxWidth: '75%',
+            lineHeight: 1.5,
+            fontWeight: 400,
+            opacity: descOpacity,
+            letterSpacing: -0.5,
+            position: 'relative',
+            zIndex: 1,
           }}
         >
           {content.description}
         </div>
       )}
+      
+      {/* CTA Button - Solid primary color, no shadows */}
       <div
         style={{
-          transform: `scale(${buttonScale * pulse})`,
-          background: content.buttonColor || style.accent || style.primary,
-          color: style.baseContent || "#000",
-          padding: '30px 60px',
-          fontSize: 36,
-          fontWeight: 'bold',
-          borderRadius: style.borderRadius * 2,
-          boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
+          opacity: buttonOpacity,
+          transform: `translateY(${buttonY}px)`,
+          background: style.primary || '#4b6bfb',
+          color: style.primaryContent || '#fff',
+          padding: `${32 * baseFontSize}px ${64 * baseFontSize}px`,
+          fontSize: buttonSize,
+          fontWeight: 700,
+          borderRadius: 12,
+          textAlign: 'center',
+          letterSpacing: -0.5,
+          WebkitFontSmoothing: 'antialiased',
+          MozOsxFontSmoothing: 'grayscale',
+          position: 'relative',
+          zIndex: 1,
         }}
       >
         {content.buttonText || 'Get Started'}
       </div>
+      
+      {/* Urgency text - Subtle */}
       {content.urgency && (
         <div
           style={{
-            marginTop: 30,
-            fontSize: 24,
-            color: style.baseContent || "#000",
-            opacity: 0.9,
+            marginTop: 40,
+            fontSize: urgencySize,
+            color: style.neutral || '#666',
+            opacity: buttonOpacity * 0.8,
+            textAlign: 'center',
+            fontWeight: 500,
+            position: 'relative',
+            zIndex: 1,
           }}
         >
           {content.urgency}

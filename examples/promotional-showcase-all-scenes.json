@@ -1,0 +1,316 @@
+{
+  "title": "Complete Promotional Showcase - All Scenes",
+  "type": "promotional",
+  "theme": "corporate",
+  "music": {
+    "enabled": false
+  },
+  "scenes": [
+    {
+      "type": "brand-watermark",
+      "duration": 3,
+      "content": {
+        "logo": "https://fabrikbrands.com/wp-content/uploads/Apple-Logo-History-1-1155x770.png",
+        "companyName": "Your Brand",
+        "tagline": "Innovation Simplified"
+      }
+    },
+    {
+      "type": "hero-title",
+      "duration": 5,
+      "content": {
+        "title": "Transform Your **Business** with ***Innovation***",
+        "subtitle": "Join ****10,000+**** successful companies"
+      }
+    },
+    {
+      "type": "minimal-title",
+      "duration": 4,
+      "content": {
+        "title": "Simple. Powerful. Effective.",
+        "subtitle": "Everything you need, nothing you don't"
+      }
+    },
+    {
+      "type": "product-showcase",
+      "duration": 6,
+      "content": {
+        "title": "See It In Action",
+        "images": [
+          "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=800",
+          "https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=800",
+          "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=800"
+        ],
+        "captions": [
+          "Beautiful, intuitive interface",
+          "Powerful features at your fingertips",
+          "Works seamlessly across all devices"
+        ],
+        "fitMode": "contain"
+      }
+    },
+    {
+      "type": "feature-list",
+      "duration": 6,
+      "content": {
+        "title": "Key Features",
+        "features": [
+          {
+            "icon": "⚡",
+            "title": "Lightning Fast",
+            "text": "Blazing fast performance that scales with your needs"
+          },
+          {
+            "icon": "🔒",
+            "title": "Bank-Level Security",
+            "text": "Your data is protected with enterprise-grade encryption"
+          },
+          {
+            "icon": "🌐",
+            "title": "Global Reach",
+            "text": "Available in 150+ countries and 40+ languages"
+          },
+          {
+            "icon": "🚀",
+            "title": "Easy Integration",
+            "text": "Get started in minutes with our simple setup process"
+          }
+        ]
+      }
+    },
+    {
+      "type": "split-screen",
+      "duration": 5,
+      "content": {
+        "leftTitle": "Before",
+        "leftText": "Manual processes, wasted time, frustrated teams",
+        "rightTitle": "After",
+        "rightText": "Automated workflows, increased productivity, happy teams",
+        "leftImage": "https://images.pexels.com/photos/3791137/pexels-photo-3791137.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=600&h=800",
+        "rightImage": "https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=600&h=800"
+      }
+    },
+    {
+      "type": "stats-dashboard",
+      "duration": 5,
+      "content": {
+        "title": "Trusted by Industry Leaders",
+        "stats": [
+          {
+            "value": "10,000+",
+            "label": "Active Users",
+            "icon": "👥"
+          },
+          {
+            "value": "99.9%",
+            "label": "Uptime",
+            "icon": "⚡"
+          },
+          {
+            "value": "4.9/5",
+            "label": "Customer Rating",
+            "icon": "⭐"
+          },
+          {
+            "value": "24/7",
+            "label": "Support",
+            "icon": "💬"
+          }
+        ]
+      }
+    },
+    {
+      "type": "testimonial",
+      "duration": 5,
+      "content": {
+        "quote": "This product completely transformed how we work. Our productivity increased by 300% in just the first month!",
+        "author": "Sarah Johnson",
+        "role": "CEO, TechCorp",
+        "avatar": "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=150&h=150",
+        "rating": 5
+      }
+    },
+    {
+      "type": "timeline",
+      "duration": 6,
+      "content": {
+        "title": "Our Journey",
+        "events": [
+          {
+            "year": "2020",
+            "title": "Founded",
+            "description": "Started with a vision to simplify business operations"
+          },
+          {
+            "year": "2021",
+            "title": "First 1K Users",
+            "description": "Reached our first major milestone"
+          },
+          {
+            "year": "2022",
+            "title": "Series A Funding",
+            "description": "Raised $10M to accelerate growth"
+          },
+          {
+            "year": "2023",
+            "title": "Global Expansion",
+            "description": "Launched in 50+ countries worldwide"
+          }
+        ]
+      }
+    },
+    {
+      "type": "pricing-cards",
+      "duration": 6,
+      "content": {
+        "title": "Choose Your Plan",
+        "plans": [
+          {
+            "name": "Starter",
+            "price": "$29",
+            "period": "/month",
+            "features": [
+              "Up to 10 users",
+              "5GB storage",
+              "Email support",
+              "Basic analytics"
+            ],
+            "highlighted": false
+          },
+          {
+            "name": "Professional",
+            "price": "$99",
+            "period": "/month",
+            "features": [
+              "Up to 50 users",
+              "50GB storage",
+              "Priority support",
+              "Advanced analytics",
+              "Custom integrations"
+            ],
+            "highlighted": true
+          },
+          {
+            "name": "Enterprise",
+            "price": "Custom",
+            "period": "",
+            "features": [
+              "Unlimited users",
+              "Unlimited storage",
+              "24/7 phone support",
+              "Dedicated account manager",
+              "Custom development"
+            ],
+            "highlighted": false
+          }
+        ]
+      }
+    },
+    {
+      "type": "icon-grid",
+      "duration": 5,
+      "content": {
+        "title": "Everything You Need",
+        "items": [
+          {
+            "icon": "📊",
+            "label": "Analytics"
+          },
+          {
+            "icon": "🔔",
+            "label": "Notifications"
+          },
+          {
+            "icon": "🔐",
+            "label": "Security"
+          },
+          {
+            "icon": "📱",
+            "label": "Mobile App"
+          },
+          {
+            "icon": "🌍",
+            "label": "Multi-Language"
+          },
+          {
+            "icon": "⚙️",
+            "label": "Customizable"
+          },
+          {
+            "icon": "🔄",
+            "label": "Auto-Sync"
+          },
+          {
+            "icon": "💾",
+            "label": "Cloud Backup"
+          }
+        ]
+      }
+    },
+    {
+      "type": "product-matrix",
+      "duration": 5,
+      "content": {
+        "title": "Product Comparison",
+        "headers": ["Feature", "Basic", "Pro", "Enterprise"],
+        "rows": [
+          ["Users", "10", "50", "Unlimited"],
+          ["Storage", "5GB", "50GB", "Unlimited"],
+          ["Support", "Email", "Priority", "24/7 Phone"],
+          ["Analytics", "Basic", "Advanced", "Custom"],
+          ["API Access", "❌", "✅", "✅"],
+          ["Custom Branding", "❌", "❌", "✅"]
+        ]
+      }
+    },
+    {
+      "type": "process-flow",
+      "duration": 6,
+      "content": {
+        "title": "How It Works",
+        "steps": [
+          {
+            "number": 1,
+            "title": "Sign Up",
+            "description": "Create your account in 60 seconds"
+          },
+          {
+            "number": 2,
+            "title": "Configure",
+            "description": "Customize settings to match your workflow"
+          },
+          {
+            "number": 3,
+            "title": "Integrate",
+            "description": "Connect your existing tools seamlessly"
+          },
+          {
+            "number": 4,
+            "title": "Launch",
+            "description": "Start seeing results immediately"
+          }
+        ]
+      }
+    },
+    {
+      "type": "countdown",
+      "duration": 4,
+      "content": {
+        "title": "Limited Time Offer",
+        "subtitle": "Special launch pricing ends in:",
+        "targetDate": "2024-12-31T23:59:59",
+        "urgencyText": "Don't miss out on 50% OFF!"
+      }
+    },
+    {
+      "type": "cta",
+      "duration": 4,
+      "content": {
+        "title": "Ready to Get Started?",
+        "description": "Join thousands of successful companies today",
+        "buttonText": "Start Free Trial",
+        "urgency": "No credit card required • 14-day free trial"
+      }
+    }
+  ]
+}

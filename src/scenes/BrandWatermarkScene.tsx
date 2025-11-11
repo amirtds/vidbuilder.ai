@@ -106,12 +106,65 @@ export const BrandWatermarkScene: React.FC<{
   return (
     <AbsoluteFill
       style={{
-        background: `linear-gradient(135deg, ${style.base100 || '#fff'} 0%, ${style.base200 || '#f5f5f5'} 100%)`,
+        background: style.base100 || '#fff',
         justifyContent: 'center',
         alignItems: 'center',
         fontFamily: style.fontFamily || 'SF Pro Display, -apple-system, BlinkMacSystemFont, sans-serif',
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
+      {/* Animated elegant background pattern */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: `radial-gradient(circle, ${style.baseContent || '#000'} 1.2px, transparent 1.2px)`,
+          backgroundSize: '42px 42px',
+          backgroundPosition: `${Math.sin(frame * 0.012) * 8}px ${Math.cos(frame * 0.012) * 8}px`,
+          opacity: interpolate(frame, [0, 60, 120], [0.018, 0.035, 0.018], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          zIndex: 0,
+        }}
+      />
+      {/* Animated corner accents */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '12%',
+          right: '10%',
+          width: 170,
+          height: 170,
+          border: `3px solid ${style.primary || '#4b6bfb'}`,
+          borderRadius: '50%',
+          opacity: interpolate(frame, [0, 60, 120], [0.045, 0.09, 0.045], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          transform: `rotate(${frame * 0.26}deg) scale(${1 + Math.sin(frame * 0.048) * 0.085})`,
+          zIndex: 0,
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '12%',
+          left: '10%',
+          width: 135,
+          height: 135,
+          border: `3px solid ${style.secondary || '#667eea'}`,
+          borderRadius: '50%',
+          opacity: interpolate(frame, [0, 60, 120], [0.045, 0.09, 0.045], {
+            extrapolateRight: 'clamp',
+            easing: Easing.inOut(Easing.ease),
+          }),
+          transform: `rotate(${-frame * 0.21}deg) scale(${1 + Math.cos(frame * 0.048) * 0.085})`,
+          zIndex: 0,
+        }}
+      />
+      
       {/* Typing Sound Effect - LOUDER and more audible */}
       {isTyping && (
         <Audio
@@ -132,6 +185,7 @@ export const BrandWatermarkScene: React.FC<{
             opacity: logoOpacity,
             filter: 'drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15))',
             transition: 'filter 0.3s ease',
+            zIndex: 1,
           }}
         >
           <Img
@@ -145,7 +199,7 @@ export const BrandWatermarkScene: React.FC<{
         </div>
       )}
 
-      {/* Company Name - Professional with gradient and glow */}
+      {/* Company Name - Professional with solid color */}
       {frame >= companyStartFrame && (
         <div
           style={{
@@ -157,16 +211,13 @@ export const BrandWatermarkScene: React.FC<{
             fontWeight: 800,
             textAlign: 'center',
             opacity: companyOpacity,
-            background: `linear-gradient(135deg, ${style.primary || '#4b6bfb'} 0%, ${style.secondary || '#667eea'} 100%)`,
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
+            color: style.primary || '#4b6bfb',
             letterSpacing: -2,
-            textShadow: `0 0 40px ${style.primary || '#4b6bfb'}40`,
             WebkitFontSmoothing: 'antialiased',
             MozOsxFontSmoothing: 'grayscale',
             whiteSpace: 'nowrap',
             filter: 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1))',
+            zIndex: 1,
           }}
         >
           {getTypedText({
@@ -192,6 +243,7 @@ export const BrandWatermarkScene: React.FC<{
             letterSpacing: 1,
             textTransform: 'uppercase',
             whiteSpace: 'nowrap',
+            zIndex: 1,
           }}
         >
           {content.tagline}
