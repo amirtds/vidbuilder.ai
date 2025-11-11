@@ -401,11 +401,15 @@ app.post('/api/generate-flexible-video', upload.array('images', 20), async (req,
     const fps = videoConfig.fps || 30;
     const durationInFrames = Math.floor(totalDuration * fps);
     
-    // Output path for the video
-    const outputPath = path.join(__dirname, 'output', `${jobId}.mp4`);
+    // Check if user wants Instagram Reels version
+    const generateReels = videoConfig.generateReels === true;
     
-    // Render the video
-    console.log(`Rendering flexible video (${totalDuration} seconds)...`);
+    // Output paths
+    const outputPath = path.join(__dirname, 'output', `${jobId}.mp4`);
+    const reelsOutputPath = generateReels ? path.join(__dirname, 'output', `${jobId}_reels.mp4`) : null;
+    
+    // Render standard video
+    console.log(`Rendering standard video (${totalDuration} seconds)...`);
     await renderMedia({
       composition: {
         ...composition,
@@ -421,11 +425,54 @@ app.post('/api/generate-flexible-video', upload.array('images', 20), async (req,
       encodingMaxRate: '25M',
       encodingBufferSize: '50M',
       onProgress: ({ progress }) => {
-        console.log(`Rendering progress: ${Math.round(progress * 100)}%`);
+        console.log(`Standard video rendering: ${Math.round(progress * 100)}%`);
       },
     });
     
-    console.log(`Flexible video generated successfully: ${outputPath}`);
+    console.log(`✅ Standard video generated: ${outputPath}`);
+    
+    // Render Instagram Reels version if requested
+    if (generateReels) {
+      console.log(`\n📱 Rendering Instagram Reels version (1080x1920)...`);
+      
+      // Get Reels composition with vertical dimensions
+      const reelsComposition = await selectComposition({
+        serveUrl: bundleLocation,
+        id: compositionId,
+        inputProps: {
+          ...videoConfig,
+          width: 1080,
+          height: 1920,
+        },
+      });
+      
+      await renderMedia({
+        composition: {
+          ...reelsComposition,
+          width: 1080,
+          height: 1920,
+          durationInFrames,
+        },
+        serveUrl: bundleLocation,
+        codec: 'h264',
+        outputLocation: reelsOutputPath,
+        inputProps: {
+          ...videoConfig,
+          width: 1080,
+          height: 1920,
+        },
+        // Instagram Reels optimized settings
+        videoBitrate: '8M', // 8 Mbps for Reels
+        pixelFormat: 'yuv420p',
+        encodingMaxRate: '10M',
+        encodingBufferSize: '20M',
+        onProgress: ({ progress }) => {
+          console.log(`Reels video rendering: ${Math.round(progress * 100)}%`);
+        },
+      });
+      
+      console.log(`✅ Instagram Reels video generated: ${reelsOutputPath}`);
+    }
     
     // Clean up temporary files after a delay
     setTimeout(async () => {
@@ -439,16 +486,26 @@ app.post('/api/generate-flexible-video', upload.array('images', 20), async (req,
       console.log('Temporary files cleaned up');
     }, 2000);
     
-    res.json({
+    const response = {
       success: true,
       jobId,
-      message: 'Flexible video generated successfully',
+      message: generateReels 
+        ? 'Standard and Instagram Reels videos generated successfully' 
+        : 'Video generated successfully',
       videoUrl: `/api/download/${jobId}`,
       duration: totalDuration,
       title: videoConfig.title || 'Untitled',
       type: videoConfig.type || 'promotional',
       scenes: videoConfig.scenes.length
-    });
+    };
+    
+    // Add Reels URL if generated
+    if (generateReels) {
+      response.reelsVideoUrl = `/api/download/${jobId}_reels`;
+      response.reelsGenerated = true;
+    }
+    
+    res.json(response);
     
   } catch (error) {
     console.error('Error generating flexible video:', error);

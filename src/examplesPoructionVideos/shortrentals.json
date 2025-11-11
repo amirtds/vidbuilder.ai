@@ -1,0 +1,182 @@
+{
+  "title": "Sitebuilder.ai Promo",
+  "type": "promotional",
+  "theme": "corporate",
+  "music": {
+    "enabled": true,
+    "trackId": "track-3",
+    "volume": 0.35,
+    "fadeIn": 2,
+    "fadeOut": 3
+  },
+  "scenes": [
+    {
+      "type": "brand-watermark",
+      "duration": 3,
+      "content": {
+        "logo": "https://res.cloudinary.com/dn3cywkpn/image/upload/c_limit,w_256/f_auto/q_auto/v1/courseCovers/hzyxjxmy7n5cbgzczbdu?_a=BAVAZGGf0",
+        "companyName": "ShortRentals AI",
+        "tagline": ""
+      }
+    },
+    {
+      "type": "hero-title",
+      "duration": 12,
+      "content": {
+        "title": "Maximize Your **Airbnb Revenue**",
+        "subtitle": "AI-powered insights that boost bookings, increase revenue, and spot issues before they cost you",
+        "fontSize": 96,
+        "fontWeight": 900
+      }
+    },
+    {
+      "type": "product-showcase",
+      "duration": 24,
+      "content": {
+        "title": "Product Preview",
+        "fitMode": "contain",
+        "images": [
+            "https://res.cloudinary.com/dn3cywkpn/image/upload/v1762886022/Screenshot_2025-11-11_at_1.31.20_PM_nvqajy.png",
+            "https://res.cloudinary.com/dn3cywkpn/image/upload/v1762886021/Screenshot_2025-11-11_at_1.32.00_PM_svxejw.png",
+            "https://res.cloudinary.com/dn3cywkpn/image/upload/v1762886021/Screenshot_2025-11-11_at_1.32.15_PM_dly8d4.png",
+            "https://res.cloudinary.com/dn3cywkpn/image/upload/v1762886021/Screenshot_2025-11-11_at_1.32.21_PM_if0akd.png",
+            "https://res.cloudinary.com/dn3cywkpn/image/upload/v1762886021/Screenshot_2025-11-11_at_1.32.26_PM_y0rbqv.png",
+            "https://res.cloudinary.com/dn3cywkpn/image/upload/v1762886021/Screenshot_2025-11-11_at_1.32.30_PM_thbtlv.png",
+            "https://res.cloudinary.com/dn3cywkpn/image/upload/v1762886021/Screenshot_2025-11-11_at_1.32.39_PM_a71m4s.png",
+            "https://res.cloudinary.com/dn3cywkpn/image/upload/v1762886021/Screenshot_2025-11-11_at_1.32.43_PM_typ88i.png"
+        ],
+        "captions": [
+          "Enter Your Airbnb Listing URL",
+          "Report Generated",
+          "SEO Analysis",
+          "Reviews Analysis",
+          "Amenities Analysis",
+          "Rules Analysis",
+          "Actionable Insights",
+          "Sharable Report"
+        ]
+      }
+    },
+    {
+      "type": "stats-dashboard",
+      "duration": 4,
+      "content": {
+        "title": "Data-Proven Results for Hosts",
+        "stats": [
+          {
+            "value": "42%",
+            "suffix": "↑",
+            "label": "Average booking rate increase"
+          },
+          {
+            "value": "200+",
+            "suffix": "",
+            "label": "Hosts already optimizing with AI"
+          }
+        ]
+      }
+    },
+    {
+      "type": "timeline",
+      "duration": 7,
+      "content": {
+        "title": "Roadmap: Available Now & Launching Soon",
+        "events": [
+          {
+            "date": "Available Now",
+            "title": "Listing Analyzer",
+            "description": "Free AI-powered tool delivering instant optimization insights for every listing."
+          },
+          {
+            "date": "Q1 2026",
+            "title": "AI Guest Newsletters",
+            "description": "Automated email campaigns that drive repeat bookings on autopilot."
+          },
+          {
+            "date": "Q1 2026",
+            "title": "Guest Email Capture",
+            "description": "Collect guest emails via WiFi portals and custom forms."
+          },
+          {
+            "date": "Q1 2026",
+            "title": "Automated Messaging",
+            "description": "Smart guest communication workflows that answer before they ask."
+          }
+        ]
+      }
+    },
+    {
+      "type": "pricing-cards",
+      "duration": 7,
+      "content": {
+        "title": "Limited-Time Offer",
+        "plans": [
+          {
+            "name": "Complete Listing Analysis",
+            "badge": "SPECIAL OFFER",
+            "price": "$9.99",
+            "period": "$29.99 value • 67% off",
+            "billingInfo": "",
+            "features": [
+              "AI-powered SEO analysis",
+              "Photo quality assessment",
+              "Pricing recommendations",
+              "Amenities optimization",
+              "Competitor insights",
+              "Actionable to-do list",
+              "Detailed performance score"
+            ],
+            "highlighted": true
+          }
+        ],
+        "finePrint": "Instant access • Airbnb AI Agent • ~200+ hosts analyzed • Average 28% revenue boost • Results in 5 minutes"
+      }
+    },
+    {
+      "type": "testimonial",
+      "duration": 6,
+      "content": {
+        "title": "Loved by Hosts Worldwide",
+        "quote": "\"The analyzer found 3 simple fixes across my listings. Made changes in an hour and inquiries jumped the same week.\"",
+        "author": "Alex",
+        "role": "Host • Seattle, WA",
+        "highlight": "+28% Revenue Increase"
+      }
+    },
+    {
+      "type": "process-flow",
+      "duration": 4,
+      "content": {
+        "title": "Built by Hosts. For Hosts.",
+        "steps": [
+          {
+            "number": 1,
+            "title": "Built from experience",
+            "description": "We’re hosts who scaled with AI and now share the playbook with fellow hosts."
+          },
+          {
+            "number": 2,
+            "title": "100+ listings analyzed",
+            "description": "We studied what actually moves the needle—then baked it into every recommendation."
+          },
+          {
+            "number": 3,
+            "title": "42% average lift",
+            "description": "Users see major booking and revenue gains with actionable AI insights."
+          }
+        ]
+      }
+    },
+    {
+      "type": "cta",
+      "duration": 6,
+      "content": {
+        "title": "Ready to Boost Your Airbnb Revenue?",
+        "description": "Join hundreds of hosts using AI-powered insights to maximize bookings and automate their rental business.",
+        "buttonText": "Get My Analysis – $9.99",
+        "buttonSubtext": "67% OFF • Instant Results • Airbnb AI Agent",
+        "urgency": "Visit https://shortrentals.ai"
+      }
+    }
+  ]
+}

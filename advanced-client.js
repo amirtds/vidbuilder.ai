@@ -1597,6 +1597,10 @@ async function generateVideo() {
         };
     }
     
+    // Update Instagram Reels configuration
+    const generateReels = document.getElementById('generate-reels').checked;
+    currentConfig.generateReels = generateReels;
+    
     // Validate configuration
     if (currentConfig.scenes.length === 0) {
         alert('Please add at least one scene before generating the video.');
@@ -1628,15 +1632,30 @@ async function generateVideo() {
         
         if (response.ok && result.success) {
             statusDiv.className = 'status success show';
+            
+            let downloadButtons = `
+                <a href="${API_URL}${result.videoUrl}" class="btn" download style="margin-top: 15px; display: inline-block; margin-right: 10px;">
+                    📥 Download Standard Video (16:9)
+                </a>
+            `;
+            
+            // Add Reels download button if generated
+            if (result.reelsGenerated && result.reelsVideoUrl) {
+                downloadButtons += `
+                    <a href="${API_URL}${result.reelsVideoUrl}" class="btn" download style="margin-top: 15px; display: inline-block; background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);">
+                        📱 Download Instagram Reels (9:16)
+                    </a>
+                `;
+            }
+            
             statusDiv.innerHTML = `
-                <h3>✅ Video Generated Successfully!</h3>
+                <h3>✅ ${result.message}</h3>
                 <p><strong>Job ID:</strong> ${result.jobId}</p>
                 <p><strong>Duration:</strong> ${result.duration} seconds</p>
                 <p><strong>Type:</strong> ${result.type}</p>
                 <p><strong>Scenes:</strong> ${result.scenes}</p>
-                <a href="${API_URL}${result.videoUrl}" class="btn" download style="margin-top: 15px; display: inline-block;">
-                    📥 Download Video
-                </a>
+                ${result.reelsGenerated ? '<p><strong>Formats:</strong> Standard (16:9) + Instagram Reels (9:16)</p>' : ''}
+                ${downloadButtons}
             `;
         } else {
             throw new Error(result.error || 'Failed to generate video');
@@ -1781,6 +1800,15 @@ window.addEventListener('DOMContentLoaded', () => {
                 currentConfig.music.trackId = this.value;
                 updateJSONEditor();
             }
+        });
+    }
+    
+    // Setup Instagram Reels toggle
+    const generateReels = document.getElementById('generate-reels');
+    if (generateReels) {
+        generateReels.addEventListener('change', function() {
+            currentConfig.generateReels = this.checked;
+            updateJSONEditor();
         });
     }
     

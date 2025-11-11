@@ -1,0 +1,252 @@
+{
+  "title": "Review Removal AI - Stop Losing Revenue",
+  "type": "promotional",
+  "theme": "corporate",
+  "generateReels": true,
+  "music": {
+    "enabled": true,
+    "trackId": "track-2",
+    "volume": 0.35,
+    "fadeIn": 2,
+    "fadeOut": 3
+  },
+  "scenes": [
+    {
+      "type": "brand-watermark",
+      "duration": 3,
+      "content": {
+        "logo": "https://res.cloudinary.com/dn3cywkpn/image/upload/c_limit,w_256/f_auto/q_auto/v1/courseCovers/hzyxjxmy7n5cbgzczbdu?_a=BAVAZGGf0",
+        "companyName": "ShortRentals AI",
+        "tagline": ""
+      }
+    },
+    {
+      "type": "hero-title",
+      "duration": 14,
+      "content": {
+        "title": "One Bad Review Can Cost You ***$4,800 Per Year***",
+        "subtitle": "AI-powered analysis that identifies policy violations and builds your removal case in minutes",
+        "fontSize": 88,
+        "fontWeight": 900
+      }
+    },
+    {
+      "type": "stats-dashboard",
+      "duration": 6,
+      "content": {
+        "title": "The Real Cost of One Bad Review",
+        "stats": [
+          {
+            "value": "10-30",
+            "suffix": "%",
+            "label": "Booking rate drop"
+          },
+          {
+            "value": "$400",
+            "suffix": "USD",
+            "label": "Lost monthly revenue"
+          },
+          {
+            "value": "$4,800",
+            "suffix": "USD",
+            "label": "Lost yearly revenue"
+          }
+        ]
+      }
+    },
+    {
+      "type": "minimal-title",
+      "duration": 4,
+      "content": {
+        "title": "THE PROBLEM",
+        "subtitle": "Airbnb Changed Everything",
+        "description": "And most hosts don't know it"
+      }
+    },
+    {
+      "type": "feature-list",
+      "duration": 9,
+      "content": {
+        "title": "Why Manual Disputes Fail",
+        "features": [
+          {
+            "icon": "🤖",
+            "title": "AI-Powered Rejections",
+            "text": "Airbnb now uses automated AI to review disputes. Most legitimate appeals get rejected without a human ever seeing them."
+          },
+          {
+            "icon": "📉",
+            "title": "Low Success Rates",
+            "text": "Only 23% of manual disputes succeed. You need to know exactly how to phrase your case for Airbnb's AI system."
+          },
+          {
+            "icon": "💸",
+            "title": "The Cost of Waiting",
+            "text": "Lower search rankings, reduced bookings, damaged reputation. Average $400/month revenue loss per bad review."
+          }
+        ]
+      }
+    },
+    {
+      "type": "minimal-title",
+      "duration": 3,
+      "content": {
+        "title": "HOW IT WORKS",
+        "subtitle": "Four Simple Steps",
+        "description": "From analysis to removal. No legal expertise required."
+      }
+    },
+    {
+      "type": "process-flow",
+      "duration": 9,
+      "content": {
+        "title": "Your Path to Review Removal",
+        "steps": [
+          {
+            "number": 1,
+            "title": "Connect Your Listing",
+            "description": "Securely link your Airbnb listing. We instantly import your reviews for analysis."
+          },
+          {
+            "number": 2,
+            "title": "Flag the Review",
+            "description": "Select the problematic review. Our system identifies potential policy violations."
+          },
+          {
+            "number": 3,
+            "title": "AI Analysis",
+            "description": "Get a detailed eligibility report with removal probability and violation details."
+          },
+          {
+            "number": 4,
+            "title": "Automated Submission",
+            "description": "We draft and submit your dispute to Airbnb, optimized for their AI system."
+          }
+        ]
+      }
+    },
+        {
+      "type": "product-showcase",
+      "duration": 24,
+      "content": {
+        "title": "Product Preview",
+        "fitMode": "contain",
+        "images": [
+            "https://res.cloudinary.com/dn3cywkpn/image/upload/v1762893387/Screenshot_2025-11-11_at_3.33.04_PM_slbqda.png",
+            "https://res.cloudinary.com/dn3cywkpn/image/upload/v1762893386/Screenshot_2025-11-11_at_3.33.37_PM_agtgqp.png",
+            "https://res.cloudinary.com/dn3cywkpn/image/upload/v1762893386/Screenshot_2025-11-11_at_3.33.45_PM_de1hcf.png",
+            "https://res.cloudinary.com/dn3cywkpn/image/upload/v1762893386/Screenshot_2025-11-11_at_3.34.26_PM_qikykq.png",
+            "https://res.cloudinary.com/dn3cywkpn/image/upload/v1762893386/Screenshot_2025-11-11_at_3.34.40_PM_gxnl89.png",
+            "https://res.cloudinary.com/dn3cywkpn/image/upload/v1762893386/Screenshot_2025-11-11_at_3.35.14_PM_kegevy.png",
+            "https://res.cloudinary.com/dn3cywkpn/image/upload/v1762893386/Screenshot_2025-11-11_at_3.35.14_PM_kegevy.png",
+            "https://res.cloudinary.com/dn3cywkpn/image/upload/v1762893386/Screenshot_2025-11-11_at_3.36.07_PM_w4pgc5.png"
+        ],
+        "captions": [
+          "Dashboard",
+          "Enter Your Airbnb URL",
+          "Fetching Reviews",
+          "Flag the Review for Analysis",
+          "Evidance Gathering",
+          "Free AI Eligibility Check",
+          "Eligibility Report",
+          "Generate Removal Request"
+        ]
+      }
+    },
+    {
+      "type": "pricing-cards",
+      "duration": 8,
+      "content": {
+        "title": "Simple, Risk-Free Pricing",
+        "plans": [
+          {
+            "name": "100% Free Eligibility Check",
+            "badge": "67% OFF - LIMITED TIME",
+            "price": "$9.99",
+            "period": "was $29.99",
+            "billingInfo": "Pay only when AI confirms high eligibility",
+            "features": [
+              "AI-Powered Analysis",
+              "Advanced policy violation detection",
+              "Detailed removal case documentation",
+              "Step-by-step submission guide",
+              "Instant results in minutes",
+              "No credit card required",
+              "Pay only if eligible for removal"
+            ],
+            "highlighted": true
+          }
+        ],
+        "finePrint": "No upfront cost • Free eligibility check • Pay only when our AI confirms high removal probability"
+      }
+    },
+    {
+      "type": "feature-list",
+      "duration": 7,
+      "content": {
+        "title": "What You Get",
+        "features": [
+          {
+            "icon": "🎯",
+            "title": "AI-Powered Analysis",
+            "text": "Advanced detection of policy violations like discriminatory language, threats, or extortion."
+          },
+          {
+            "icon": "📋",
+            "title": "Detailed Report",
+            "text": "Complete removal case documentation with probability score and violation details."
+          },
+          {
+            "icon": "🚀",
+            "title": "Optimized Submission",
+            "text": "Dispute drafted specifically for Airbnb's AI review system for maximum success."
+          }
+        ]
+      }
+    },
+    {
+      "type": "testimonial",
+      "duration": 7,
+      "content": {
+        "title": "Success Stories",
+        "quote": "\"The AI found violations I completely missed. Got the review removed in 48 hours. My bookings are back to normal.\"",
+        "author": "Sarah M.",
+        "role": "Superhost • Miami, FL",
+        "highlight": "Review Removed in 48 Hours"
+      }
+    },
+    {
+      "type": "split-screen",
+      "duration": 6,
+      "content": {
+        "leftTitle": "Manual Disputes",
+        "leftPoints": [
+          "23% success rate",
+          "Takes hours to research",
+          "Easy to miss violations",
+          "Generic templates fail",
+          "No eligibility check"
+        ],
+        "rightTitle": "AI-Powered Analysis",
+        "rightPoints": [
+          "Optimized for Airbnb AI",
+          "Results in 5 minutes",
+          "Finds all violations",
+          "Custom-built case",
+          "Free eligibility first"
+        ]
+      }
+    },
+    {
+      "type": "cta",
+      "duration": 6,
+      "content": {
+        "title": "Protect Your Revenue Today",
+        "description": "Stop losing $400/month to unfair reviews. Get your free AI analysis now.",
+        "buttonText": "Get Free Analysis - $0",
+        "buttonSubtext": "No credit card required • Pay only if eligible • 67% OFF",
+        "urgency": "Visit reviewremoval.shortrentals.ai"
+      }
+    }
+  ]
+}

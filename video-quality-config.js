@@ -64,6 +64,30 @@ const QUALITY_PRESETS = {
     encodingBufferSize: '30M',
     pixelFormat: 'yuv420p',
     description: 'Full HD 60fps (1920x1080@60) - Smooth HD for web'
+  },
+  
+  // Instagram Reels - Vertical 9:16 format optimized for mobile
+  'reels': {
+    width: 1080,
+    height: 1920,
+    fps: 30,
+    videoBitrate: '8M',       // 8 Mbps - Instagram recommended
+    encodingMaxRate: '10M',
+    encodingBufferSize: '20M',
+    pixelFormat: 'yuv420p',
+    description: 'Instagram Reels (1080x1920) - Vertical 9:16 format for mobile'
+  },
+  
+  // Instagram Reels 4K - High quality vertical
+  'reels_4k': {
+    width: 2160,
+    height: 3840,
+    fps: 30,
+    videoBitrate: '15M',      // Higher bitrate for 4K vertical
+    encodingMaxRate: '18M',
+    encodingBufferSize: '36M',
+    pixelFormat: 'yuv420p',
+    description: 'Instagram Reels 4K (2160x3840) - High quality vertical 9:16'
   }
 };
 

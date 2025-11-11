@@ -1,0 +1,211 @@
+{
+  "title": "Launch Your Direct Booking Site",
+  "type": "promotional",
+  "theme": "shortrentals",
+  "music": {
+    "enabled": false
+  },
+  "scenes": [
+    {
+      "type": "brand-watermark",
+      "duration": 3,
+      "content": {
+        "logo": "https://res.cloudinary.com/dn3cywkpn/image/upload/c_limit,w_256/f_auto/q_auto/v1/courseCovers/hzyxjxmy7n5cbgzczbdu?_a=BAVAZGGf0",
+        "companyName": "ShortRentals AI",
+        "tagline": ""
+      }
+    },
+    {
+      "type": "minimal-title",
+      "duration": 3,
+      "content": {
+        "superTitle": "FOUNDER LAUNCH OFFER",
+        "title": "Launch Your Direct Booking Site in Minutes",
+        "subtitle": "Stop leaking margin to OTAs and keep 100% of every reservation"
+      }
+    },
+    {
+      "type": "hero-title",
+      "duration": 7,
+      "content": {
+        "title": "Turn your Airbnb listings into a ***direct booking website***",
+        "subtitle": "Hosts using Sitebuilder keep **18% more revenue**"
+      }
+    },
+    {
+      "type": "product-showcase",
+      "duration": 18,
+      "content": {
+        "title": "Product Walkthrough",
+        "description": "Watch the 90-second demo and see how hosts launch in under 10 minutes.",
+        "images": [
+          "https://res.cloudinary.com/dn3cywkpn/image/upload/v1762816926/Screenshot_2025-11-10_at_6.16.34_PM_fzdbgl.png",
+          "https://res.cloudinary.com/dn3cywkpn/image/upload/v1762816955/Screenshot_2025-11-10_at_6.17.01_PM_k8sobd.png",
+          "https://res.cloudinary.com/dn3cywkpn/image/upload/v1762817454/Screenshot_2025-11-10_at_6.30.38_PM_dnstlf.png",
+          "https://res.cloudinary.com/dn3cywkpn/image/upload/v1762877147/Screenshot_2025-11-11_at_11.05.37_AM_m5knx1.png",
+          "https://res.cloudinary.com/dn3cywkpn/image/upload/v1762817587/Screenshot_2025-11-10_at_6.32.23_PM_dvktkw.png",
+          "https://res.cloudinary.com/dn3cywkpn/image/upload/v1762817586/Screenshot_2025-11-10_at_6.32.56_PM_vxilti.png"
+        ],
+        "captions": [
+          "Enter your Airbnb listing URL",
+          "ShortRentals Pulls Your Listing and the AI agent Builds your site",
+          "Your site is ready to launch",
+          "Calendar Management",
+          "Guest Dashboard",
+          "Host Dashboard"
+        ],
+        "fitMode": "cover"
+      }
+    },
+    {
+      "type": "feature-list",
+      "duration": 6,
+      "content": {
+        "title": "Everything You Need for Direct Bookings",
+        "features": [
+          {
+            "icon": "⚡",
+            "title": "Instant setup",
+            "text": "Connect listings, sync calendars, and go live in minutes."
+          },
+          {
+            "icon": "💳",
+            "title": "Payment Integration",
+            "text": "Your site is powered by Stripe to accept payments"
+          },
+          {
+            "icon": "🤖",
+            "title": "Guest automation",
+            "text": "Automate guest emails, reminders, and upsells with ease."
+          },
+          {
+            "icon": "🛠️",
+            "title": "No-code control",
+            "text": "Customize layouts, SEO, and messaging without touching code."
+          }
+        ]
+      }
+    },
+    {
+      "type": "stats-dashboard",
+      "duration": 6,
+      "content": {
+        "title": "Host Outcomes with Sitebuilder",
+        "stats": [
+          {
+            "value": "18%",
+            "label": "More revenue kept",
+            "icon": "💰"
+          },
+          {
+            "value": "10 min",
+            "label": "To launch live",
+            "icon": "⏱️"
+          },
+          {
+            "value": "0%",
+            "label": "Commission fees",
+            "icon": "🚫"
+          },
+          {
+            "value": "100%",
+            "label": "Guest ownership",
+            "icon": "🤝"
+          }
+        ]
+      }
+    },
+    {
+      "type": "process-flow",
+      "duration": 4,
+      "content": {
+        "title": "How It Works",
+        "steps": [
+          {
+            "number": 1,
+            "title": "Connect listings",
+            "description": "Import from Airbnb/VRBO and sync calendars in under two minutes."
+          },
+          {
+            "number": 2,
+            "title": "Customize your site",
+            "description": "Choose a template, add your branding, and let AI craft your copy."
+          },
+          {
+            "number": 3,
+            "title": "Launch and book",
+            "description": "Secure your domain, enable Stripe, and take direct bookings instantly."
+          }
+        ]
+      }
+    },
+    {
+      "type": "pricing-cards",
+      "duration": 6,
+      "content": {
+        "title": "One Plan. Everything Unlocked.",
+        "plans": [
+          {
+            "name": "Sitebuilder Lifetime",
+            "price": "$299",
+            "period": "founder launch price",
+            "badge": "Limited-time discount",
+            "features": [
+              "All core features + roadmap releases",
+              "Unlimited properties & direct booking engine",
+              "AI copy, guest messaging, and automations",
+              "Custom domain, SSL, and Stripe payouts"
+            ],
+            "highlighted": true
+          }
+        ],
+        "finePrint": "Lifetime updates • Concierge onboarding • Cancel anytime"
+      }
+    },
+    {
+      "type": "testimonial",
+      "duration": 5,
+      "content": {
+        "quote": "We launched our direct booking site in a single afternoon and immediately stopped losing margin to OTA commissions.",
+        "author": "Lena Martinez",
+        "role": "Founder, UrbanStay Rentals",
+        "avatar": "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=150&h=150&q=80",
+        "rating": 5
+      }
+    },
+    {
+      "type": "cta",
+      "duration": 12,
+      "content": {
+        "title": "Ready to build your direct booking site?",
+        "description": "Launch in under 10 minutes, keep 100% of revenue, and own every guest relationship.",
+        "buttonText": "https://Shortrentals.ai",
+        "urgency": "Concierge onboarding • Cancel anytime • Stripe payouts direct to you"
+      }
+    }
+  ],
+  "colorScheme": {
+    "primary": "#FF385C",
+    "primaryContent": "#ffffff",
+    "secondary": "#FF385C",
+    "secondaryContent": "#ffffff",
+    "accent": "#37cdbe",
+    "accentContent": "#163835",
+    "neutral": "#3d4451",
+    "neutralContent": "#ffffff",
+    "base100": "#ffffff",
+    "base200": "#f2f2f2",
+    "base300": "#e5e5e5",
+    "baseContent": "#1f2937",
+    "info": "#3abff8",
+    "infoContent": "#002e3f",
+    "success": "#36d399",
+    "successContent": "#003320",
+    "warning": "#fbbd23",
+    "warningContent": "#382800",
+    "error": "#f87272",
+    "errorContent": "#470000",
+    "borderRadius": 8,
+    "fontFamily": "\"SF Pro Display\", -apple-system, BlinkMacSystemFont, sans-serif"
+  }
+}
