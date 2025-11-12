@@ -423,6 +423,8 @@ app.post('/api/generate-flexible-video', upload.array('images', 20), async (req,
     
     // Render standard video
     console.log(`Rendering standard video (${totalDuration} seconds)...`);
+    const startTime = Date.now();
+    
     await renderMedia({
       composition: {
         ...composition,
@@ -437,16 +439,22 @@ app.post('/api/generate-flexible-video', upload.array('images', 20), async (req,
       pixelFormat: 'yuv420p',
       encodingMaxRate: '25M',
       encodingBufferSize: '50M',
-      onProgress: ({ progress }) => {
-        console.log(`Standard video rendering: ${Math.round(progress * 100)}%`);
+      // Performance optimizations - use all CPU cores
+      concurrency: null, // Auto-detect CPU cores (uses all available)
+      // Alternative: specify number of cores: concurrency: 4
+      onProgress: ({ progress, renderedFrames, encodedFrames }) => {
+        const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+        console.log(`Standard video: ${Math.round(progress * 100)}% (${renderedFrames}/${durationInFrames} frames, ${elapsed}s elapsed)`);
       },
     });
     
-    console.log(`✅ Standard video generated: ${outputPath}`);
+    const renderTime = ((Date.now() - startTime) / 1000).toFixed(1);
+    console.log(`✅ Standard video generated in ${renderTime}s: ${outputPath}`);
     
     // Render Instagram Reels version if requested
     if (generateReels) {
       console.log(`\n📱 Rendering Instagram Reels version (1080x1920)...`);
+      const reelsStartTime = Date.now();
       
       // Get Reels composition with vertical dimensions
       const reelsComposition = await selectComposition({
@@ -462,8 +470,6 @@ app.post('/api/generate-flexible-video', upload.array('images', 20), async (req,
       await renderMedia({
         composition: {
           ...reelsComposition,
-          width: 1080,
-          height: 1920,
           durationInFrames,
         },
         serveUrl: bundleLocation,
@@ -474,17 +480,20 @@ app.post('/api/generate-flexible-video', upload.array('images', 20), async (req,
           width: 1080,
           height: 1920,
         },
-        // Instagram Reels optimized settings
-        videoBitrate: '8M', // 8 Mbps for Reels
+        videoBitrate: '8M', // 8 Mbps for 1080p vertical
         pixelFormat: 'yuv420p',
         encodingMaxRate: '10M',
         encodingBufferSize: '20M',
-        onProgress: ({ progress }) => {
-          console.log(`Reels video rendering: ${Math.round(progress * 100)}%`);
+        // Performance optimizations - use all CPU cores
+        concurrency: null, // Auto-detect CPU cores
+        onProgress: ({ progress, renderedFrames }) => {
+          const elapsed = ((Date.now() - reelsStartTime) / 1000).toFixed(1);
+          console.log(`Reels video: ${Math.round(progress * 100)}% (${renderedFrames}/${durationInFrames} frames, ${elapsed}s elapsed)`);
         },
       });
       
-      console.log(`✅ Instagram Reels video generated: ${reelsOutputPath}`);
+      const reelsRenderTime = ((Date.now() - reelsStartTime) / 1000).toFixed(1);
+      console.log(`✅ Reels video generated in ${reelsRenderTime}s: ${reelsOutputPath}`);
     }
     
     // Upload to S3 if configured
