@@ -78,6 +78,33 @@ su - vidbuilder -c "mkdir -p /home/vidbuilder/backups"
 su - vidbuilder -c "mkdir -p /home/vidbuilder/logs"
 echo -e "${GREEN}✅ Directories created${NC}"
 
+# Install Chrome/Remotion dependencies
+echo -e "\n${YELLOW}🌐 Installing Chrome dependencies for Remotion...${NC}"
+apt install -y \
+    libnss3 \
+    libnspr4 \
+    libatk1.0-0 \
+    libatk-bridge2.0-0 \
+    libcups2 \
+    libdrm2 \
+    libdbus-1-3 \
+    libxkbcommon0 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxfixes3 \
+    libxrandr2 \
+    libgbm1 \
+    libpango-1.0-0 \
+    libcairo2 \
+    libasound2 \
+    libatspi2.0-0 \
+    libxshmfence1 \
+    fonts-liberation \
+    libappindicator3-1 \
+    xdg-utils \
+    ca-certificates > /dev/null 2>&1
+echo -e "${GREEN}✅ Chrome dependencies installed${NC}"
+
 # Setup Fail2Ban
 echo -e "\n${YELLOW}🛡️  Configuring Fail2Ban...${NC}"
 cat > /etc/fail2ban/jail.local <<EOF
