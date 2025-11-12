@@ -52,10 +52,10 @@ module.exports = {
     max_restarts: 10,
     min_uptime: '10s',
     
-    // Graceful shutdown
-    kill_timeout: 5000,
+    // Graceful shutdown (increased for long video generation)
+    kill_timeout: 30000,      // 30 seconds - allow graceful shutdown
     wait_ready: true,
-    listen_timeout: 10000,
+    listen_timeout: 30000,    // 30 seconds
     
     // Advanced options
     instance_var: 'INSTANCE_ID',

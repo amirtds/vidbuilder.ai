@@ -30,7 +30,11 @@ Generate a custom video from JSON configuration with images and music.
 
 **Content-Type:** `application/json` OR `multipart/form-data`
 
-**⚠️ Important:** The API waits for video generation to complete before responding (may take 30-120 seconds).
+**⚠️ Important:** 
+- The API waits for video generation to complete before responding
+- **Generation time:** 30 seconds to 15 minutes (depending on video length, quality, and complexity)
+- **Timeout limits:** Server configured for up to 30-minute requests
+- **Client timeout:** Set your client timeout to at least 20 minutes (1200 seconds)
 
 **Request Methods:**
 
