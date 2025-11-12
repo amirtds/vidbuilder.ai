@@ -373,6 +373,33 @@ app.post('/api/generate-video-async', basicAuth, upload.array('images', 20), asy
       });
     }
     
+    // Validate webhook URL is provided
+    if (!webhookUrl) {
+      return res.status(400).json({
+        error: 'Webhook URL is required for async video generation.',
+        message: 'Please provide a webhookUrl in your request body to receive status updates.',
+        hint: 'Use /api/generate-flexible-video for synchronous generation without webhooks.'
+      });
+    }
+    
+    // Validate webhook URL format
+    try {
+      const url = new URL(webhookUrl);
+      if (!['http:', 'https:'].includes(url.protocol)) {
+        return res.status(400).json({
+          error: 'Invalid webhook URL protocol.',
+          message: 'Webhook URL must use http:// or https://',
+          receivedUrl: webhookUrl
+        });
+      }
+    } catch (error) {
+      return res.status(400).json({
+        error: 'Invalid webhook URL format.',
+        message: 'Please provide a valid HTTP/HTTPS URL.',
+        receivedUrl: webhookUrl
+      });
+    }
+    
     // Initialize job status
     jobStatus.set(jobId, {
       status: 'queued',

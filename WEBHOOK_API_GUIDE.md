@@ -19,11 +19,13 @@ The new async API allows you to start video generation and receive updates via w
 
 Start video generation and receive updates via webhook.
 
+**⚠️ Required:** `webhookUrl` must be provided. This endpoint will reject requests without a webhook URL.
+
 **Request:**
 
 ```json
 {
-  "webhookUrl": "https://your-app.com/webhook/video-status",
+  "webhookUrl": "https://your-app.com/webhook/video-status",  // REQUIRED
   "theme": "corporate",
   "music": {"trackId": "corp-1", "volume": 0.3},
   "quality": "4k",
@@ -52,6 +54,26 @@ Start video generation and receive updates via webhook.
   "webhookConfigured": true,
   "statusUrl": "/api/job-status/abc123def456",
   "estimatedTime": "3-15 minutes"
+}
+```
+
+**Error Response - Missing Webhook URL (400 Bad Request):**
+
+```json
+{
+  "error": "Webhook URL is required for async video generation.",
+  "message": "Please provide a webhookUrl in your request body to receive status updates.",
+  "hint": "Use /api/generate-flexible-video for synchronous generation without webhooks."
+}
+```
+
+**Error Response - Invalid Webhook URL (400 Bad Request):**
+
+```json
+{
+  "error": "Invalid webhook URL format.",
+  "message": "Please provide a valid HTTP/HTTPS URL.",
+  "receivedUrl": "invalid-url"
 }
 ```
 

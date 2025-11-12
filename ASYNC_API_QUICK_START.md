@@ -4,11 +4,13 @@
 
 ### 1. Start Video Generation (Returns Immediately)
 
+**⚠️ Important:** `webhookUrl` is REQUIRED. The API will reject requests without it.
+
 ```bash
 curl -X POST https://backend.vidbuilder.ai/api/generate-video-async \
   -H "Content-Type: application/json" \
   -d '{
-    "webhookUrl": "https://your-app.com/webhook/video-status",
+    "webhookUrl": "https://your-app.com/webhook/video-status",  # REQUIRED
     "theme": "corporate",
     "music": {"trackId": "corp-1", "volume": 0.3},
     "quality": "4k",
