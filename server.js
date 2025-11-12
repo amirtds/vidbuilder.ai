@@ -267,27 +267,36 @@ app.post('/api/generate-flexible-video', upload.array('images', 20), async (req,
   const jobId = uuidv4();
   
   try {
-    const { config } = req.body;
-    
-    // Parse config if it's a string (JSON)
+    // Support both JSON body and multipart/form-data
     let videoConfig;
-    if (typeof config === 'string') {
-      try {
-        videoConfig = JSON.parse(config);
-      } catch (e) {
-        return res.status(400).json({
-          error: 'Invalid JSON configuration',
-          details: e.message
-        });
-      }
+    const contentType = req.headers['content-type'] || '';
+    
+    if (contentType.includes('application/json')) {
+      // Direct JSON body
+      videoConfig = req.body;
     } else {
-      videoConfig = config;
+      // Multipart form data - config is a string field
+      const { config } = req.body;
+      
+      if (typeof config === 'string') {
+        try {
+          videoConfig = JSON.parse(config);
+        } catch (e) {
+          return res.status(400).json({
+            error: 'Invalid JSON configuration',
+            details: e.message
+          });
+        }
+      } else {
+        videoConfig = config;
+      }
     }
     
     // Validate config
     if (!videoConfig || !videoConfig.scenes || !Array.isArray(videoConfig.scenes)) {
       return res.status(400).json({
-        error: 'Invalid video configuration. Must include scenes array.'
+        error: 'Invalid video configuration. Must include scenes array.',
+        receivedConfig: videoConfig
       });
     }
     
