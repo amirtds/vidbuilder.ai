@@ -17,7 +17,7 @@ NC='\033[0m' # No Color
 # Configuration
 APP_DIR="/home/vidbuilder/apps/vidbuilder"
 APP_NAME="vidbuilder"
-BRANCH="main"
+BRANCH="master"
 
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e "${BLUE}🚀 VidBuilder Deployment${NC}"
