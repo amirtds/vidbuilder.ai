@@ -4,7 +4,34 @@ Complete API reference for the VidBuilder video generation platform.
 
 **Base URL:** `https://backend.vidbuilder.ai`  
 **Version:** 1.0  
+**Authentication:** Basic Auth (required for all API endpoints)  
 **Content-Type:** `application/json` or `multipart/form-data`
+
+## 🔐 Authentication
+
+All API endpoints require HTTP Basic Authentication:
+
+```bash
+# cURL
+curl -u "username:password" https://backend.vidbuilder.ai/api/...
+
+# JavaScript
+const credentials = btoa('username:password');
+fetch(url, {
+  headers: {
+    'Authorization': `Basic ${credentials}`
+  }
+});
+
+# Python
+import requests
+from requests.auth import HTTPBasicAuth
+requests.get(url, auth=HTTPBasicAuth('username', 'password'))
+```
+
+**Credentials:** Set in `.env` file (`API_USERNAME` and `API_PASSWORD`)
+
+**See:** `API_AUTHENTICATION_GUIDE.md` for complete authentication documentation.
 
 ---
 
@@ -22,11 +49,140 @@ Complete API reference for the VidBuilder video generation platform.
 
 ## 🎬 Video Generation API
 
-### Generate Flexible Video
+### 🆕 Generate Video (Async with Webhook) - RECOMMENDED
 
-Generate a custom video from JSON configuration with images and music.
+Generate a video asynchronously and receive updates via webhook. Returns immediately.
+
+**Endpoint:** `POST /api/generate-video-async`
+
+**Authentication:** Required (Basic Auth)
+
+**Content-Type:** `application/json` OR `multipart/form-data`
+
+**⚠️ Required:** `webhookUrl` must be provided to receive status updates.
+
+**Benefits:**
+- ✅ Returns immediately (< 1 second)
+- ✅ No timeout issues
+- ✅ Progress updates via webhook
+- ✅ Supports multiple concurrent jobs
+
+**Request Body:**
+```json
+{
+  "webhookUrl": "https://your-app.com/webhook/video-status",  // REQUIRED
+  "theme": "corporate",
+  "music": {"trackId": "corp-1", "volume": 0.3},
+  "quality": "4k",
+  "generateReels": false,
+  "scenes": [...]
+}
+```
+
+**Authentication:**
+```bash
+curl -u "username:password" \
+  -X POST https://backend.vidbuilder.ai/api/generate-video-async \
+  -H "Content-Type: application/json" \
+  -d '{...}'
+```
+
+**Immediate Response (202 Accepted):**
+```json
+{
+  "success": true,
+  "jobId": "abc123def456",
+  "status": "queued",
+  "message": "Video generation started. You will receive updates via webhook.",
+  "webhookConfigured": true,
+  "statusUrl": "/api/job-status/abc123def456",
+  "estimatedTime": "3-15 minutes"
+}
+```
+
+**Webhook Notifications:**
+
+Your webhook URL will receive POST requests:
+
+1. **Processing Started:**
+```json
+{
+  "jobId": "abc123def456",
+  "status": "processing",
+  "progress": 0,
+  "message": "Video generation started",
+  "timestamp": "2025-11-12T18:30:00.000Z"
+}
+```
+
+2. **Progress Updates:**
+```json
+{
+  "jobId": "abc123def456",
+  "status": "processing",
+  "progress": 50,
+  "message": "Rendering: 50%",
+  "timestamp": "2025-11-12T18:32:00.000Z"
+}
+```
+
+3. **Completed:**
+```json
+{
+  "jobId": "abc123def456",
+  "status": "completed",
+  "progress": 100,
+  "message": "Video generated successfully",
+  "duration": 13,
+  "scenes": 3,
+  "s3Upload": {
+    "enabled": true,
+    "standard": {
+      "signedUrl": "https://vidbuilder.s3.amazonaws.com/..."
+    }
+  },
+  "renderTime": "180s",
+  "timestamp": "2025-11-12T18:33:00.000Z"
+}
+```
+
+4. **Failed:**
+```json
+{
+  "jobId": "abc123def456",
+  "status": "failed",
+  "error": "Error message",
+  "timestamp": "2025-11-12T18:31:00.000Z"
+}
+```
+
+**Check Job Status:**
+```bash
+GET /api/job-status/:jobId
+```
+
+Response:
+```json
+{
+  "jobId": "abc123def456",
+  "status": "processing",
+  "progress": 45,
+  "message": "Rendering: 45%",
+  "createdAt": "2025-11-12T18:30:00.000Z"
+}
+```
+
+**See:** `WEBHOOK_API_GUIDE.md` for complete webhook documentation.
+
+---
+
+### Generate Flexible Video (Synchronous)
+
+Generate a custom video synchronously. Waits for completion before responding.
 
 **Endpoint:** `POST /api/generate-flexible-video`
+
+**Authentication:** Required (Basic Auth)
 
 **Content-Type:** `application/json` OR `multipart/form-data`
 
@@ -35,6 +191,7 @@ Generate a custom video from JSON configuration with images and music.
 - **Generation time:** 30 seconds to 15 minutes (depending on video length, quality, and complexity)
 - **Timeout limits:** Server configured for up to 30-minute requests
 - **Client timeout:** Set your client timeout to at least 20 minutes (1200 seconds)
+- **Recommended:** Use async API (`/api/generate-video-async`) for production
 
 **Request Methods:**
 
@@ -91,8 +248,9 @@ Use `Content-Type: multipart/form-data` when uploading images.
 **Example 1: JSON Body Request (No Images)**
 
 ```bash
-# cURL
-curl -X POST https://backend.vidbuilder.ai/api/generate-flexible-video \
+# cURL with Basic Auth
+curl -u "username:password" \
+  -X POST https://backend.vidbuilder.ai/api/generate-flexible-video \
   -H "Content-Type: application/json" \
   -d '{
     "theme": "corporate",
@@ -113,7 +271,7 @@ curl -X POST https://backend.vidbuilder.ai/api/generate-flexible-video \
 ```
 
 ```javascript
-// JavaScript/Fetch
+// JavaScript/Fetch with Basic Auth
 const config = {
   theme: "corporate",
   music: {trackId: "corp-1", volume: 0.3},
@@ -131,10 +289,16 @@ const config = {
   ]
 };
 
+// Add Basic Auth
+const username = 'your_username';
+const password = 'your_password';
+const credentials = btoa(`${username}:${password}`);
+
 const response = await fetch('https://backend.vidbuilder.ai/api/generate-flexible-video', {
   method: 'POST',
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Authorization': `Basic ${credentials}`
   },
   body: JSON.stringify(config)
 });
@@ -147,8 +311,9 @@ console.log('S3 URL:', result.s3Upload.standard.signedUrl);
 **Example 2: Multipart Form Data (With Images)**
 
 ```bash
-# cURL
-curl -X POST https://backend.vidbuilder.ai/api/generate-flexible-video \
+# cURL with Basic Auth
+curl -u "username:password" \
+  -X POST https://backend.vidbuilder.ai/api/generate-flexible-video \
   -F 'config={
     "theme": "corporate",
     "music": {"trackId": "corp-1", "volume": 0.3},
