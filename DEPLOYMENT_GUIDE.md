@@ -41,11 +41,11 @@ From your local machine:
 
 ```bash
 # Upload all deployment files to server
-scp setup-server.sh deploy.sh monitor.sh ecosystem.config.js nginx.conf root@YOUR_SERVER_IP:~/
+scp setup-server.sh deploy.sh monitor.sh ecosystem.config.js nginx-pre-ssl.conf nginx.conf root@YOUR_SERVER_IP:~/
 
 # Or if you have the repo:
 cd /Users/amir/cubite/aiVideoGenerator
-scp setup-server.sh deploy.sh monitor.sh ecosystem.config.js nginx.conf root@YOUR_SERVER_IP:~/
+scp setup-server.sh deploy.sh monitor.sh ecosystem.config.js nginx-pre-ssl.conf nginx.conf root@YOUR_SERVER_IP:~/
 ```
 
 #### Step 2: Run Server Setup Script
@@ -132,7 +132,7 @@ pm2 status
 pm2 logs vidbuilder
 ```
 
-#### Step 4: Configure Nginx
+#### Step 4: Configure Nginx (Pre-SSL)
 
 Exit back to root user:
 
@@ -140,56 +140,49 @@ Exit back to root user:
 exit  # Exit from vidbuilder user
 ```
 
-As root, configure Nginx:
+As root, configure Nginx with the pre-SSL config:
 
 ```bash
-# Copy nginx config
-cp ~/nginx.conf /etc/nginx/sites-available/vidbuilder
+# IMPORTANT: Use nginx-pre-ssl.conf first (without SSL configuration)
+cp ~/nginx-pre-ssl.conf /etc/nginx/sites-available/vidbuilder
 
-# Edit the config to update domain
-nano /etc/nginx/sites-available/vidbuilder
-```
+# Verify the domain is correct
+grep server_name /etc/nginx/sites-available/vidbuilder
+# Should show: server_name backend.vidbuilder.ai;
 
-**Update these lines in the config:**
-```nginx
-# Change this:
-server_name your-domain.com www.your-domain.com;
-
-# To this:
-server_name backend.vidbuilder.ai;
-```
-
-**Also update the app path:**
-```nginx
-# Change this:
-alias /home/videoapp/apps/aiVideoGenerator/output/;
-
-# To this:
-alias /home/vidbuilder/apps/vidbuilder/output/;
-```
-
-**Enable the site:**
-```bash
-# Create symbolic link
+# Enable the site
 ln -s /etc/nginx/sites-available/vidbuilder /etc/nginx/sites-enabled/
 
 # Remove default site
 rm /etc/nginx/sites-enabled/default
 
-# Test configuration
+# Test configuration (should pass now)
 nginx -t
 
 # Reload Nginx
 systemctl reload nginx
+
+# Test HTTP access
+curl http://backend.vidbuilder.ai/api/health
+```
+
+**Verification:**
+```bash
+nginx -t  # Should show "test is successful"
+systemctl status nginx  # Should show "active (running)"
+curl http://backend.vidbuilder.ai/api/health  # Should return {"status":"ok"}
 ```
 
 #### Step 5: Setup SSL Certificate
+
+Now that Nginx is running with HTTP, get the SSL certificate:
 
 ```bash
 # Install Certbot (if not already installed)
 apt install -y certbot python3-certbot-nginx
 
 # Get SSL certificate for backend.vidbuilder.ai
+# Certbot will automatically update the nginx config with SSL
 certbot --nginx -d backend.vidbuilder.ai
 
 # Follow prompts:

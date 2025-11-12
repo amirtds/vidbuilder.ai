@@ -44,14 +44,14 @@
 # From your local machine
 cd /Users/amir/cubite/aiVideoGenerator
 
-# Upload scripts
-scp setup-server.sh deploy.sh monitor.sh ecosystem.config.js nginx.conf root@YOUR_SERVER_IP:~/
+# Upload scripts and configs
+scp setup-server.sh deploy.sh monitor.sh ecosystem.config.js nginx-pre-ssl.conf nginx.conf root@YOUR_SERVER_IP:~/
 ```
 
 **Verification:**
 ```bash
 ssh root@YOUR_SERVER_IP
-ls -la ~/*.sh
+ls -la ~/*.sh ~/*.conf
 ```
 
 ---
@@ -172,14 +172,14 @@ curl http://localhost:3000/api/health  # Should return {"status":"ok"}
 
 ---
 
-### Step 6: Configure Nginx ✅
+### Step 6: Configure Nginx (Pre-SSL) ✅
 
 ```bash
 # Exit to root user
 exit
 
-# Copy nginx config
-cp ~/nginx.conf /etc/nginx/sites-available/vidbuilder
+# IMPORTANT: Use nginx-pre-ssl.conf (without SSL config)
+cp ~/nginx-pre-ssl.conf /etc/nginx/sites-available/vidbuilder
 
 # Verify domain is correct
 grep server_name /etc/nginx/sites-available/vidbuilder
@@ -191,19 +191,25 @@ ln -s /etc/nginx/sites-available/vidbuilder /etc/nginx/sites-enabled/
 # Remove default site
 rm /etc/nginx/sites-enabled/default
 
-# Test configuration
+# Test configuration (should pass now)
 nginx -t
 
 # Reload Nginx
 systemctl reload nginx
+
+# Test HTTP access
+curl http://backend.vidbuilder.ai/api/health
 ```
 
 **Verification:**
 ```bash
 nginx -t  # Should show "test is successful"
 systemctl status nginx  # Should show "active (running)"
-curl http://backend.vidbuilder.ai/api/health  # Should work
+curl http://backend.vidbuilder.ai/api/health  # Should return {"status":"ok"}
 ```
+
+**Why Pre-SSL Config?**
+The main `nginx.conf` has SSL directives that require certificates to exist. We use `nginx-pre-ssl.conf` first (HTTP only), then Certbot will automatically add SSL configuration when we get the certificate.
 
 ---
 
