@@ -1633,18 +1633,62 @@ async function generateVideo() {
         if (response.ok && result.success) {
             statusDiv.className = 'status success show';
             
+            // Local download buttons
             let downloadButtons = `
-                <a href="${API_URL}${result.videoUrl}" class="btn" download style="margin-top: 15px; display: inline-block; margin-right: 10px;">
-                    📥 Download Standard Video (16:9)
-                </a>
+                <div style="margin-top: 20px;">
+                    <h4 style="margin-bottom: 10px;">📥 Local Downloads</h4>
+                    <a href="${API_URL}${result.videoUrl}" class="btn" download style="margin-top: 10px; display: inline-block; margin-right: 10px;">
+                        📥 Download Standard Video (16:9)
+                    </a>
             `;
             
             // Add Reels download button if generated
             if (result.reelsGenerated && result.reelsVideoUrl) {
                 downloadButtons += `
-                    <a href="${API_URL}${result.reelsVideoUrl}" class="btn" download style="margin-top: 15px; display: inline-block; background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);">
+                    <a href="${API_URL}${result.reelsVideoUrl}" class="btn" download style="margin-top: 10px; display: inline-block; background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);">
                         📱 Download Instagram Reels (9:16)
                     </a>
+                `;
+            }
+            
+            downloadButtons += `</div>`;
+            
+            // S3 cloud storage links
+            let s3Links = '';
+            if (result.s3Upload && result.s3Upload.enabled) {
+                s3Links = `
+                    <div style="margin-top: 25px; padding: 20px; background: #f0f9ff; border-radius: 8px; border: 2px solid #3b82f6;">
+                        <h4 style="margin-bottom: 15px; color: #1e40af;">☁️ Cloud Storage (S3)</h4>
+                        <p style="font-size: 14px; color: #64748b; margin-bottom: 15px;">Videos uploaded to AWS S3. Links expire in 7 days.</p>
+                `;
+                
+                if (result.s3Upload.standard) {
+                    s3Links += `
+                        <div style="margin-bottom: 10px;">
+                            <strong>📹 Standard Video:</strong><br>
+                            <a href="${result.s3Upload.standard.signedUrl}" target="_blank" style="color: #3b82f6; word-break: break-all; font-size: 13px;">
+                                ${result.s3Upload.standard.s3Key}
+                            </a>
+                        </div>
+                    `;
+                }
+                
+                if (result.s3Upload.reels) {
+                    s3Links += `
+                        <div style="margin-bottom: 10px;">
+                            <strong>📱 Reels Video:</strong><br>
+                            <a href="${result.s3Upload.reels.signedUrl}" target="_blank" style="color: #3b82f6; word-break: break-all; font-size: 13px;">
+                                ${result.s3Upload.reels.s3Key}
+                            </a>
+                        </div>
+                    `;
+                }
+                
+                s3Links += `
+                        <p style="font-size: 12px; color: #64748b; margin-top: 15px;">
+                            💡 Tip: Copy these URLs to share your videos or embed them in your website.
+                        </p>
+                    </div>
                 `;
             }
             
@@ -1656,6 +1700,7 @@ async function generateVideo() {
                 <p><strong>Scenes:</strong> ${result.scenes}</p>
                 ${result.reelsGenerated ? '<p><strong>Formats:</strong> Standard (16:9) + Instagram Reels (9:16)</p>' : ''}
                 ${downloadButtons}
+                ${s3Links}
             `;
         } else {
             throw new Error(result.error || 'Failed to generate video');

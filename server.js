@@ -8,6 +8,10 @@ const { bundle } = require('@remotion/bundler');
 const { renderMedia, selectComposition } = require('@remotion/renderer');
 const { v4: uuidv4 } = require('uuid');
 const sharp = require('sharp');
+require('dotenv').config();
+
+// Import S3 service
+const { uploadVideosToS3, isS3Configured } = require('./s3-service');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -474,6 +478,33 @@ app.post('/api/generate-flexible-video', upload.array('images', 20), async (req,
       console.log(`✅ Instagram Reels video generated: ${reelsOutputPath}`);
     }
     
+    // Upload to S3 if configured
+    let s3Upload = null;
+    if (isS3Configured()) {
+      console.log('\n☁️  Uploading videos to S3...');
+      try {
+        s3Upload = await uploadVideosToS3(
+          outputPath,
+          generateReels ? reelsOutputPath : null,
+          jobId
+        );
+        
+        if (s3Upload.success) {
+          console.log('✅ Videos uploaded to S3 successfully');
+          if (s3Upload.standard) {
+            console.log(`   📹 Standard: ${s3Upload.standard.s3Key}`);
+          }
+          if (s3Upload.reels) {
+            console.log(`   📱 Reels: ${s3Upload.reels.s3Key}`);
+          }
+        }
+      } catch (error) {
+        console.error('⚠️  S3 upload failed (videos still available locally):', error.message);
+      }
+    } else {
+      console.log('ℹ️  S3 not configured - videos saved locally only');
+    }
+    
     // Clean up temporary files after a delay
     setTimeout(async () => {
       if (req.files) {
@@ -503,6 +534,23 @@ app.post('/api/generate-flexible-video', upload.array('images', 20), async (req,
     if (generateReels) {
       response.reelsVideoUrl = `/api/download/${jobId}_reels`;
       response.reelsGenerated = true;
+    }
+    
+    // Add S3 URLs if uploaded
+    if (s3Upload && s3Upload.success) {
+      response.s3Upload = {
+        enabled: true,
+        standard: s3Upload.standard ? {
+          s3Key: s3Upload.standard.s3Key,
+          signedUrl: s3Upload.standard.signedUrl,
+          expiresIn: s3Upload.standard.expiresIn
+        } : null,
+        reels: s3Upload.reels ? {
+          s3Key: s3Upload.reels.s3Key,
+          signedUrl: s3Upload.reels.signedUrl,
+          expiresIn: s3Upload.reels.expiresIn
+        } : null
+      };
     }
     
     res.json(response);
@@ -677,6 +725,17 @@ const startServer = async () => {
       console.log(`🌐 Server: http://localhost:${PORT}`);
       console.log(`📤 Upload endpoint: http://localhost:${PORT}/api/generate-video`);
       console.log(`🎨 Flexible video: http://localhost:${PORT}/api/generate-flexible-video`);
+      console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+      
+      // S3 Status
+      if (isS3Configured()) {
+        console.log(`☁️  AWS S3: Enabled (${process.env.AWS_S3_BUCKET})`);
+        console.log(`📍 Region: ${process.env.AWS_REGION}`);
+      } else {
+        console.log(`☁️  AWS S3: Disabled (videos saved locally only)`);
+        console.log(`💡 To enable S3: See AWS_S3_SETUP_GUIDE.md`);
+      }
+      
       console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
       console.log(`💡 To change quality: Edit video-quality-config.js`);
       console.log(`📖 Guide: See VIDEO_QUALITY_GUIDE.md\n`);
