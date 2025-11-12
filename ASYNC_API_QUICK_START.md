@@ -42,31 +42,19 @@ curl -X POST https://backend.vidbuilder.ai/api/generate-video-async \
 
 ### 2. Receive Webhook Notifications
 
-Your webhook URL will receive these POST requests:
+Your webhook URL will receive **2 POST requests** (to avoid rate limiting):
 
-**Processing Started:**
+**1. Started (immediately):**
 ```json
 {
   "jobId": "abc123def456",
-  "status": "processing",
-  "progress": 0,
+  "status": "started",
   "message": "Video generation started",
   "timestamp": "2025-11-12T18:30:00.000Z"
 }
 ```
 
-**Progress Updates:**
-```json
-{
-  "jobId": "abc123def456",
-  "status": "processing",
-  "progress": 50,
-  "message": "Rendering: 50%",
-  "timestamp": "2025-11-12T18:32:00.000Z"
-}
-```
-
-**Completed:**
+**2. Completed (when done):**
 ```json
 {
   "jobId": "abc123def456",
@@ -87,10 +75,22 @@ Your webhook URL will receive these POST requests:
 }
 ```
 
-### 3. Check Status Anytime
+### 3. Check Progress Anytime (Optional)
+
+Since webhooks only notify on start/completion, use the status endpoint to check progress:
 
 ```bash
 curl https://backend.vidbuilder.ai/api/job-status/abc123def456
+```
+
+Response:
+```json
+{
+  "jobId": "abc123def456",
+  "status": "processing",
+  "progress": 45,
+  "message": "Rendering: 45%"
+}
 ```
 
 ---

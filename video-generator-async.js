@@ -78,11 +78,10 @@ async function generateVideoAsync(jobId, videoConfig, uploadedFiles, webhookUrl,
     console.log(`Scenes: ${videoConfig.scenes.length}`);
     console.log(`Webhook URL: ${webhookUrl || 'None'}`);
     
-    // Send initial webhook notification
+    // Send initial webhook notification (start)
     await sendWebhook(webhookUrl, {
       jobId,
-      status: 'processing',
-      progress: 0,
+      status: 'started',
       message: 'Video generation started',
       timestamp: new Date().toISOString()
     });
@@ -199,15 +198,6 @@ async function generateVideoAsync(jobId, videoConfig, uploadedFiles, webhookUrl,
     // Update progress: 25%
     jobStatus.set(jobId, { ...jobStatus.get(jobId), progress: 25, message: 'Rendering standard video...' });
     
-    // Send webhook update
-    await sendWebhook(webhookUrl, {
-      jobId,
-      status: 'processing',
-      progress: 25,
-      message: 'Rendering standard video...',
-      timestamp: new Date().toISOString()
-    });
-    
     // Render standard video
     console.log(`🎥 Rendering standard video (${totalDuration}s, ${durationInFrames} frames)...`);
     const renderStartTime = Date.now();
@@ -230,7 +220,7 @@ async function generateVideoAsync(jobId, videoConfig, uploadedFiles, webhookUrl,
         const currentProgress = 25 + Math.floor(progress * 50); // 25-75%
         const elapsed = ((Date.now() - renderStartTime) / 1000).toFixed(1);
         
-        // Update job status
+        // Update job status (for status endpoint queries)
         jobStatus.set(jobId, {
           ...jobStatus.get(jobId),
           progress: currentProgress,
@@ -238,17 +228,6 @@ async function generateVideoAsync(jobId, videoConfig, uploadedFiles, webhookUrl,
         });
         
         console.log(`Standard video: ${Math.round(progress * 100)}% (${renderedFrames}/${durationInFrames} frames, ${elapsed}s elapsed)`);
-        
-        // Send webhook every 25% progress
-        if (progress === 0.25 || progress === 0.5 || progress === 0.75) {
-          sendWebhook(webhookUrl, {
-            jobId,
-            status: 'processing',
-            progress: currentProgress,
-            message: `Rendering: ${Math.round(progress * 100)}%`,
-            timestamp: new Date().toISOString()
-          }).catch(err => console.error('Webhook error:', err));
-        }
       },
     });
     

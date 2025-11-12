@@ -81,33 +81,20 @@ Start video generation and receive updates via webhook.
 
 ## 🔔 Webhook Notifications
 
-Your webhook URL will receive POST requests with these payloads:
+Your webhook URL will receive **2 POST requests** to avoid rate limiting your server:
 
-### 1. Processing Started
+### 1. Started (Immediately)
 
 ```json
 {
   "jobId": "abc123def456",
-  "status": "processing",
-  "progress": 0,
+  "status": "started",
   "message": "Video generation started",
   "timestamp": "2025-11-12T18:30:00.000Z"
 }
 ```
 
-### 2. Progress Updates (Optional)
-
-```json
-{
-  "jobId": "abc123def456",
-  "status": "processing",
-  "progress": 45,
-  "message": "Rendering frames: 450/1000",
-  "timestamp": "2025-11-12T18:32:30.000Z"
-}
-```
-
-### 3. Success - Video Ready
+### 2. Completed Successfully (When Done) - Video Ready
 
 ```json
 {
@@ -132,7 +119,7 @@ Your webhook URL will receive POST requests with these payloads:
 }
 ```
 
-### 4. Error - Generation Failed
+**OR 2. Failed (On Error):**
 
 ```json
 {
@@ -142,6 +129,8 @@ Your webhook URL will receive POST requests with these payloads:
   "timestamp": "2025-11-12T18:31:00.000Z"
 }
 ```
+
+**Note:** Progress updates are NOT sent via webhook to avoid rate limiting. Use the job status endpoint to check progress.
 
 ---
 

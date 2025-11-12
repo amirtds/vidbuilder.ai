@@ -102,31 +102,19 @@ curl -u "username:password" \
 
 **Webhook Notifications:**
 
-Your webhook URL will receive POST requests:
+Your webhook URL will receive **2 POST requests** (to avoid rate limiting):
 
-1. **Processing Started:**
+1. **Started (immediately):**
 ```json
 {
   "jobId": "abc123def456",
-  "status": "processing",
-  "progress": 0,
+  "status": "started",
   "message": "Video generation started",
   "timestamp": "2025-11-12T18:30:00.000Z"
 }
 ```
 
-2. **Progress Updates:**
-```json
-{
-  "jobId": "abc123def456",
-  "status": "processing",
-  "progress": 50,
-  "message": "Rendering: 50%",
-  "timestamp": "2025-11-12T18:32:00.000Z"
-}
-```
-
-3. **Completed:**
+2. **Completed (when done):**
 ```json
 {
   "jobId": "abc123def456",
@@ -146,7 +134,7 @@ Your webhook URL will receive POST requests:
 }
 ```
 
-4. **Failed:**
+**OR Failed (on error):**
 ```json
 {
   "jobId": "abc123def456",
@@ -155,6 +143,8 @@ Your webhook URL will receive POST requests:
   "timestamp": "2025-11-12T18:31:00.000Z"
 }
 ```
+
+**Note:** Progress updates are NOT sent via webhook to avoid rate limiting. Use the job status endpoint to check progress.
 
 **Check Job Status:**
 ```bash
