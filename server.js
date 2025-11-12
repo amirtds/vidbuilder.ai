@@ -13,6 +13,9 @@ require('dotenv').config();
 // Import S3 service
 const { uploadVideosToS3, isS3Configured } = require('./s3-service');
 
+// Import async video generator
+const { generateVideoAsync } = require('./video-generator-async');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -20,6 +23,45 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Basic Authentication Middleware
+function basicAuth(req, res, next) {
+  const authHeader = req.headers.authorization;
+  
+  if (!authHeader || !authHeader.startsWith('Basic ')) {
+    res.setHeader('WWW-Authenticate', 'Basic realm="VidBuilder API"');
+    return res.status(401).json({
+      error: 'Authentication required',
+      message: 'Please provide valid credentials using Basic Authentication'
+    });
+  }
+  
+  try {
+    const base64Credentials = authHeader.split(' ')[1];
+    const credentials = Buffer.from(base64Credentials, 'base64').toString('ascii');
+    const [username, password] = credentials.split(':');
+    
+    // Get credentials from environment variables
+    const validUsername = process.env.API_USERNAME || 'admin';
+    const validPassword = process.env.API_PASSWORD || 'changeme';
+    
+    if (username === validUsername && password === validPassword) {
+      next();
+    } else {
+      res.setHeader('WWW-Authenticate', 'Basic realm="VidBuilder API"');
+      return res.status(401).json({
+        error: 'Invalid credentials',
+        message: 'Username or password is incorrect'
+      });
+    }
+  } catch (error) {
+    res.setHeader('WWW-Authenticate', 'Basic realm="VidBuilder API"');
+    return res.status(401).json({
+      error: 'Authentication failed',
+      message: 'Invalid authorization header format'
+    });
+  }
+}
 
 // Serve static files from the root directory
 app.use(express.static(__dirname));
@@ -262,8 +304,128 @@ app.post('/api/generate-video', upload.array('screenshots', 10), async (req, res
   }
 });
 
-// Flexible video generation endpoint with JSON configuration
-app.post('/api/generate-flexible-video', upload.array('images', 20), async (req, res) => {
+// Job status storage (in production, use Redis or database)
+const jobStatus = new Map();
+
+// Helper function to send webhook notification
+async function sendWebhook(webhookUrl, payload) {
+  if (!webhookUrl) return;
+  
+  try {
+    const response = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'User-Agent': 'VidBuilder/1.0'
+      },
+      body: JSON.stringify(payload)
+    });
+    
+    if (!response.ok) {
+      console.error(`Webhook failed: ${response.status} ${response.statusText}`);
+    } else {
+      console.log(`✅ Webhook sent to ${webhookUrl}`);
+    }
+  } catch (error) {
+    console.error(`Webhook error: ${error.message}`);
+  }
+}
+
+
+// NEW: Async video generation endpoint with webhook support (requires auth)
+app.post('/api/generate-video-async', basicAuth, upload.array('images', 20), async (req, res) => {
+  const jobId = uuidv4();
+  
+  try {
+    // Support both JSON body and multipart/form-data
+    let videoConfig;
+    let webhookUrl;
+    const contentType = req.headers['content-type'] || '';
+    
+    if (contentType.includes('application/json')) {
+      // Direct JSON body
+      videoConfig = req.body;
+      webhookUrl = req.body.webhookUrl;
+    } else {
+      // Multipart form data - config is a string field
+      const { config, webhookUrl: formWebhook } = req.body;
+      webhookUrl = formWebhook;
+      
+      if (typeof config === 'string') {
+        try {
+          videoConfig = JSON.parse(config);
+        } catch (e) {
+          return res.status(400).json({
+            error: 'Invalid JSON configuration',
+            details: e.message
+          });
+        }
+      } else {
+        videoConfig = config;
+      }
+    }
+    
+    // Validate config
+    if (!videoConfig || !videoConfig.scenes || !Array.isArray(videoConfig.scenes)) {
+      return res.status(400).json({
+        error: 'Invalid video configuration. Must include scenes array.',
+        receivedConfig: videoConfig
+      });
+    }
+    
+    // Initialize job status
+    jobStatus.set(jobId, {
+      status: 'queued',
+      progress: 0,
+      message: 'Job queued for processing',
+      createdAt: new Date().toISOString()
+    });
+    
+    // Start video generation in background (don't await)
+    generateVideoAsync(jobId, videoConfig, req.files, webhookUrl, jobStatus, PORT).catch(err => {
+      console.error(`Background job ${jobId} failed:`, err);
+    });
+    
+    // Return immediately with job ID
+    return res.status(202).json({
+      success: true,
+      jobId,
+      status: 'queued',
+      message: 'Video generation started. You will receive updates via webhook.',
+      webhookConfigured: !!webhookUrl,
+      statusUrl: `/api/job-status/${jobId}`,
+      estimatedTime: '3-15 minutes'
+    });
+    
+  } catch (error) {
+    console.error('Error starting video generation:', error);
+    return res.status(500).json({
+      error: 'Failed to start video generation',
+      details: error.message
+    });
+  }
+});
+
+// Get job status endpoint (requires auth)
+app.get('/api/job-status/:jobId', basicAuth, (req, res) => {
+  const { jobId } = req.params;
+  const status = jobStatus.get(jobId);
+  
+  if (!status) {
+    return res.status(404).json({
+      error: 'Job not found',
+      jobId
+    });
+  }
+  
+  return res.json({
+    jobId,
+    ...status
+  });
+});
+
+// EXISTING: Synchronous video generation endpoint (kept for backward compatibility, requires auth)
+app.post('/api/generate-flexible-video', basicAuth, upload.array('images', 20), async (req, res) => {
   const jobId = uuidv4();
   
   try {
