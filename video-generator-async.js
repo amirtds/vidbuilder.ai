@@ -121,21 +121,44 @@ async function generateVideoAsync(jobId, videoConfig, uploadedFiles, webhookUrl,
     });
     
     // Resolve music URL
-    if (videoConfig.music && videoConfig.music.enabled && videoConfig.music.trackId) {
-      const tracksDir = path.join(__dirname, 'src', 'tracks');
-      const files = fsSync.readdirSync(tracksDir).filter(file => file.toLowerCase().endsWith('.mp3'));
+    if (videoConfig.music && videoConfig.music.enabled) {
+      const trackIdentifier = videoConfig.music.trackId || videoConfig.music.filename;
       
-      const musicLibrary = {};
-      files.forEach((file, index) => {
-        const trackId = `track-${index + 1}`;
-        const musicUrl = `http://localhost:${PORT}/tracks/${encodeURIComponent(file)}`;
-        musicLibrary[trackId] = musicUrl;
-      });
-      
-      const musicUrl = musicLibrary[videoConfig.music.trackId];
-      if (musicUrl) {
-        videoConfig.music.url = musicUrl;
-        console.log(`🎵 Music track resolved: ${videoConfig.music.trackId}`);
+      if (trackIdentifier) {
+        const tracksDir = path.join(__dirname, 'src', 'tracks');
+        const files = fsSync.readdirSync(tracksDir).filter(file => file.toLowerCase().endsWith('.mp3'));
+        
+        let musicUrl = null;
+        
+        // Try to match by filename first (with or without .mp3 extension)
+        const matchingFile = files.find(file => {
+          const fileWithoutExt = file.replace(/\.mp3$/i, '');
+          const identifierWithoutExt = trackIdentifier.replace(/\.mp3$/i, '');
+          return fileWithoutExt === identifierWithoutExt || file === trackIdentifier;
+        });
+        
+        if (matchingFile) {
+          musicUrl = `http://localhost:${PORT}/tracks/${encodeURIComponent(matchingFile)}`;
+          console.log(`🎵 Music track resolved by filename: ${matchingFile}`);
+        } else {
+          // Fallback: try old trackId format (track-1, track-2, etc.)
+          const musicLibrary = {};
+          files.forEach((file, index) => {
+            const trackId = `track-${index + 1}`;
+            musicLibrary[trackId] = `http://localhost:${PORT}/tracks/${encodeURIComponent(file)}`;
+          });
+          
+          musicUrl = musicLibrary[trackIdentifier];
+          if (musicUrl) {
+            console.log(`🎵 Music track resolved by trackId: ${trackIdentifier}`);
+          }
+        }
+        
+        if (musicUrl) {
+          videoConfig.music.url = musicUrl;
+        } else {
+          console.warn(`⚠️  Music track not found: ${trackIdentifier}`);
+        }
       }
     }
     

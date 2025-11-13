@@ -72,12 +72,18 @@ Generate a video asynchronously and receive updates via webhook. Returns immedia
 {
   "webhookUrl": "https://your-app.com/webhook/video-status",  // REQUIRED
   "theme": "corporate",
-  "music": {"trackId": "corp-1", "volume": 0.3},
+  "music": {
+    "enabled": true,
+    "filename": "cyberpunk-futuristic-city-music-323171",  // Use filename (recommended)
+    "volume": 0.3
+  },
   "quality": "4k",
   "generateReels": false,
   "scenes": [...]
 }
 ```
+
+**Note:** Use `filename` (without .mp3) instead of `trackId` for music. Old `trackId` format still supported for backward compatibility.
 
 **Authentication:**
 ```bash
