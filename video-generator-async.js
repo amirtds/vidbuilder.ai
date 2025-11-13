@@ -121,10 +121,15 @@ async function generateVideoAsync(jobId, videoConfig, uploadedFiles, webhookUrl,
     });
     
     // Resolve music URL from trackId (can be filename or track-1 format)
+    console.log('🎵 Music config received:', JSON.stringify(videoConfig.music, null, 2));
+    
     if (videoConfig.music && videoConfig.music.enabled && videoConfig.music.trackId) {
       const trackId = videoConfig.music.trackId;
       const tracksDir = path.join(__dirname, 'src', 'tracks');
       const files = fsSync.readdirSync(tracksDir).filter(file => file.toLowerCase().endsWith('.mp3'));
+      
+      console.log(`🎵 Looking for trackId: "${trackId}"`);
+      console.log(`🎵 Available files (${files.length}):`, files);
       
       let musicUrl = null;
       
@@ -132,14 +137,20 @@ async function generateVideoAsync(jobId, videoConfig, uploadedFiles, webhookUrl,
       const matchingFile = files.find(file => {
         const fileWithoutExt = file.replace(/\.mp3$/i, '');
         const trackIdWithoutExt = trackId.replace(/\.mp3$/i, '');
-        return fileWithoutExt === trackIdWithoutExt || file === trackId;
+        const matches = fileWithoutExt === trackIdWithoutExt || file === trackId;
+        if (matches) {
+          console.log(`🎵 Match found: "${file}" matches "${trackId}"`);
+        }
+        return matches;
       });
       
       if (matchingFile) {
         musicUrl = `http://localhost:${PORT}/tracks/${encodeURIComponent(matchingFile)}`;
-        console.log(`🎵 Music track resolved: ${matchingFile}`);
+        console.log(`✅ Music track resolved: ${matchingFile}`);
+        console.log(`✅ Music URL: ${musicUrl}`);
       } else {
         // Fallback: try old numeric format (track-1, track-2, etc.)
+        console.log(`🎵 No filename match, trying numeric format...`);
         const musicLibrary = {};
         files.forEach((file, index) => {
           const numericId = `track-${index + 1}`;
@@ -148,16 +159,22 @@ async function generateVideoAsync(jobId, videoConfig, uploadedFiles, webhookUrl,
         
         musicUrl = musicLibrary[trackId];
         if (musicUrl) {
-          console.log(`🎵 Music track resolved by index: ${trackId}`);
+          console.log(`✅ Music track resolved by index: ${trackId}`);
+          console.log(`✅ Music URL: ${musicUrl}`);
         }
       }
       
       if (musicUrl) {
         videoConfig.music.url = musicUrl;
+        console.log(`✅ Final music config:`, JSON.stringify(videoConfig.music, null, 2));
       } else {
-        console.warn(`⚠️  Music track not found: ${trackId}`);
-        console.warn(`Available files: ${files.join(', ')}`);
+        console.error(`❌ Music track not found: ${trackId}`);
+        console.error(`❌ Available files: ${files.join(', ')}`);
       }
+    } else {
+      console.log('⚠️  Music not enabled or trackId missing');
+      console.log('   - enabled:', videoConfig.music?.enabled);
+      console.log('   - trackId:', videoConfig.music?.trackId);
     }
     
     // Process scenes
