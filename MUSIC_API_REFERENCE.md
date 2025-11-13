@@ -2,29 +2,29 @@
 
 ## 🎵 Using Background Music in Videos
 
-### **Recommended: Use Filename**
+### **Use trackId with Filename Value**
 
-For API integrations, use the music filename (without `.mp3` extension):
+The key is always `trackId`, but the value can be either a filename or numeric ID:
 
 ```json
 {
   "music": {
     "enabled": true,
-    "filename": "cyberpunk-futuristic-city-music-323171",
+    "trackId": "cyberpunk-futuristic-city-music-323171",  // Filename (without .mp3)
     "volume": 0.3
   }
 }
 ```
 
-### **Legacy: Use Track ID**
+### **Or Use Numeric Track ID**
 
-Old format still supported for backward compatibility:
+Old numeric format also works:
 
 ```json
 {
   "music": {
     "enabled": true,
-    "trackId": "corp-1",
+    "trackId": "track-1",  // First file in directory
     "volume": 0.3
   }
 }

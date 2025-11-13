@@ -522,45 +522,43 @@ app.post('/api/generate-flexible-video', basicAuth, upload.array('images', 20), 
       }
     });
     
-    // Resolve music URL - supports both trackId and filename
-    if (videoConfig.music && videoConfig.music.enabled) {
-      const trackIdentifier = videoConfig.music.trackId || videoConfig.music.filename;
+    // Resolve music URL from trackId (can be filename or track-1 format)
+    if (videoConfig.music && videoConfig.music.enabled && videoConfig.music.trackId) {
+      const trackId = videoConfig.music.trackId;
+      const tracksDir = path.join(__dirname, 'src', 'tracks');
+      const files = fsSync.readdirSync(tracksDir).filter(file => file.toLowerCase().endsWith('.mp3'));
       
-      if (trackIdentifier) {
-        const tracksDir = path.join(__dirname, 'src', 'tracks');
-        const files = fsSync.readdirSync(tracksDir).filter(file => file.toLowerCase().endsWith('.mp3'));
-        
-        let musicUrl = null;
-        
-        // Try to match by filename first (with or without .mp3 extension)
-        const matchingFile = files.find(file => {
-          const fileWithoutExt = file.replace(/\.mp3$/i, '');
-          const identifierWithoutExt = trackIdentifier.replace(/\.mp3$/i, '');
-          return fileWithoutExt === identifierWithoutExt || file === trackIdentifier;
+      let musicUrl = null;
+      
+      // Try to match by filename first (with or without .mp3 extension)
+      const matchingFile = files.find(file => {
+        const fileWithoutExt = file.replace(/\.mp3$/i, '');
+        const trackIdWithoutExt = trackId.replace(/\.mp3$/i, '');
+        return fileWithoutExt === trackIdWithoutExt || file === trackId;
+      });
+      
+      if (matchingFile) {
+        musicUrl = `http://localhost:${PORT}/tracks/${encodeURIComponent(matchingFile)}`;
+        console.log(`🎵 Music track resolved: ${matchingFile}`);
+      } else {
+        // Fallback: try old numeric format (track-1, track-2, etc.)
+        const musicLibrary = {};
+        files.forEach((file, index) => {
+          const numericId = `track-${index + 1}`;
+          musicLibrary[numericId] = `http://localhost:${PORT}/tracks/${encodeURIComponent(file)}`;
         });
         
-        if (matchingFile) {
-          musicUrl = `http://localhost:${PORT}/tracks/${encodeURIComponent(matchingFile)}`;
-          console.log(`🎵 Music track resolved by filename: ${matchingFile}`);
-        } else {
-          // Fallback: try old trackId format (track-1, track-2, etc.)
-          const musicLibrary = {};
-          files.forEach((file, index) => {
-            const trackId = `track-${index + 1}`;
-            musicLibrary[trackId] = `http://localhost:${PORT}/tracks/${encodeURIComponent(file)}`;
-          });
-          
-          musicUrl = musicLibrary[trackIdentifier];
-          if (musicUrl) {
-            console.log(`🎵 Music track resolved by trackId: ${trackIdentifier}`);
-          }
-        }
-        
+        musicUrl = musicLibrary[trackId];
         if (musicUrl) {
-          videoConfig.music.url = musicUrl;
-        } else {
-          console.warn(`⚠️ Music track not found: ${trackIdentifier}`);
+          console.log(`🎵 Music track resolved by index: ${trackId}`);
         }
+      }
+      
+      if (musicUrl) {
+        videoConfig.music.url = musicUrl;
+      } else {
+        console.warn(`⚠️ Music track not found: ${trackId}`);
+        console.warn(`Available files: ${files.join(', ')}`);
       }
     }
     

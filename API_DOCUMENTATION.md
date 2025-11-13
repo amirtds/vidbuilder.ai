@@ -74,7 +74,7 @@ Generate a video asynchronously and receive updates via webhook. Returns immedia
   "theme": "corporate",
   "music": {
     "enabled": true,
-    "filename": "cyberpunk-futuristic-city-music-323171",  // Use filename (recommended)
+    "trackId": "cyberpunk-futuristic-city-music-323171",  // Filename without .mp3
     "volume": 0.3
   },
   "quality": "4k",
@@ -83,7 +83,7 @@ Generate a video asynchronously and receive updates via webhook. Returns immedia
 }
 ```
 
-**Note:** Use `filename` (without .mp3) instead of `trackId` for music. Old `trackId` format still supported for backward compatibility.
+**Note:** `trackId` accepts either filename (without .mp3) or numeric format (`track-1`, `track-2`, etc.).
 
 **Authentication:**
 ```bash
