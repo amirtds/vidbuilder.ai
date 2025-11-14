@@ -623,10 +623,8 @@ app.post('/api/generate-flexible-video', basicAuth, upload.array('images', 20), 
       webpackOverride: (config) => config,
     });
     
-    // Get composition details - use EnhancedFlexibleVideo if it has enhanced features
-    const compositionId = videoConfig.music || videoConfig.colorScheme?.fontFamily 
-      ? 'EnhancedFlexibleVideo' 
-      : 'FlexibleVideo';
+    // Always use EnhancedFlexibleVideo - it's backward compatible and supports all scene types
+    const compositionId = 'EnhancedFlexibleVideo';
     
     const composition = await selectComposition({
       serveUrl: bundleLocation,

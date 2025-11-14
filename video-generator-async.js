@@ -214,10 +214,8 @@ async function generateVideoAsync(jobId, videoConfig, uploadedFiles, webhookUrl,
     // Update progress: 20%
     jobStatus.set(jobId, { ...jobStatus.get(jobId), progress: 20, message: 'Preparing composition...' });
     
-    // Get composition
-    const compositionId = videoConfig.music || videoConfig.colorScheme?.fontFamily 
-      ? 'EnhancedFlexibleVideo' 
-      : 'FlexibleVideo';
+    // Always use EnhancedFlexibleVideo - it's backward compatible and supports all scene types
+    const compositionId = 'EnhancedFlexibleVideo';
     
     const composition = await selectComposition({
       serveUrl: bundleLocation,
