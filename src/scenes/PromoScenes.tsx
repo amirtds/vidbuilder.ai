@@ -1153,7 +1153,8 @@ export const PricingCardsScene: React.FC<{content: any; style: EnhancedColorSche
             }
           );
           
-          const featured = plan.featured;
+          // Support both 'featured' and 'highlighted' for backward compatibility
+          const featured = plan.featured || plan.highlighted;
           
           // Featured card gets extra scale and glow effect
           const featuredScale = featured ? interpolate(
