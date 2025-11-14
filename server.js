@@ -308,7 +308,7 @@ app.post('/api/generate-video', upload.array('screenshots', 10), async (req, res
 const jobStatus = new Map();
 
 // Concurrency control
-const MAX_CONCURRENT_RENDERS = 5;
+const MAX_CONCURRENT_RENDERS = 2;
 let activeRenders = 0;
 const renderQueue = [];
 
