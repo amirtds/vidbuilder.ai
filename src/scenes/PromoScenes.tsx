@@ -1042,8 +1042,9 @@ export const PricingCardsScene: React.FC<{content: any; style: EnhancedColorSche
   const featureSize = 26 * baseFontSize * singleCardMultiplier;
   const badgeSize = 18 * baseFontSize * singleCardMultiplier;
   const buttonSize = 24 * baseFontSize * singleCardMultiplier;
-  const cardWidth = plans.length === 1 ? 700 * baseFontSize : 450 * baseFontSize;
-  const cardPadding = plans.length === 1 ? 70 * baseFontSize : 50 * baseFontSize;
+  // Fixed width for consistent 2-per-row layout
+  const cardWidth = plans.length === 1 ? 700 * baseFontSize : 650 * baseFontSize;
+  const cardPadding = plans.length === 1 ? 70 * baseFontSize : 60 * baseFontSize;
   
   // Title entrance
   const titleOpacity = interpolate(frame, [0, 30], [0, 1], {
@@ -1095,11 +1096,12 @@ export const PricingCardsScene: React.FC<{content: any; style: EnhancedColorSche
       <div
         style={{
           display: 'flex',
+          flexWrap: 'wrap',
           justifyContent: 'center',
           gap: 60,
           alignItems: 'stretch',
           width: '100%',
-          maxWidth: plans.length === 1 ? '1100px' : '1600px',
+          maxWidth: '1600px',
           position: 'relative',
           zIndex: 1,
         }}

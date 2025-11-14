@@ -307,66 +307,6 @@ app.post('/api/generate-video', upload.array('screenshots', 10), async (req, res
 // Job status storage (in production, use Redis or database)
 const jobStatus = new Map();
 
-// Concurrency control
-const MAX_CONCURRENT_RENDERS = 2;
-let activeRenders = 0;
-const renderQueue = [];
-let isProcessing = false; // Prevent race conditions
-
-// Process next job in queue
-function processNextInQueue() {
-  // Prevent concurrent execution of this function
-  if (isProcessing) {
-    return;
-  }
-  
-  isProcessing = true;
-  
-  try {
-    // Process all available slots
-    while (renderQueue.length > 0 && activeRenders < MAX_CONCURRENT_RENDERS) {
-      const nextJob = renderQueue.shift();
-      if (!nextJob) break;
-      
-      activeRenders++;
-      console.log(`🎬 Starting queued job ${nextJob.jobId} (Active: ${activeRenders}/${MAX_CONCURRENT_RENDERS}, Queue: ${renderQueue.length})`);
-      
-      // Update status from queued to processing
-      const currentStatus = jobStatus.get(nextJob.jobId);
-      if (currentStatus) {
-        jobStatus.set(nextJob.jobId, {
-          ...currentStatus,
-          status: 'processing',
-          message: 'Video generation started',
-          startedAt: new Date().toISOString()
-        });
-      }
-      
-      // Start the actual render
-      generateVideoAsync(
-        nextJob.jobId,
-        nextJob.videoConfig,
-        nextJob.files,
-        nextJob.webhookUrl,
-        jobStatus,
-        PORT
-      )
-      .then(() => {
-        activeRenders--;
-        console.log(`✅ Job ${nextJob.jobId} completed (Active: ${activeRenders}/${MAX_CONCURRENT_RENDERS}, Queue: ${renderQueue.length})`);
-        processNextInQueue();
-      })
-      .catch(err => {
-        activeRenders--;
-        console.error(`❌ Job ${nextJob.jobId} failed:`, err);
-        processNextInQueue();
-      });
-    }
-  } finally {
-    isProcessing = false;
-  }
-}
-
 // Helper function to send webhook notification
 async function sendWebhook(webhookUrl, payload) {
   if (!webhookUrl) return;
@@ -460,33 +400,18 @@ app.post('/api/generate-video-async', basicAuth, upload.array('images', 20), asy
       });
     }
     
-    // Log current state before adding to queue
-    console.log(`📨 Incoming job ${jobId} - Current state: Active=${activeRenders}/${MAX_CONCURRENT_RENDERS}, Queue=${renderQueue.length}`);
-    
     // Initialize job status
-    const queuePosition = renderQueue.length + 1;
     jobStatus.set(jobId, {
       status: 'queued',
       progress: 0,
-      message: `Job queued for processing (position: ${queuePosition}, active renders: ${activeRenders}/${MAX_CONCURRENT_RENDERS})`,
-      createdAt: new Date().toISOString(),
-      queuePosition
+      message: 'Job queued for processing',
+      createdAt: new Date().toISOString()
     });
     
-    // Add to queue
-    renderQueue.push({
-      jobId,
-      videoConfig,
-      files: req.files,
-      webhookUrl
+    // Start video generation in background (don't await)
+    generateVideoAsync(jobId, videoConfig, req.files, webhookUrl, jobStatus, PORT).catch(err => {
+      console.error(`Background job ${jobId} failed:`, err);
     });
-    
-    console.log(`📥 Job ${jobId} added to queue (Queue: ${renderQueue.length}, Active: ${activeRenders}/${MAX_CONCURRENT_RENDERS})`);
-    
-    // Try to process immediately if slot available
-    processNextInQueue();
-    
-    console.log(`📊 After processing attempt - Active: ${activeRenders}/${MAX_CONCURRENT_RENDERS}, Queue: ${renderQueue.length}`);
     
     // Return immediately with job ID
     return res.status(202).json({
@@ -496,13 +421,7 @@ app.post('/api/generate-video-async', basicAuth, upload.array('images', 20), asy
       message: 'Video generation started. You will receive updates via webhook.',
       webhookConfigured: !!webhookUrl,
       statusUrl: `/api/job-status/${jobId}`,
-      estimatedTime: '3-15 minutes',
-      queue: {
-        position: queuePosition,
-        activeRenders: activeRenders,
-        maxConcurrent: MAX_CONCURRENT_RENDERS,
-        queueLength: renderQueue.length
-      }
+      estimatedTime: '3-15 minutes'
     });
     
   } catch (error) {
@@ -526,31 +445,9 @@ app.get('/api/job-status/:jobId', basicAuth, (req, res) => {
     });
   }
   
-  // Add current queue info
-  const queueInfo = {
-    activeRenders,
-    maxConcurrent: MAX_CONCURRENT_RENDERS,
-    queueLength: renderQueue.length
-  };
-  
   return res.json({
     jobId,
-    ...status,
-    queue: queueInfo
-  });
-});
-
-// Get queue status endpoint (requires auth)
-app.get('/api/queue-status', basicAuth, (req, res) => {
-  return res.json({
-    activeRenders,
-    maxConcurrent: MAX_CONCURRENT_RENDERS,
-    queueLength: renderQueue.length,
-    availableSlots: MAX_CONCURRENT_RENDERS - activeRenders,
-    queuedJobs: renderQueue.map(job => ({
-      jobId: job.jobId,
-      queuedAt: jobStatus.get(job.jobId)?.createdAt
-    }))
+    ...status
   });
 });
 
@@ -1061,33 +958,37 @@ const startServer = async () => {
     await createDirectories();
     
     app.listen(PORT, () => {
-      console.log(`\n🚀 Server running on http://localhost:${PORT}`);
-      console.log(`\n📡 API Endpoints:`);
-      console.log(`  POST   /api/generate-video (legacy)`);
-      console.log(`  POST   /api/generate-flexible-video (sync)`);
-      console.log(`  POST   /api/generate-video-async (async with webhooks)`);
-      console.log(`  GET    /api/job-status/:jobId`);
-      console.log(`  GET    /api/queue-status`);
-      console.log(`  GET    /api/music-tracks`);
-      console.log(`  GET    /api/download/:jobId`);
-      console.log(`  GET    /api/videos`);
-      console.log(`  DELETE /api/videos/:jobId`);
-      console.log(`  GET    /api/health`);
+      console.log(`\n🎬 Video Generator Server Started`);
+      console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+      console.log(`📹 Video Quality: 4K Ultra HD (3840x2160)`);
+      console.log(`🎯 Bitrate: 20 Mbps (Professional Grade)`);
+      console.log(`⚡ Frame Rate: 30 fps`);
+      console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+      console.log(`🌐 Server: http://localhost:${PORT}`);
+      console.log(`📤 Upload endpoint: http://localhost:${PORT}/api/generate-video`);
+      console.log(`🎨 Flexible video: http://localhost:${PORT}/api/generate-flexible-video`);
+      console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
       
-      console.log(`\n⚙️  Concurrency Settings:`);
-      console.log(`  Max concurrent renders: ${MAX_CONCURRENT_RENDERS}`);
-      console.log(`  Queue system: Enabled`);
-      
-      console.log(`\n🔐 Authentication: Basic Auth required`);
-      console.log(`  Username: ${process.env.API_USERNAME || 'admin'}`);
-      console.log(`  Password: ${process.env.API_PASSWORD || 'changeme'}`);
-      
+      // S3 Status
       if (isS3Configured()) {
-        console.log('\n✅ S3 configured - videos will be uploaded to S3');
+        console.log(`☁️  AWS S3: Enabled (${process.env.AWS_S3_BUCKET})`);
+        console.log(`📍 Region: ${process.env.AWS_REGION}`);
       } else {
-        console.log('\n⚠️  S3 not configured - videos will only be saved locally');
-        console.log('   Set AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, and AWS_REGION to enable S3 uploads');
+        console.log(`☁️  AWS S3: Disabled (videos saved locally only)`);
+        console.log(`💡 To enable S3: See AWS_S3_SETUP_GUIDE.md`);
       }
+      
+      console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+      console.log(`💡 To change quality: Edit video-quality-config.js`);
+      console.log(`📖 Guide: See VIDEO_QUALITY_GUIDE.md\n`);
+      console.log(`✨ AI Video Generator Backend is running on http://localhost:${PORT}`);
+      console.log(`\nAvailable endpoints:`);
+      console.log(`  POST   /api/generate-video - Generate a new promotional video`);
+      console.log(`  GET    /api/download/:jobId - Download generated video`);
+      console.log(`  GET    /api/status/:jobId - Check video generation status`);
+      console.log(`  GET    /api/videos - List all generated videos`);
+      console.log(`  DELETE /api/videos/:jobId - Delete a video`);
+      console.log(`  GET    /api/health - Health check`);
     });
   } catch (error) {
     console.error('Failed to start server:', error);
