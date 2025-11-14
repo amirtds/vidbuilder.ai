@@ -66,7 +66,7 @@ Select ONE theme for your entire video. The theme controls all colors automatica
   "theme": "winter",
   "music": {
     "enabled": true,
-    "trackId": "upbeat-1",
+    "trackId": "cyberpunk-futuristic-city-music-323171",
     "volume": 0.3,
     "fadeIn": 2,
     "fadeOut": 2
@@ -90,33 +90,42 @@ Select ONE theme for your entire video. The theme controls all colors automatica
 
 ## 🎵 Music Configuration
 
-### Available Music Tracks
+### Available Music Tracks (16 Total)
 
-**Corporate/Professional:**
-- `corp-1` - Corporate Upbeat (SoundHelix-Song-1)
-- `corp-2` - Corporate Calm (SoundHelix-Song-2)
+Use the **filename without .mp3 extension** as the trackId value.
 
-**Upbeat/Energetic:**
-- `upbeat-1` - Happy Days (SoundHelix-Song-3)
-- `upbeat-2` - Energetic Beat (SoundHelix-Song-4)
+**🎹 Ambient/Atmospheric:**
+- `deep-abstract-ambient_snowcap-401656` - Peaceful, meditative ambient (educational, calm videos)
+- `eona-emotional-ambient-pop-351436` - Emotional, atmospheric pop (storytelling, reflective content)
+- `gardens-stylish-chill-303261` - Stylish chill vibes (modern, lifestyle, fashion)
 
-**Calm/Ambient:**
-- `calm-1` - Peaceful Flow (SoundHelix-Song-5)
-- `calm-2` - Gentle Waves (SoundHelix-Song-6)
+**🤖 Cyberpunk/Tech:**
+- `cyberpunk-futuristic-background-349787` - Futuristic cyberpunk background (tech products, modern SaaS)
+- `cyberpunk-futuristic-city-music-323171` - Dynamic city soundscape (urban tech, innovation)
+- `cyberpunk-futuristic-city-music-390972` - Alternative futuristic track (sci-fi, technology)
+- `cyberpunk-metaverse-event-background-music-286971` - Metaverse event energy (web3, crypto, digital)
+- `brain-implant-cyberpunk-sci-fi-trailer-action-intro-330416` - Intense sci-fi action (dramatic tech reveals)
 
-**Epic/Dramatic:**
-- `epic-1` - Epic Journey (SoundHelix-Song-7)
-- `epic-2` - Heroic Theme (SoundHelix-Song-8)
+**🎬 Cinematic/Epic:**
+- `experimental-cinematic-hip-hop-315904` - Bold cinematic hip-hop (modern brands, edgy content)
 
-**Tech/Modern:**
-- `tech-1` - Digital Pulse (SoundHelix-Song-9)
-- `tech-2` - Future Sound (SoundHelix-Song-10)
+**🎧 Electronic/Modern:**
+- `future-design-344320` - Clean future design sounds (UI/UX, design tools, creative software)
+- `futuristic-motivation-synthwave-431078` - Motivational synthwave (inspirational, achievement)
+- `running-night-393139` - Energetic night running (fitness, sports, action)
+
+**🎵 Upbeat/Energy:**
+- `background-music-2-424599` - General upbeat background (versatile, positive vibes)
+- `rap-beat-beats-music-416039` - Modern rap beat (youth, street culture, hip brands)
+
+**🎃 Dark/Tension:**
+- `scary-horror-tension-433607` - Horror tension (Halloween, thriller, dramatic reveals)
 
 ### Music Object Structure
 ```json
 {
   "enabled": true,
-  "trackId": "upbeat-1",
+  "trackId": "cyberpunk-futuristic-city-music-323171",
   "volume": 0.3,
   "fadeIn": 2,
   "fadeOut": 3
@@ -125,7 +134,7 @@ Select ONE theme for your entire video. The theme controls all colors automatica
 
 **Parameters:**
 - `enabled` (boolean): Enable/disable music
-- `trackId` (string): One of the 10 track IDs above
+- `trackId` (string): Filename without .mp3 (see list above)
 - `volume` (number): 0.0 to 1.0 (recommended: 0.2-0.4)
 - `fadeIn` (number): Fade in duration in seconds (default: 2)
   - Music gradually increases from silence to full volume
@@ -135,8 +144,240 @@ Select ONE theme for your entire video. The theme controls all colors automatica
   - **Critical for preventing abrupt music cuts**
   - Ensures viewers know the video is ending naturally
 
+### Music Selection Guide
+
+**📊 Corporate/Business Videos:**
+- `deep-abstract-ambient_snowcap-401656` (calm professional)
+- `future-design-344320` (modern design)
+- `gardens-stylish-chill-303261` (stylish professional)
+
+**🚀 Tech/SaaS/Startup:**
+- `cyberpunk-futuristic-background-349787` (modern tech)
+- `cyberpunk-futuristic-city-music-323171` (dynamic innovation)
+- `futuristic-motivation-synthwave-431078` (motivational tech)
+
+**🎓 Educational/Tutorial:**
+- `deep-abstract-ambient_snowcap-401656` (focused learning)
+- `eona-emotional-ambient-pop-351436` (engaging storytelling)
+- `background-music-2-424599` (light, non-distracting)
+
+**💪 Motivational/Fitness:**
+- `futuristic-motivation-synthwave-431078` (achievement)
+- `running-night-393139` (energy, action)
+- `experimental-cinematic-hip-hop-315904` (bold, powerful)
+
+**🎨 Creative/Lifestyle:**
+- `gardens-stylish-chill-303261` (stylish, modern)
+- `eona-emotional-ambient-pop-351436` (emotional connection)
+- `future-design-344320` (design-focused)
+
+**🌆 Web3/Crypto/Metaverse:**
+- `cyberpunk-metaverse-event-background-music-286971` (digital future)
+- `cyberpunk-futuristic-city-music-390972` (blockchain, NFT)
+
 **Why Fade-Out Matters:**
 Without fade-out, music cuts abruptly when the video ends, confusing viewers who hear the music "just getting started." The fade-out effect signals that the video is concluding, creating a professional, polished finish.
+
+---
+
+## ⏱️ Scene Duration Guidelines (CRITICAL)
+
+### Duration Calculation Rules
+
+Proper scene duration is **critical** for production-ready videos. Too short = unreadable, too long = boring.
+
+**Reading Speed Formula:**
+```
+Base Duration + Content Duration = Total Scene Duration
+```
+
+**Text Reading Speeds:**
+- **Title/Headline**: 2 seconds base + (word count × 0.3 seconds)
+- **Subtitle/Description**: 2 seconds base + (word count × 0.4 seconds)
+- **List Items**: 1.5 seconds per item
+- **Stats/Numbers**: 1.5 seconds per stat (viewers need time to process numbers)
+
+**Duration Constraints:**
+- **Minimum**: 3 seconds (even for very short text)
+- **Maximum**: 12 seconds (avoid viewer fatigue)
+- **Optimal**: 4-7 seconds for most scenes
+
+**Calculation Examples:**
+
+1. **Hero Title: "Launch Your Product Today"**
+   - Title: 4 words → 2 + (4 × 0.3) = 3.2s
+   - No subtitle
+   - **Result: 4 seconds** (rounded up to minimum comfortable)
+
+2. **Hero Title with Subtitle:**
+   - Title: "Transform your business with AI" (5 words) → 2 + (5 × 0.3) = 3.5s
+   - Subtitle: "Automate workflows and boost productivity" (5 words) → 2 + (5 × 0.4) = 4s
+   - **Result: 3.5 + 4 = 7.5s → round to 8 seconds**
+
+3. **Stats Dashboard with 3 Stats:**
+   - Title: "Our Impact" (2 words) → 2 + (2 × 0.3) = 2.6s
+   - 3 stats → 3 × 1.5 = 4.5s
+   - **Result: 2.6 + 4.5 = 7.1s → round to 7 seconds**
+
+4. **Icon Grid with 6 Items:**
+   - Title: "Key Features" (2 words) → 2.6s
+   - 6 items with short descriptions → 6 × 1.5 = 9s
+   - **Result: 2.6 + 9 = 11.6s → round to 12 seconds**
+
+---
+
+### Scene Type Duration Guidelines
+
+Use these ranges as starting points, then adjust based on content:
+
+**⚡ Quick Scenes (7-8 seconds):**
+- `hero-title` - Short, punchy headlines (< 8 words)
+- `minimal-title` - Simple announcements
+- `countdown` - Visual countdown effect
+- `achievement-badge` - Completion celebration
+- `brand-watermark` - Logo + company name
+
+**📊 Medium Scenes (9-12 seconds):**
+- `hero-title` - With subtitle or longer text
+- `stats-dashboard` - 3-4 statistics
+- `icon-grid` - 3-4 features
+- `testimonial` - Short quote (< 20 words)
+- `split-screen` - Before/after comparison
+- `chapter-intro` - Section introduction
+- `definition-card` - Term + definition
+
+**📚 Long Scenes (12-15 seconds):**
+- `pricing-cards` - Multiple pricing tiers
+- `interactive-quiz` - Question + options + reveal time
+- `code-demo` - Code snippet + explanation
+- `timeline` - 4+ events
+- `icon-grid` - 6+ features
+- `learning-objectives` - 4+ objectives
+- `concept-explanation` - Detailed explanation
+- `process-flow` - Multi-step process
+
+---
+
+### Common Duration Mistakes ⚠️
+
+**❌ TOO SHORT - Unreadable:**
+
+```json
+{
+  "type": "hero-title",
+  "duration": 2,  // ❌ TOO SHORT!
+  "content": {
+    "title": "Transform your business with our revolutionary AI-powered platform",
+    "subtitle": "Boost productivity by 300% and reduce costs"
+  }
+}
+```
+**Problem:** 15+ words in 2 seconds = impossible to read
+
+**✅ CORRECT:**
+```json
+{
+  "type": "hero-title",
+  "duration": 6,  // ✅ Proper duration
+  "content": {
+    "title": "Transform your business with our revolutionary AI-powered platform",
+    "subtitle": "Boost productivity by 300% and reduce costs"
+  }
+}
+```
+**Calculation:** Title (8 words × 0.3 = 2.4s) + Subtitle (7 words × 0.4 = 2.8s) + 1s buffer = 6.2s → **6 seconds**
+
+---
+
+**❌ TOO SHORT - Stats Dashboard:**
+
+```json
+{
+  "type": "stats-dashboard",
+  "duration": 3,  // ❌ TOO SHORT!
+  "content": {
+    "title": "Our Impact",
+    "stats": [
+      {"value": 50000, "suffix": "+", "label": "Active Users"},
+      {"value": 99, "suffix": "%", "label": "Satisfaction"},
+      {"value": 150, "suffix": "M", "label": "Revenue"}
+    ]
+  }
+}
+```
+**Problem:** Viewers need time to read and process numbers
+
+**✅ CORRECT:**
+```json
+{
+  "type": "stats-dashboard",
+  "duration": 7,  // ✅ Proper duration
+  "content": {
+    "title": "Our Impact",
+    "stats": [
+      {"value": 50000, "suffix": "+", "label": "Active Users"},
+      {"value": 99, "suffix": "%", "label": "Satisfaction"},
+      {"value": 150, "suffix": "M", "label": "Revenue"}
+    ]
+  }
+}
+```
+**Calculation:** Title (2 words × 0.3 = 0.6s) + 3 stats (3 × 1.5 = 4.5s) + 2s buffer = **7 seconds**
+
+---
+
+**❌ TOO LONG - Simple Title:**
+
+```json
+{
+  "type": "minimal-title",
+  "duration": 10,  // ❌ TOO LONG!
+  "content": {
+    "title": "Welcome"
+  }
+}
+```
+**Problem:** 1 word doesn't need 10 seconds - viewers get bored
+
+**✅ CORRECT:**
+```json
+{
+  "type": "minimal-title",
+  "duration": 3,  // ✅ Proper duration
+  "content": {
+    "title": "Welcome"
+  }
+}
+```
+**Calculation:** 1 word = minimum 3 seconds
+
+---
+
+### Quick Duration Reference Table
+
+| Content Type | Words/Items | Recommended Duration |
+|--------------|-------------|---------------------|
+| Short title (1-3 words) | 1-3 | 3-4 seconds |
+| Medium title (4-8 words) | 4-8 | 4-5 seconds |
+| Long title (9-15 words) | 9-15 | 5-6 seconds |
+| Title + short subtitle | 5 + 5 | 6-7 seconds |
+| Title + long subtitle | 8 + 8 | 8-9 seconds |
+| 3 stats/numbers | 3 items | 6-7 seconds |
+| 4-6 list items | 4-6 items | 8-10 seconds |
+| Quiz (question + 4 options) | - | 10-12 seconds |
+| Code snippet | - | 10-12 seconds |
+
+---
+
+### Total Video Duration Targets
+
+**By Platform:**
+- **Social Media (Instagram/TikTok/Reels)**: 15-30 seconds (3-6 scenes)
+- **Product Demo**: 30-60 seconds (5-10 scenes)
+- **Educational Tutorial**: 45-90 seconds (6-12 scenes)
+- **Brand Story**: 60-120 seconds (8-15 scenes)
+
+**Rule of Thumb:** Aim for 5-8 scenes per video for optimal engagement.
 
 ---
 
@@ -180,6 +421,174 @@ All text fields support **markdown-style color formatting** to highlight specifi
 - Over-format (max 30% of text)
 - Mix too many colors in one sentence
 - Format entire sentences
+
+---
+
+## ✍️ Content Writing Guidelines (CRITICAL)
+
+### Text Length Limits
+
+**Per Scene Type:**
+
+| Scene Type | Title Max | Subtitle Max | Description Max |
+|------------|-----------|--------------|-----------------|
+| `hero-title` | 12 words | 15 words | - |
+| `minimal-title` | 5 words | 10 words | - |
+| `stats-dashboard` | 5 words | - | 3 words per label |
+| `testimonial` | - | - | 25 words (quote) |
+| `icon-grid` | 5 words | - | 8 words per item |
+| `pricing-cards` | 5 words | - | 5 words per feature |
+| `concept-explanation` | 8 words | - | 30 words (description) |
+| `code-demo` | 8 words | - | 5 lines of code max |
+
+**General Rules:**
+- **Titles**: 3-12 words (shorter = more impact)
+- **Subtitles**: 5-15 words
+- **Descriptions**: 15-30 words
+- **List items**: 3-8 words each
+- **Quotes**: 15-25 words
+
+---
+
+### Writing Style & Tone
+
+**✅ DO - Action-Oriented & Benefit-Focused:**
+
+```json
+❌ "Our platform provides comprehensive solutions"
+✅ "**Boost revenue** by ***30%*** in 60 days"
+
+❌ "We have many features for businesses"
+✅ "**Automate workflows** and ***save 10 hours*** weekly"
+
+❌ "Advanced AI technology for data processing"
+✅ "Turn **raw data** into ***actionable insights*** instantly"
+```
+
+**Power Words to Use:**
+- **Action**: Launch, Transform, Boost, Accelerate, Unlock, Maximize
+- **Benefit**: Save, Earn, Grow, Increase, Reduce, Eliminate
+- **Emotion**: Revolutionary, Powerful, Simple, Effortless, Proven
+- **Urgency**: Today, Now, Instantly, Immediately, Fast
+
+**Words to Avoid:**
+- ❌ Jargon: "Leverage synergies", "Paradigm shift"
+- ❌ Vague: "Comprehensive", "Solutions", "Innovative"
+- ❌ Passive: "Can be used", "Is designed to"
+- ❌ Weak: "Try to", "Might help", "Possibly"
+
+---
+
+### Content Structure by Scene Type
+
+**Hero Title - Hook Formula:**
+```
+[Action Verb] + [Benefit] + [Timeframe/Ease]
+
+Examples:
+✅ "**Launch** your product in ***24 hours***"
+✅ "**Double** your revenue with ****zero effort****"
+✅ "**Transform** meetings into ***action items*** automatically"
+```
+
+**Stats Dashboard - Impact Formula:**
+```
+[Big Number] + [Metric] + [Context]
+
+Examples:
+✅ {"value": 10000, "suffix": "+", "label": "Happy Customers"}
+✅ {"value": 99, "suffix": "%", "label": "Uptime SLA"}
+✅ {"value": 5, "suffix": "M", "label": "Saved Annually"}
+```
+
+**Testimonial - Credibility Formula:**
+```
+[Specific Result] + [Emotional Impact] + [Timeframe]
+
+Examples:
+✅ "We **increased sales by 150%** in just 3 months. Game changer!"
+✅ "Cut our costs by **$50K annually**. Couldn't be happier!"
+```
+
+**Icon Grid - Feature Formula:**
+```
+[Benefit-Focused Title] + [How It Helps]
+
+Examples:
+✅ {"icon": "⚡", "title": "Lightning Fast", "description": "Load in under 1 second"}
+✅ {"icon": "🔒", "title": "Bank-Level Security", "description": "256-bit encryption"}
+```
+
+---
+
+### Call-to-Action (CTA) Best Practices
+
+**Strong CTAs:**
+```json
+✅ "Start Free Trial"
+✅ "Get Started Now"
+✅ "Claim Your Discount"
+✅ "Book a Demo"
+✅ "Join 10,000+ Users"
+```
+
+**Weak CTAs:**
+```json
+❌ "Click Here"
+❌ "Learn More"
+❌ "Submit"
+❌ "Continue"
+```
+
+**CTA with Urgency:**
+```json
+{
+  "type": "countdown",
+  "content": {
+    "title": "Limited Offer Ends In",
+    "duration": 10,
+    "message": "Claim **50% Off** Now!"
+  }
+}
+```
+
+---
+
+### Consistency Rules
+
+**Within Same Video:**
+
+1. **Emoji Style** - Pick one and stick to it:
+   ```json
+   ✅ All colorful: 🚀 💡 ⚡ 🎯
+   ✅ All simple: → • ✓ ×
+   ❌ Mixed: 🚀 • ⚡ ×  // Inconsistent!
+   ```
+
+2. **Number Format** - Be consistent:
+   ```json
+   ✅ All with suffixes: "10K", "5M", "99%"
+   ✅ All full numbers: "10,000", "5,000,000", "99%"
+   ❌ Mixed: "10K", "5,000,000", "99%"  // Inconsistent!
+   ```
+
+3. **Capitalization** - Pick one style:
+   ```json
+   ✅ Title Case: "Transform Your Business"
+   ✅ Sentence case: "Transform your business"
+   ❌ Mixed: "Transform Your business"  // Inconsistent!
+   ```
+
+4. **Color Formatting** - Use same emphasis pattern:
+   ```json
+   ✅ Primary for main benefit, secondary for supporting:
+   - "**Boost revenue** by ***30%***"
+   - "**Save time** with ***automation***"
+   
+   ❌ Random formatting:
+   - "**Boost** revenue by 30%"
+   - "Save ***time*** with automation"
+   ```
 
 ---
 
@@ -588,508 +997,6 @@ All text fields support **markdown-style color formatting** to highlight specifi
 
 ---
 
-### Educational Scenes (14 Types)
-
-#### 11. Chapter Intro Scene
-**Type:** `chapter-intro`  
-**Best For:** Section introductions  
-**Duration:** 3-5 seconds
-
-```json
-{
-  "type": "chapter-intro",
-  "duration": 4,
-  "content": {
-    "chapterNumber": "01",
-    "title": "Introduction to React",
-    "subtitle": "Building Modern UIs"
-  }
-}
-```
-
----
-
-#### 12. Learning Objectives Scene
-**Type:** `learning-objectives`  
-**Best For:** Course goals, outcomes  
-**Duration**: 6-10 seconds
-
-```json
-{
-  "type": "learning-objectives",
-  "duration": 8,
-  "content": {
-    "title": "What You'll Learn",
-    "objectives": [
-      {"icon": "🎯", "text": "Master React hooks"},
-      {"icon": "💡", "text": "Build components"},
-      {"icon": "🚀", "text": "Deploy apps"}
-    ]
-  }
-}
-```
-
----
-
-#### 13. Concept Explanation Scene
-**Type:** `concept-explanation`  
-**Best For:** Teaching concepts  
-**Duration:** 6-10 seconds
-
-```json
-{
-  "type": "concept-explanation",
-  "duration": 8,
-  "content": {
-    "title": "What is React?",
-    "description": "A JavaScript library for building user interfaces",
-    "keyPoints": [
-      "Component-based",
-      "Declarative",
-      "Learn once, write anywhere"
-    ]
-  }
-}
-```
-
----
-
-#### 14. Interactive Quiz Scene
-**Type:** `interactive-quiz`  
-**Best For:** Knowledge checks  
-**Duration:** 8-12 seconds
-
-```json
-{
-  "type": "interactive-quiz",
-  "duration": 10,
-  "content": {
-    "question": "What is JSX?",
-    "options": [
-      {"text": "A JavaScript extension", "correct": true},
-      {"text": "A CSS framework", "correct": false},
-      {"text": "A database", "correct": false}
-    ],
-    "explanation": "JSX is a syntax extension for JavaScript",
-    "revealDelay": 5
-  }
-}
-```
-
----
-
-#### 15. Code Demo Scene
-**Type:** `code-demo`  
-**Best For:** Code examples  
-**Duration:** 8-12 seconds
-
-```json
-{
-  "type": "code-demo",
-  "duration": 10,
-  "content": {
-    "title": "useState Hook",
-    "code": "const [count, setCount] = useState(0);",
-    "output": "Initial count: 0",
-    "language": "javascript"
-  }
-}
-```
-
----
-
-#### 16. Mind Map Scene
-**Type:** `mind-map`  
-**Best For:** Concept relationships  
-**Duration:** 6-10 seconds
-
-```json
-{
-  "type": "mind-map",
-  "duration": 8,
-  "content": {
-    "central": "React",
-    "branches": [
-      {"title": "Components", "items": ["Functional", "Class"]},
-      {"title": "Hooks", "items": ["useState", "useEffect"]},
-      {"title": "Props", "items": ["Data flow", "Validation"]}
-    ]
-  }
-}
-```
-
----
-
-#### 17. Progress Tracker Scene
-**Type:** `progress-tracker`  
-**Best For:** Course progress  
-**Duration:** 4-6 seconds
-
-```json
-{
-  "type": "progress-tracker",
-  "duration": 5,
-  "content": {
-    "title": "Your Progress",
-    "completed": 7,
-    "total": 10,
-    "percentage": 70
-  }
-}
-```
-
----
-
-#### 18. Definition Card Scene
-**Type:** `definition-card`  
-**Best For:** Terminology  
-**Duration:** 5-8 seconds
-
-```json
-{
-  "type": "definition-card",
-  "duration": 6,
-  "content": {
-    "term": "Component",
-    "definition": "A reusable piece of UI that manages its own state",
-    "example": "<Button onClick={handleClick}>Click me</Button>"
-  }
-}
-```
-
----
-
-#### 19. Case Study Scene
-**Type:** `case-study`  
-**Best For:** Real-world examples  
-**Duration:** 8-12 seconds
-
-```json
-{
-  "type": "case-study",
-  "duration": 10,
-  "content": {
-    "title": "Case Study: Facebook",
-    "problem": "Complex UI updates",
-    "solution": "React's virtual DOM",
-    "result": "60% performance improvement"
-  }
-}
-```
-
----
-
-#### 20. Summary Points Scene
-**Type:** `summary-points`  
-**Best For:** Key takeaways  
-**Duration:** 6-10 seconds
-
-```json
-{
-  "type": "summary-points",
-  "duration": 8,
-  "content": {
-    "title": "Key Takeaways",
-    "points": [
-      {"icon": "📌", "text": "React is component-based"},
-      {"icon": "📌", "text": "Use hooks for state"},
-      {"icon": "📌", "text": "Props pass data down"}
-    ]
-  }
-}
-```
-
----
-
-#### 21. Formula Scene
-**Type:** `formula`  
-**Best For:** Mathematical concepts  
-**Duration:** 6-10 seconds
-
-```json
-{
-  "type": "formula",
-  "duration": 8,
-  "content": {
-    "title": "Area of Circle",
-    "formula": "A = πr²",
-    "explanation": "Where r is the radius",
-    "example": "r = 5, A = 78.5"
-  }
-}
-```
-
----
-
-#### 22. Vocabulary Scene
-**Type:** `vocabulary`  
-**Best For:** Term lists  
-**Duration:** 6-10 seconds
-
-```json
-{
-  "type": "vocabulary",
-  "duration": 8,
-  "content": {
-    "title": "Key Terms",
-    "terms": [
-      {"word": "Props", "definition": "Data passed to components"},
-      {"word": "State", "definition": "Component's internal data"}
-    ]
-  }
-}
-```
-
----
-
-#### 23. Interactive Timeline Scene
-**Type:** `interactive-timeline`  
-**Best For:** Historical events  
-**Duration:** 8-12 seconds
-
-```json
-{
-  "type": "interactive-timeline",
-  "duration": 10,
-  "content": {
-    "title": "History of React",
-    "events": [
-      {"year": "2013", "title": "React Released", "description": "Open sourced by Facebook"},
-      {"year": "2015", "title": "React Native", "description": "Mobile development"},
-      {"year": "2019", "title": "Hooks Released", "description": "Functional components"}
-    ]
-  }
-}
-```
-
----
-
-#### 24. Achievement Badge Scene
-**Type:** `achievement-badge`  
-**Best For:** Completion, milestones  
-**Duration:** 4-6 seconds
-
-```json
-{
-  "type": "achievement-badge",
-  "duration": 5,
-  "content": {
-    "icon": "🏆",
-    "achievement": "Course Complete!",
-    "message": "You've mastered React basics"
-  }
-}
-```
-
----
-
-## 📋 Complete Example: Promotional Video
-
-```json
-{
-  "title": "Product Launch Video",
-  "type": "promotional",
-  "theme": "winter",
-  "music": {
-    "enabled": true,
-    "trackId": "upbeat-1",
-    "volume": 0.3,
-    "fadeIn": 2,
-    "fadeOut": 2
-  },
-  "scenes": [
-    {
-      "type": "hero-title",
-      "duration": 4,
-      "content": {
-        "title": "Launch **NextGen Platform** in ***minutes***",
-        "subtitle": "The future of ****productivity****",
-        "fontSize": 96,
-        "fontWeight": 800
-      }
-    },
-    {
-      "type": "stats-dashboard",
-      "duration": 6,
-      "content": {
-        "title": "Trusted by Thousands",
-        "stats": [
-          {"value": 50000, "suffix": "+", "label": "Active Users"},
-          {"value": 99, "suffix": "%", "label": "Uptime"},
-          {"value": 4, "suffix": ".9★", "label": "Rating"}
-        ]
-      }
-    },
-    {
-      "type": "icon-grid",
-      "duration": 6,
-      "content": {
-        "title": "Why Choose Us",
-        "columns": 3,
-        "items": [
-          {"icon": "⚡", "title": "Lightning Fast", "description": "Optimized performance"},
-          {"icon": "🔒", "title": "Secure", "description": "Enterprise-grade security"},
-          {"icon": "🌐", "title": "Global", "description": "Available worldwide"}
-        ]
-      }
-    },
-    {
-      "type": "testimonial",
-      "duration": 6,
-      "content": {
-        "quote": "This platform transformed our workflow completely!",
-        "author": "Sarah Johnson",
-        "role": "CTO, Tech Innovations",
-        "rating": 5
-      }
-    },
-    {
-      "type": "pricing-cards",
-      "duration": 8,
-      "content": {
-        "title": "Simple Pricing",
-        "plans": [
-          {
-            "name": "Starter",
-            "price": "$9",
-            "period": "per month",
-            "features": ["5 Projects", "10GB Storage", "Email Support"],
-            "featured": false
-          },
-          {
-            "name": "Professional",
-            "price": "$29",
-            "period": "per month",
-            "badge": "POPULAR",
-            "features": ["Unlimited Projects", "100GB Storage", "Priority Support", "Advanced Analytics"],
-            "featured": true
-          }
-        ]
-      }
-    },
-    {
-      "type": "countdown",
-      "duration": 4,
-      "content": {
-        "title": "Launch Special Ends In",
-        "duration": 10,
-        "message": "Don't Miss Out!"
-      }
-    }
-  ]
-}
-```
-
-**Total Duration:** 33 seconds
-
----
-
-## 📋 Complete Example: Educational Video
-
-```json
-{
-  "title": "Introduction to React Course",
-  "type": "educational",
-  "theme": "light",
-  "music": {
-    "enabled": true,
-    "trackId": "calm-1",
-    "volume": 0.2,
-    "fadeIn": 2,
-    "fadeOut": 2
-  },
-  "scenes": [
-    {
-      "type": "chapter-intro",
-      "duration": 4,
-      "content": {
-        "chapterNumber": "01",
-        "title": "Getting Started with React",
-        "subtitle": "Your First Steps"
-      }
-    },
-    {
-      "type": "learning-objectives",
-      "duration": 8,
-      "content": {
-        "title": "What You'll Learn",
-        "objectives": [
-          {"icon": "🎯", "text": "Understand React fundamentals"},
-          {"icon": "💡", "text": "Build your first component"},
-          {"icon": "🚀", "text": "Use hooks effectively"},
-          {"icon": "🔧", "text": "Manage state and props"}
-        ]
-      }
-    },
-    {
-      "type": "concept-explanation",
-      "duration": 8,
-      "content": {
-        "title": "What is React?",
-        "description": "React is a JavaScript library for building user interfaces, developed by Facebook",
-        "keyPoints": [
-          "Component-based architecture",
-          "Declarative programming",
-          "Virtual DOM for performance",
-          "Reusable UI components"
-        ]
-      }
-    },
-    {
-      "type": "code-demo",
-      "duration": 10,
-      "content": {
-        "title": "Your First Component",
-        "code": "function Welcome() {\n  return <h1>Hello, React!</h1>;\n}",
-        "output": "Renders: Hello, React!",
-        "language": "javascript"
-      }
-    },
-    {
-      "type": "interactive-quiz",
-      "duration": 10,
-      "content": {
-        "question": "What does JSX stand for?",
-        "options": [
-          {"text": "JavaScript XML", "correct": true},
-          {"text": "Java Syntax Extension", "correct": false},
-          {"text": "JSON XML", "correct": false},
-          {"text": "JavaScript Extension", "correct": false}
-        ],
-        "explanation": "JSX stands for JavaScript XML. It's a syntax extension that lets you write HTML-like code in JavaScript.",
-        "revealDelay": 5
-      }
-    },
-    {
-      "type": "summary-points",
-      "duration": 8,
-      "content": {
-        "title": "Key Takeaways",
-        "points": [
-          {"icon": "📌", "text": "React uses components to build UIs"},
-          {"icon": "📌", "text": "JSX makes writing components easier"},
-          {"icon": "📌", "text": "Components can be reused"},
-          {"icon": "📌", "text": "React is declarative and efficient"}
-        ]
-      }
-    },
-    {
-      "type": "achievement-badge",
-      "duration": 5,
-      "content": {
-        "icon": "🏆",
-        "achievement": "Chapter 1 Complete!",
-        "message": "You've learned React basics"
-      }
-    }
-  ]
-}
-```
-
-**Total Duration:** 53 seconds
-
----
-
 ## ✅ Best Practices for LLMs
 
 ### 1. **Scene Duration Guidelines**
@@ -1098,21 +1005,186 @@ All text fields support **markdown-style color formatting** to highlight specifi
 - **Complex scenes** (quiz, code): 8-12 seconds
 - **Total video**: 20-90 seconds recommended
 
-### 2. **Scene Flow**
-- Start with intro/title scene
-- Build narrative progressively
-- End with call-to-action or summary
-- Vary scene types for engagement
+### 2. **Scene Flow & Narrative Structure** (CRITICAL)
 
-### 3. **Theme Selection**
-- Match theme to video purpose
-- Consider target audience
-- Ensure readability (light text on dark, vice versa)
+**Proven Video Structures:**
+
+**🎯 Promotional Video Structure (AIDA Model):**
+```
+1. Attention (Hook) → hero-title or brand-watermark
+2. Interest (Problem) → split-screen or testimonial
+3. Desire (Solution) → icon-grid or stats-dashboard
+4. Action (CTA) → pricing-cards or countdown
+```
+
+**Example 30s Promotional:**
+```json
+[
+  {"type": "hero-title", "duration": 4},      // Hook: "**Launch** in ***24 hours***"
+  {"type": "split-screen", "duration": 5},    // Problem: Before vs After
+  {"type": "icon-grid", "duration": 6},       // Solution: 3 key features
+  {"type": "stats-dashboard", "duration": 6}, // Proof: Numbers & results
+  {"type": "testimonial", "duration": 5},     // Social proof
+  {"type": "pricing-cards", "duration": 8}    // Offer & CTA
+]
+// Total: 34 seconds
+```
+
+**📚 Educational Video Structure:**
+```
+1. Introduction → chapter-intro
+2. Learning Goals → learning-objectives
+3. Core Content → concept-explanation or code-demo
+4. Practice → interactive-quiz
+5. Summary → summary-points
+6. Achievement → achievement-badge
+```
+
+**Example 60s Educational:**
+```json
+[
+  {"type": "chapter-intro", "duration": 4},
+  {"type": "learning-objectives", "duration": 8},
+  {"type": "concept-explanation", "duration": 10},
+  {"type": "code-demo", "duration": 12},
+  {"type": "interactive-quiz", "duration": 12},
+  {"type": "summary-points", "duration": 8},
+  {"type": "achievement-badge", "duration": 5}
+]
+// Total: 59 seconds
+```
+
+**🚀 Product Launch Structure:**
+```
+1. Brand intro → brand-watermark
+2. Big announcement → hero-title
+3. Key features → icon-grid
+4. Social proof → stats-dashboard + testimonial
+5. Urgency → countdown
+6. Offer → pricing-cards
+```
+
+**Scene Sequencing Rules:**
+
+✅ **DO:**
+- Start strong with hook (hero-title or brand-watermark)
+- Show problem BEFORE solution
+- Provide proof AFTER claims (stats after features)
+- End with clear CTA
+- Build momentum (short → medium → long scenes)
+
+❌ **DON'T:**
+- Start with pricing (show value first)
+- Put testimonial before showing product
+- End without CTA
+- Use same scene type twice in a row
+- Make first scene longer than 5 seconds
+
+**Transition Logic:**
+
+Good flow examples:
+```
+hero-title → stats-dashboard ✅ (claim → proof)
+icon-grid → testimonial ✅ (features → validation)
+split-screen → pricing-cards ✅ (problem/solution → offer)
+```
+
+Bad flow examples:
+```
+pricing-cards → icon-grid ❌ (offer before value)
+testimonial → hero-title ❌ (proof before claim)
+stats-dashboard → stats-dashboard ❌ (repetitive)
+```
+
+### 3. **Theme Selection Decision Tree** (IMPORTANT)
+
+**Decision Flowchart:**
+
+```
+START → What's the video type?
+│
+├─ Tech/SaaS Product?
+│  ├─ Modern/Edgy → cyberpunk, synthwave, dracula
+│  ├─ Professional → corporate, winter, business
+│  └─ Creative → retro, acid, cmyk
+│
+├─ Corporate/Business?
+│  ├─ Conservative → corporate, business, winter
+│  ├─ Modern → emerald, garden, aqua
+│  └─ Luxury → luxury, black, dark
+│
+├─ Educational/Tutorial?
+│  ├─ Friendly → light, cupcake, pastel
+│  ├─ Professional → corporate, winter, garden
+│  └─ Tech-focused → dark, dracula, forest
+│
+├─ Creative/Marketing?
+│  ├─ Bold → synthwave, cyberpunk, halloween
+│  ├─ Elegant → valentine, fantasy, autumn
+│  └─ Vintage → retro, coffee, lofi
+│
+└─ E-commerce/Product?
+   ├─ Fashion → valentine, pastel, fantasy
+   ├─ Tech → cyberpunk, dark, night
+   └─ Food → autumn, bumblebee, garden
+```
+
+**Industry-Specific Recommendations:**
+
+| Industry | Primary Themes | Avoid |
+|----------|---------------|-------|
+| **SaaS/Software** | cyberpunk, winter, corporate, dark | halloween, valentine, cupcake |
+| **Finance/Banking** | corporate, business, luxury, winter | synthwave, halloween, acid |
+| **Healthcare** | light, emerald, garden, aqua | halloween, dracula, black |
+| **Education** | light, cupcake, pastel, garden | halloween, luxury, black |
+| **E-commerce** | retro, valentine, autumn, bumblebee | dracula, halloween, black |
+| **Real Estate** | luxury, emerald, garden, autumn | cyberpunk, synthwave, acid |
+| **Fitness/Sports** | dark, synthwave, forest, night | cupcake, pastel, valentine |
+| **Food/Restaurant** | autumn, bumblebee, garden, retro | dracula, halloween, black |
+| **Fashion/Beauty** | valentine, fantasy, pastel, luxury | halloween, forest, coffee |
+| **Web3/Crypto** | cyberpunk, synthwave, acid, night | cupcake, pastel, garden |
+
+**Mood/Tone Matching:**
+
+**Professional & Trustworthy:**
+→ `corporate`, `business`, `winter`, `emerald`
+
+**Modern & Innovative:**
+→ `cyberpunk`, `synthwave`, `dark`, `night`
+
+**Friendly & Approachable:**
+→ `light`, `cupcake`, `pastel`, `garden`
+
+**Bold & Energetic:**
+→ `synthwave`, `acid`, `bumblebee`, `halloween`
+
+**Elegant & Premium:**
+→ `luxury`, `black`, `valentine`, `fantasy`
+
+**Minimal & Clean:**
+→ `lofi`, `wireframe`, `light`, `business`
+
+**Quick Selection Guide:**
+
+```
+IF audience = "developers" → dark, dracula, cyberpunk
+IF audience = "executives" → corporate, business, luxury
+IF audience = "students" → light, cupcake, garden
+IF audience = "consumers" → retro, valentine, pastel
+IF audience = "investors" → corporate, winter, business
+```
+
+**Readability Check:**
+- ✅ Light themes: Use for detailed text, educational content
+- ✅ Dark themes: Use for bold statements, tech products
+- ⚠️ Ensure contrast: Test with long text scenes
 
 ### 4. **Music Selection**
-- **Promotional**: upbeat, epic, or tech tracks
-- **Educational**: calm or corporate tracks
+- **Promotional**: Use cyberpunk/tech tracks for modern feel
+- **Educational**: Use ambient/chill tracks for focus
+- **Corporate**: Use stylish/design tracks for professionalism
 - Keep volume low (0.2-0.4) to not overpower narration
+- Use **trackId** with filename (without .mp3)
 
 ### 5. **Content Guidelines**
 - Keep text concise (max 10-15 words per line)
@@ -1163,7 +1235,7 @@ Before generating, verify:
 - [ ] At least 1 scene defined
 - [ ] All required scene fields present
 - [ ] Scene durations are reasonable (2-12 seconds)
-- [ ] Music trackId is valid (if music enabled)
+- [ ] Music trackId is valid filename without .mp3 (if music enabled)
 - [ ] Total video duration is appropriate
 - [ ] Text content is concise and clear
 - [ ] JSON is properly formatted
@@ -1185,13 +1257,13 @@ Before generating, verify:
 ## 💡 Example Prompts for LLMs
 
 **"Create a 30-second promotional video for a SaaS product"**
-→ Use `winter` theme, `upbeat-1` music, include: minimal-title, stats-dashboard, icon-grid, testimonial, pricing-cards
+→ Use `winter` theme, `cyberpunk-futuristic-city-music-323171` music, include: hero-title, stats-dashboard, icon-grid, testimonial, pricing-cards
 
 **"Generate an educational video about Python basics"**
-→ Use `light` theme, `calm-1` music, include: chapter-intro, learning-objectives, concept-explanation, code-demo, quiz, summary-points
+→ Use `light` theme, `deep-abstract-ambient_snowcap-401656` music, include: chapter-intro, learning-objectives, concept-explanation, code-demo, quiz, summary-points
 
 **"Make a product launch countdown video"**
-→ Use `synthwave` theme, `epic-1` music, include: minimal-title, stats-dashboard, countdown
+→ Use `synthwave` theme, `futuristic-motivation-synthwave-431078` music, include: hero-title, stats-dashboard, countdown
 
 ---
 
@@ -1203,6 +1275,104 @@ For issues or questions:
 - Ensure theme name is valid
 - Confirm scene types are correct
 - Review duration values
+
+---
+
+## ✅ Production-Ready Video Checklist
+
+Before generating, verify ALL of these:
+
+### **1. Duration Calculations** ⏱️
+- [ ] Calculated duration for each scene based on word count
+- [ ] Used formula: Base (2s) + (words × 0.3-0.4s)
+- [ ] Minimum 3 seconds per scene
+- [ ] Maximum 12 seconds per scene
+- [ ] Total video duration matches platform target
+
+### **2. Content Quality** ✍️
+- [ ] Titles are 3-12 words (concise)
+- [ ] Used action verbs and power words
+- [ ] Benefit-focused, not feature-focused
+- [ ] No jargon or vague language
+- [ ] Strong CTA at the end
+- [ ] Consistent emoji style throughout
+- [ ] Consistent number formatting
+- [ ] Consistent capitalization
+
+### **3. Scene Flow** 🎬
+- [ ] Starts with strong hook (hero-title or brand-watermark)
+- [ ] Follows proven structure (AIDA for promo, Intro→Content→Summary for edu)
+- [ ] Problem shown BEFORE solution
+- [ ] Proof shown AFTER claims
+- [ ] No duplicate scene types in a row
+- [ ] Ends with clear CTA
+- [ ] Total 5-8 scenes for optimal engagement
+
+### **4. Theme Selection** 🎨
+- [ ] Theme matches industry/audience
+- [ ] Theme matches mood/tone
+- [ ] Readability verified (light vs dark)
+- [ ] Consistent with brand (if applicable)
+
+### **5. Music Configuration** 🎵
+- [ ] Music enabled: true
+- [ ] trackId uses filename (without .mp3)
+- [ ] Volume set to 0.2-0.4
+- [ ] fadeIn: 2 seconds
+- [ ] fadeOut: 2-3 seconds (CRITICAL)
+- [ ] Music matches video type (tech/ambient/etc)
+
+### **6. Technical Validation** 🔧
+- [ ] Valid JSON syntax
+- [ ] All required fields present
+- [ ] Theme name is valid (one of 29)
+- [ ] All scene types are valid
+- [ ] No missing content fields
+- [ ] Color formatting used correctly (**text**, ***text***)
+
+### **7. Brand Consistency** 🎯
+- [ ] Same emoji style across all scenes
+- [ ] Same color formatting pattern
+- [ ] Same capitalization style
+- [ ] Same number format (K/M or full numbers)
+- [ ] Consistent tone of voice
+
+---
+
+## 🎯 Quick Production Workflow
+
+**Step 1: Understand Requirements**
+- Video type (promo/educational)
+- Target audience
+- Platform (social/web/presentation)
+- Key message
+
+**Step 2: Select Foundation**
+- Choose theme (use decision tree)
+- Choose music (match video type)
+- Decide video structure (AIDA/Educational)
+
+**Step 3: Plan Scenes**
+- List 5-8 scenes following structure
+- Calculate duration for each scene
+- Ensure total matches target (15-90s)
+
+**Step 4: Write Content**
+- Use formulas (Hook/Impact/Credibility)
+- Keep text concise (word limits)
+- Use power words and benefits
+- Add color formatting strategically
+
+**Step 5: Validate**
+- Run through checklist above
+- Verify JSON syntax
+- Check all durations
+- Confirm consistency
+
+**Step 6: Generate**
+- Send to API endpoint
+- Review output
+- Iterate if needed
 
 ---
 
