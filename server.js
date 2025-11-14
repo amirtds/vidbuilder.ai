@@ -311,48 +311,59 @@ const jobStatus = new Map();
 const MAX_CONCURRENT_RENDERS = 2;
 let activeRenders = 0;
 const renderQueue = [];
+let isProcessing = false; // Prevent race conditions
 
 // Process next job in queue
 function processNextInQueue() {
-  if (renderQueue.length === 0 || activeRenders >= MAX_CONCURRENT_RENDERS) {
+  // Prevent concurrent execution of this function
+  if (isProcessing) {
     return;
   }
   
-  const nextJob = renderQueue.shift();
-  if (nextJob) {
-    activeRenders++;
-    console.log(`🎬 Starting queued job ${nextJob.jobId} (Active: ${activeRenders}/${MAX_CONCURRENT_RENDERS}, Queue: ${renderQueue.length})`);
-    
-    // Update status from queued to processing
-    const currentStatus = jobStatus.get(nextJob.jobId);
-    if (currentStatus) {
-      jobStatus.set(nextJob.jobId, {
-        ...currentStatus,
-        status: 'processing',
-        message: 'Video generation started',
-        startedAt: new Date().toISOString()
+  isProcessing = true;
+  
+  try {
+    // Process all available slots
+    while (renderQueue.length > 0 && activeRenders < MAX_CONCURRENT_RENDERS) {
+      const nextJob = renderQueue.shift();
+      if (!nextJob) break;
+      
+      activeRenders++;
+      console.log(`🎬 Starting queued job ${nextJob.jobId} (Active: ${activeRenders}/${MAX_CONCURRENT_RENDERS}, Queue: ${renderQueue.length})`);
+      
+      // Update status from queued to processing
+      const currentStatus = jobStatus.get(nextJob.jobId);
+      if (currentStatus) {
+        jobStatus.set(nextJob.jobId, {
+          ...currentStatus,
+          status: 'processing',
+          message: 'Video generation started',
+          startedAt: new Date().toISOString()
+        });
+      }
+      
+      // Start the actual render
+      generateVideoAsync(
+        nextJob.jobId,
+        nextJob.videoConfig,
+        nextJob.files,
+        nextJob.webhookUrl,
+        jobStatus,
+        PORT
+      )
+      .then(() => {
+        activeRenders--;
+        console.log(`✅ Job ${nextJob.jobId} completed (Active: ${activeRenders}/${MAX_CONCURRENT_RENDERS}, Queue: ${renderQueue.length})`);
+        processNextInQueue();
+      })
+      .catch(err => {
+        activeRenders--;
+        console.error(`❌ Job ${nextJob.jobId} failed:`, err);
+        processNextInQueue();
       });
     }
-    
-    // Start the actual render
-    generateVideoAsync(
-      nextJob.jobId,
-      nextJob.videoConfig,
-      nextJob.files,
-      nextJob.webhookUrl,
-      jobStatus,
-      PORT
-    )
-    .then(() => {
-      activeRenders--;
-      console.log(`✅ Job ${nextJob.jobId} completed (Active: ${activeRenders}/${MAX_CONCURRENT_RENDERS}, Queue: ${renderQueue.length})`);
-      processNextInQueue();
-    })
-    .catch(err => {
-      activeRenders--;
-      console.error(`❌ Job ${nextJob.jobId} failed:`, err);
-      processNextInQueue();
-    });
+  } finally {
+    isProcessing = false;
   }
 }
 
@@ -449,6 +460,9 @@ app.post('/api/generate-video-async', basicAuth, upload.array('images', 20), asy
       });
     }
     
+    // Log current state before adding to queue
+    console.log(`📨 Incoming job ${jobId} - Current state: Active=${activeRenders}/${MAX_CONCURRENT_RENDERS}, Queue=${renderQueue.length}`);
+    
     // Initialize job status
     const queuePosition = renderQueue.length + 1;
     jobStatus.set(jobId, {
@@ -467,10 +481,12 @@ app.post('/api/generate-video-async', basicAuth, upload.array('images', 20), asy
       webhookUrl
     });
     
-    console.log(`📥 Job ${jobId} queued (Queue: ${renderQueue.length}, Active: ${activeRenders}/${MAX_CONCURRENT_RENDERS})`);
+    console.log(`📥 Job ${jobId} added to queue (Queue: ${renderQueue.length}, Active: ${activeRenders}/${MAX_CONCURRENT_RENDERS})`);
     
     // Try to process immediately if slot available
     processNextInQueue();
+    
+    console.log(`📊 After processing attempt - Active: ${activeRenders}/${MAX_CONCURRENT_RENDERS}, Queue: ${renderQueue.length}`);
     
     // Return immediately with job ID
     return res.status(202).json({

@@ -171,6 +171,30 @@ For high-volume production use, consider:
 
 ## Troubleshooting
 
+### All jobs starting despite limit?
+
+**Symptoms**: You set `MAX_CONCURRENT_RENDERS = 2` but 4+ jobs all start immediately.
+
+**Cause**: Race condition when multiple requests arrive simultaneously.
+
+**Fix**: The latest version includes:
+- Mutex-like `isProcessing` flag to prevent concurrent queue processing
+- Better logging to track state changes
+- `while` loop to process all available slots at once
+
+**Verify fix**:
+```bash
+node test-concurrency.js 4
+```
+
+Check server logs for:
+```
+📨 Incoming job abc123 - Current state: Active=0/2, Queue=0
+📥 Job abc123 added to queue (Queue: 1, Active: 0/2)
+🎬 Starting queued job abc123 (Active: 1/2, Queue: 0)
+📊 After processing attempt - Active: 1/2, Queue: 0
+```
+
 ### Jobs stuck in queue?
 
 Check active renders:
