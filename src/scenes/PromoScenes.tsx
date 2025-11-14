@@ -1031,6 +1031,25 @@ export const PricingCardsScene: React.FC<{content: any; style: EnhancedColorSche
   const {fps, width} = useVideoConfig();
   const plans = content.plans || [];
   
+  // Validate plans array
+  if (!plans || plans.length === 0) {
+    return (
+      <AbsoluteFill
+        style={{
+          background: style.base100,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontFamily: style.fontFamily,
+        }}
+      >
+        <div style={{ color: style.baseContent, fontSize: 48 }}>
+          No pricing plans provided
+        </div>
+      </AbsoluteFill>
+    );
+  }
+  
   // Responsive sizing
   const baseFontSize = width >= 3840 ? 1 : width >= 1920 ? 0.8 : 0.6;
   const singleCardMultiplier = plans.length === 1 ? 1.25 : 1;
@@ -1183,8 +1202,8 @@ export const PricingCardsScene: React.FC<{content: any; style: EnhancedColorSche
           
           // Glassmorphism effect - translucent background
           const cardBackground = featured 
-            ? `linear-gradient(135deg, ${style.primary}15, ${style.secondary}10)`
-            : `${style.base100}80`;
+            ? `rgba(255, 255, 255, 0.1)`
+            : `rgba(255, 255, 255, 0.05)`;
           
           return (
             <div
@@ -1198,13 +1217,13 @@ export const PricingCardsScene: React.FC<{content: any; style: EnhancedColorSche
                 borderRadius: 28,
                 padding: cardPadding,
                 border: featured 
-                  ? `2px solid ${style.primary}40`
-                  : `2px solid ${style.base300}60`,
+                  ? `2px solid ${style.primary}`
+                  : `1px solid rgba(255, 255, 255, 0.1)`,
                 transform: `scale(${scale * featuredScale}) translateY(${cardY}px)`,
                 opacity,
                 filter: `blur(${blur}px)`,
                 boxShadow: featured 
-                  ? `0 0 ${40 * glowIntensity}px ${style.primary}30, 0 20px 60px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.1)`
+                  ? `0 0 ${40 * glowIntensity}px ${style.primary}, 0 20px 60px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.1)`
                   : '0 10px 40px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.05)',
                 overflow: 'hidden',
                 position: 'relative',
@@ -1218,7 +1237,7 @@ export const PricingCardsScene: React.FC<{content: any; style: EnhancedColorSche
                   style={{
                     position: 'absolute',
                     inset: 0,
-                    background: `linear-gradient(135deg, ${style.primary}08, ${style.secondary}05)`,
+                    background: `linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))`,
                     pointerEvents: 'none',
                     borderRadius: 28,
                   }}
@@ -1241,7 +1260,7 @@ export const PricingCardsScene: React.FC<{content: any; style: EnhancedColorSche
                     textTransform: 'uppercase',
                     letterSpacing: 1.5,
                     borderRadius: '0 0 16px 16px',
-                    boxShadow: `0 4px 12px ${style.primary}40`,
+                    boxShadow: `0 4px 12px rgba(0, 0, 0, 0.2)`,
                   }}
                 >
                   MOST POPULAR
@@ -1384,6 +1403,41 @@ export const PricingCardsScene: React.FC<{content: any; style: EnhancedColorSche
                   );
                 })}
               </ul>
+              
+              {/* CTA Button */}
+              {plan.buttonText && (
+                <div
+                  style={{
+                    marginTop: 35,
+                    opacity: interpolate(
+                      frame,
+                      [delay + 70, delay + 85],
+                      [0, 1],
+                      { extrapolateRight: 'clamp' }
+                    ),
+                  }}
+                >
+                  <div
+                    style={{
+                      background: featured 
+                        ? `linear-gradient(135deg, ${style.primary}, ${style.secondary})`
+                        : style.primary,
+                      color: style.primaryContent,
+                      padding: '18px 40px',
+                      borderRadius: 14,
+                      fontSize: buttonSize,
+                      fontWeight: 700,
+                      textAlign: 'center',
+                      cursor: 'pointer',
+                      boxShadow: featured 
+                        ? `0 8px 24px rgba(0, 0, 0, 0.2)`
+                        : '0 4px 12px rgba(0, 0, 0, 0.15)',
+                    }}
+                  >
+                    {plan.buttonText}
+                  </div>
+                </div>
+              )}
             </div>
           );
         })}
