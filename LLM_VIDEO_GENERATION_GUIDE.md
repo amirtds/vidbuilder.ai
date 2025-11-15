@@ -31,6 +31,7 @@ Select ONE theme for your entire video. The theme controls all colors automatica
 - `coffee` ☕ - Warm brown
 - `black` ⚫ - Pure black
 - `luxury` 💎 - Premium dark
+- `vidbuilder` 🎬 - Netflix-inspired red & dark
 
 **Colorful & Creative:**
 - `retro` 📻 - Vintage warm
@@ -51,8 +52,9 @@ Select ONE theme for your entire video. The theme controls all colors automatica
 - **Corporate/Business Videos**: `corporate`, `business`, `winter`, `emerald`
 - **Creative/Marketing**: `synthwave`, `cyberpunk`, `retro`, `valentine`
 - **Educational**: `light`, `cupcake`, `pastel`, `garden`
-- **Tech/Modern**: `dark`, `dracula`, `night`, `forest`
+- **Tech/Modern**: `dark`, `dracula`, `night`, `forest`, `vidbuilder`
 - **Minimal/Clean**: `lofi`, `wireframe`, `black`
+- **Entertainment/Media**: `vidbuilder`, `dracula`, `synthwave`
 
 ---
 

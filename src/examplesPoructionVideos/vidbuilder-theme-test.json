@@ -1,0 +1,96 @@
+{
+  "title": "VidBuilder Theme Test",
+  "type": "promotional",
+  "theme": "vidbuilder",
+  "music": {
+    "enabled": true,
+    "trackId": "corporate-modern.mp3",
+    "volume": 0.3,
+    "fadeIn": 2,
+    "fadeOut": 3
+  },
+  "scenes": [
+    {
+      "type": "hero-title",
+      "duration": 5,
+      "content": {
+        "title": "Welcome to **VidBuilder**",
+        "subtitle": "Create stunning videos with AI-powered tools",
+        "fontSize": 96,
+        "fontWeight": 900
+      }
+    },
+    {
+      "type": "stats-dashboard",
+      "duration": 4,
+      "content": {
+        "title": "Trusted by Creators Worldwide",
+        "stats": [
+          {
+            "value": "10K+",
+            "suffix": "",
+            "label": "Videos Created"
+          },
+          {
+            "value": "95%",
+            "suffix": "",
+            "label": "Customer Satisfaction"
+          },
+          {
+            "value": "50+",
+            "suffix": "",
+            "label": "Countries Served"
+          }
+        ]
+      }
+    },
+    {
+      "type": "pricing-cards",
+      "duration": 6,
+      "content": {
+        "title": "Simple Pricing",
+        "plans": [
+          {
+            "name": "Starter",
+            "price": "$29",
+            "period": "per month",
+            "features": [
+              "10 videos per month",
+              "HD quality",
+              "Basic templates",
+              "Email support"
+            ],
+            "buttonText": "Get Started"
+          },
+          {
+            "name": "Professional",
+            "price": "$79",
+            "period": "per month",
+            "features": [
+              "Unlimited videos",
+              "4K quality",
+              "Premium templates",
+              "Priority support",
+              "Custom branding",
+              "API access"
+            ],
+            "highlighted": true,
+            "buttonText": "Go Pro"
+          }
+        ]
+      }
+    },
+    {
+      "type": "cta",
+      "duration": 5,
+      "content": {
+        "title": "Start Creating Today",
+        "description": "Join thousands of creators using VidBuilder to bring their stories to life",
+        "buttonText": "Try Free for 14 Days",
+        "buttonSubtext": "No credit card required"
+      }
+    }
+  ],
+  "quality": "1080p",
+  "generateReels": false
+}

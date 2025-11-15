@@ -40,7 +40,8 @@ export const DAISYUI_THEMES = [
   'dim',
   'nord',
   'sunset',
-  'shortrentals'
+  'shortrentals',
+  'vidbuilder'
 ] as const;
 
 export type DaisyUITheme = typeof DAISYUI_THEMES[number];
@@ -844,6 +845,29 @@ export const THEME_COLORS: Record<DaisyUITheme, ThemeColors> = {
     error: '#f87272',
     errorContent: '#470000',
     borderRadius: 8,
+  },
+  vidbuilder: {
+    primary: '#E50914',
+    primaryContent: '#ffffff',
+    secondary: '#3d3f4d',
+    secondaryContent: '#d9dae0',
+    accent: '#B20710',
+    accentContent: '#ffffff',
+    neutral: '#2e2f3a',
+    neutralContent: '#e5e6eb',
+    base100: '#272833',
+    base200: '#3d3f4d',
+    base300: '#4d4f5c',
+    baseContent: '#d9dae0',
+    info: '#5b9dd9',
+    infoContent: '#1a1d26',
+    success: '#7dd956',
+    successContent: '#1a1d26',
+    warning: '#e6c84d',
+    warningContent: '#1a1d26',
+    error: '#d94d5b',
+    errorContent: '#ffffff',
+    borderRadius: 16,
   }
 };
 
@@ -885,7 +909,8 @@ export function isDarkTheme(themeName: DaisyUITheme): boolean {
     'coffee',
     'dim',
     'nord',
-    'sunset'
+    'sunset',
+    'vidbuilder'
   ];
   return darkThemes.includes(themeName);
 }
