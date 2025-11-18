@@ -213,6 +213,21 @@ export const ProductShowcaseScene: React.FC<{content: any; style: ColorScheme}> 
   const images = content.images || [];
   const hasImages = images.length > 0;
   
+  // Parse formatted text with color markers
+  const titleParts = content.title ? parseFormattedText(content.title, {
+    primaryColor: style.primary || '#667eea',
+    secondaryColor: style.secondary || '#764ba2',
+    accentColor: style.accent || '#f093fb',
+    defaultColor: style.baseContent || '#000',
+  }) : null;
+  
+  const descriptionParts = content.description ? parseFormattedText(content.description, {
+    primaryColor: style.primary || '#667eea',
+    secondaryColor: style.secondary || '#764ba2',
+    accentColor: style.accent || '#f093fb',
+    defaultColor: style.neutralContent || style.baseContent || '#666',
+  }) : null;
+  
   // Responsive sizing - DRAMATIC scale
   const baseFontSize = width >= 3840 ? 1 : width >= 1920 ? 0.8 : 0.6;
   const titleSize = 110 * baseFontSize; // Increased from 80
@@ -342,7 +357,7 @@ export const ProductShowcaseScene: React.FC<{content: any; style: ColorScheme}> 
             zIndex: 1,
           }}
         >
-          {content.title}
+          {titleParts || content.title}
         </div>
       )}
       
@@ -359,7 +374,7 @@ export const ProductShowcaseScene: React.FC<{content: any; style: ColorScheme}> 
             opacity: titleOpacity,
           }}
         >
-          {content.description}
+          {descriptionParts || content.description}
         </div>
       )}
       
@@ -437,6 +452,14 @@ export const FeatureListScene: React.FC<{content: any; style: ColorScheme}> = ({
   
   const features = content.features || [];
   
+  // Parse formatted text for main title
+  const titleParts = content.title ? parseFormattedText(content.title, {
+    primaryColor: style.primary || '#667eea',
+    secondaryColor: style.secondary || '#764ba2',
+    accentColor: style.accent || '#f093fb',
+    defaultColor: style.baseContent || '#000',
+  }) : null;
+  
   // Responsive sizing
   const baseFontSize = width >= 3840 ? 1 : width >= 1920 ? 0.8 : 0.6;
   const titleSize = 96 * baseFontSize;
@@ -480,7 +503,7 @@ export const FeatureListScene: React.FC<{content: any; style: ColorScheme}> = ({
             zIndex: 1,
           }}
         >
-          {content.title}
+          {titleParts || content.title}
         </div>
       )}
       
@@ -537,7 +560,7 @@ export const FeatureListScene: React.FC<{content: any; style: ColorScheme}> = ({
                 border: `1px solid ${style.base300 || '#e5e5e5'}`,
               }}
             >
-              {/* Icon Container - Border only circle */}
+              {/* Icon Container - Filled circle with primary color */}
               {feature.icon && (
                 <div
                   style={{
@@ -547,16 +570,32 @@ export const FeatureListScene: React.FC<{content: any; style: ColorScheme}> = ({
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    border: `3px solid ${style.primary || '#4b6bfb'}`,
+                    background: style.primary || '#4b6bfb',
                     borderRadius: '50%',
                     flexShrink: 0,
+                    boxShadow: `0 8px 24px ${style.primary || '#4b6bfb'}40`,
                   }}
                 >
-                  <span style={{
-                    fontSize: iconSize * 0.55,
-                  }}>
-                    {feature.icon}
-                  </span>
+                  {/* Check if icon is a URL (starts with http/https) or emoji/text */}
+                  {feature.icon.startsWith('http') ? (
+                    <SafeImage
+                      src={feature.icon}
+                      style={{
+                        width: iconSize * 0.7,
+                        height: iconSize * 0.7,
+                        objectFit: 'contain',
+                      }}
+                      fallbackColor="transparent"
+                      showFallbackIcon={false}
+                    />
+                  ) : (
+                    <span style={{
+                      fontSize: iconSize * 0.65,
+                      filter: 'brightness(1.2) contrast(1.1)',
+                    }}>
+                      {feature.icon}
+                    </span>
+                  )}
                 </div>
               )}
               
@@ -572,7 +611,12 @@ export const FeatureListScene: React.FC<{content: any; style: ColorScheme}> = ({
                     WebkitFontSmoothing: 'antialiased',
                     MozOsxFontSmoothing: 'grayscale',
                   }}>
-                    {feature.title}
+                    {parseFormattedText(feature.title, {
+                      primaryColor: style.primary || '#667eea',
+                      secondaryColor: style.secondary || '#764ba2',
+                      accentColor: style.accent || '#f093fb',
+                      defaultColor: style.baseContent || '#000',
+                    })}
                   </div>
                 )}
                 <div style={{
@@ -582,7 +626,12 @@ export const FeatureListScene: React.FC<{content: any; style: ColorScheme}> = ({
                   lineHeight: 1.4,
                   letterSpacing: -0.3,
                 }}>
-                  {feature.text || feature}
+                  {parseFormattedText(feature.text || feature, {
+                    primaryColor: style.primary || '#667eea',
+                    secondaryColor: style.secondary || '#764ba2',
+                    accentColor: style.accent || '#f093fb',
+                    defaultColor: style.neutralContent || style.baseContent || '#666',
+                  })}
                 </div>
               </div>
             </div>
@@ -597,6 +646,35 @@ export const FeatureListScene: React.FC<{content: any; style: ColorScheme}> = ({
 export const CTAScene: React.FC<{content: any; style: ColorScheme}> = ({content, style}) => {
   const frame = useCurrentFrame();
   const {fps, width, height} = useVideoConfig();
+  
+  // Parse formatted text with color markers
+  const titleParts = content.title ? parseFormattedText(content.title, {
+    primaryColor: style.primary || '#667eea',
+    secondaryColor: style.secondary || '#764ba2',
+    accentColor: style.accent || '#f093fb',
+    defaultColor: style.baseContent || '#000',
+  }) : null;
+  
+  const descriptionParts = content.description ? parseFormattedText(content.description, {
+    primaryColor: style.primary || '#667eea',
+    secondaryColor: style.secondary || '#764ba2',
+    accentColor: style.accent || '#f093fb',
+    defaultColor: style.neutralContent || style.baseContent || '#666',
+  }) : null;
+  
+  const buttonTextParts = content.buttonText ? parseFormattedText(content.buttonText, {
+    primaryColor: style.primary || '#667eea',
+    secondaryColor: style.secondary || '#764ba2',
+    accentColor: style.accent || '#f093fb',
+    defaultColor: style.primaryContent || '#fff',
+  }) : null;
+  
+  const urgencyParts = content.urgency ? parseFormattedText(content.urgency, {
+    primaryColor: style.primary || '#667eea',
+    secondaryColor: style.secondary || '#764ba2',
+    accentColor: style.accent || '#f093fb',
+    defaultColor: style.neutralContent || style.baseContent || '#666',
+  }) : null;
   
   // Responsive sizing
   const baseFontSize = width >= 3840 ? 1 : width >= 1920 ? 0.8 : 0.6;
@@ -659,7 +737,7 @@ export const CTAScene: React.FC<{content: any; style: ColorScheme}> = ({content,
             zIndex: 1,
           }}
         >
-          {content.title}
+          {titleParts || content.title}
         </div>
       )}
       
@@ -680,7 +758,7 @@ export const CTAScene: React.FC<{content: any; style: ColorScheme}> = ({content,
             zIndex: 1,
           }}
         >
-          {content.description}
+          {descriptionParts || content.description}
         </div>
       )}
       
@@ -703,7 +781,7 @@ export const CTAScene: React.FC<{content: any; style: ColorScheme}> = ({content,
           zIndex: 1,
         }}
       >
-        {content.buttonText || 'Get Started'}
+        {buttonTextParts || content.buttonText || 'Get Started'}
       </div>
       
       {/* Urgency text - Subtle */}
@@ -720,7 +798,7 @@ export const CTAScene: React.FC<{content: any; style: ColorScheme}> = ({content,
             zIndex: 1,
           }}
         >
-          {content.urgency}
+          {urgencyParts || content.urgency}
         </div>
       )}
     </AbsoluteFill>
