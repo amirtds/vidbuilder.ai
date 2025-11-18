@@ -115,8 +115,11 @@ async function generateVideoAsync(jobId, videoConfig, uploadedFiles, webhookUrl,
       // If theme is also provided, merge custom colors on top of theme
       if (videoConfig.theme) {
         const baseTheme = getThemeColors(videoConfig.theme);
-        videoConfig.colorScheme = { ...baseTheme, ...videoConfig.colorScheme };
-        console.log(`🎨 Color scheme merged: base="${videoConfig.theme}", custom overrides=${Object.keys(videoConfig.colorScheme).length}`);
+        const customColors = { ...videoConfig.colorScheme }; // Save custom colors
+        videoConfig.colorScheme = { ...baseTheme, ...customColors };
+        console.log(`🎨 Color scheme merged: base="${videoConfig.theme}"`);
+        console.log(`🎨 Custom overrides:`, JSON.stringify(customColors, null, 2));
+        console.log(`🎨 Final primary color: ${videoConfig.colorScheme.primary}`);
       } else {
         console.log('🎨 Using fully custom color scheme');
       }
