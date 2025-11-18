@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   AbsoluteFill,
-  Img,
   interpolate,
   spring,
   useCurrentFrame,
@@ -10,6 +9,7 @@ import {
 } from 'remotion';
 import { EnhancedColorScheme } from './types';
 import { ProfessionalBackground } from './ProfessionalBackground';
+import { SafeImage } from '../components/SafeImage';
 
 // 1. Minimal Title Scene - Cinematic Apple/Nike Style
 export const MinimalTitleScene: React.FC<{content: any; style: EnhancedColorScheme}> = ({content, style}) => {
@@ -263,7 +263,7 @@ export const SplitScreenScene: React.FC<{content: any; style: EnhancedColorSchem
               background: style.base200 || '#f5f5f5',
             }}
           >
-            <Img 
+            <SafeImage 
               src={content.leftImage} 
               style={{
                 maxWidth: '100%',
@@ -271,7 +271,8 @@ export const SplitScreenScene: React.FC<{content: any; style: EnhancedColorSchem
                 width: 'auto',
                 height: 'auto',
                 objectFit: 'contain',
-              }} 
+              }}
+              fallbackColor={style.base200 || '#f5f5f5'}
             />
           </div>
         ) : (
@@ -352,7 +353,7 @@ export const SplitScreenScene: React.FC<{content: any; style: EnhancedColorSchem
               background: style.base200 || '#f5f5f5',
             }}
           >
-            <Img 
+            <SafeImage 
               src={content.rightImage} 
               style={{
                 maxWidth: '100%',
@@ -360,7 +361,8 @@ export const SplitScreenScene: React.FC<{content: any; style: EnhancedColorSchem
                 width: 'auto',
                 height: 'auto',
                 objectFit: 'contain',
-              }} 
+              }}
+              fallbackColor={style.base200 || '#f5f5f5'}
             />
           </div>
         ) : (
@@ -741,7 +743,7 @@ export const TestimonialScene: React.FC<{content: any; style: EnhancedColorSchem
         </p>
         {/* Avatar with dramatic spring entrance */}
         {content.avatar && (
-          <Img
+          <SafeImage
             src={content.avatar}
             style={{
               width: avatarSize,
@@ -752,6 +754,7 @@ export const TestimonialScene: React.FC<{content: any; style: EnhancedColorSchem
               transform: `scale(${avatarScale})`,
               border: `4px solid ${style.base300}`,
             }}
+            fallbackColor={style.base200 || '#f5f5f5'}
           />
         )}
         {/* Author name with staggered entrance */}
@@ -1801,7 +1804,7 @@ export const ProductMatrixScene: React.FC<{content: any; style: EnhancedColorSch
             >
               {product.image && (
                 <div style={{position: 'relative', paddingBottom: '60%', overflow: 'hidden'}}>
-                  <Img
+                  <SafeImage
                     src={product.image}
                     style={{
                       position: 'absolute',
@@ -1811,6 +1814,7 @@ export const ProductMatrixScene: React.FC<{content: any; style: EnhancedColorSch
                       transform: `scale(${imageScale})`,
                       transformOrigin: 'center',
                     }}
+                    fallbackColor={style.base200 || '#f5f5f5'}
                   />
                   {product.badge && (
                     <div

@@ -1,7 +1,8 @@
 import React from 'react';
-import { AbsoluteFill, useCurrentFrame, useVideoConfig, interpolate, Easing, Img, Audio } from 'remotion';
+import { AbsoluteFill, useCurrentFrame, useVideoConfig, interpolate, Easing, Audio } from 'remotion';
 import { EnhancedColorScheme } from './types';
 import { getTypedText, getTypingProgress } from '../utils/typingEffect';
+import { SafeImage } from '../components/SafeImage';
 
 interface BrandWatermarkContent {
   logo?: string; // Logo image URL
@@ -188,13 +189,14 @@ export const BrandWatermarkScene: React.FC<{
             zIndex: 1,
           }}
         >
-          <Img
+          <SafeImage
             src={content.logo}
             style={{
               width: logoSize,
               height: logoSize,
               objectFit: 'contain',
             }}
+            fallbackColor={style.base200 || '#f5f5f5'}
           />
         </div>
       )}

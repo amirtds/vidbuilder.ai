@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   AbsoluteFill,
-  Img,
   interpolate,
   spring,
   useCurrentFrame,
@@ -9,6 +8,7 @@ import {
   Easing
 } from 'remotion';
 import { EnhancedColorScheme } from './types';
+import { SafeImage } from '../components/SafeImage';
 
 // 1. Chapter Introduction Scene
 export const ChapterIntroScene: React.FC<{content: any; style: EnhancedColorScheme}> = ({content, style}) => {
@@ -288,13 +288,14 @@ export const ConceptExplanationScene: React.FC<{content: any; style: EnhancedCol
               transform: `scale(${diagramScale})`,
             }}
           >
-            <Img
+            <SafeImage
               src={content.diagram}
               style={{
                 maxWidth: '100%',
                 maxHeight: '100%',
                 borderRadius: style.borderRadius,
               }}
+              fallbackColor={style.base200 || '#f5f5f5'}
             />
           </div>
         )}

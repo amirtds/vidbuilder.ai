@@ -1,8 +1,9 @@
 import React from 'react';
-import { AbsoluteFill, useCurrentFrame, useVideoConfig, spring, interpolate, Img, Easing } from 'remotion';
+import { AbsoluteFill, useCurrentFrame, useVideoConfig, spring, interpolate, Easing } from 'remotion';
 import { ProfessionalBackground } from './scenes/ProfessionalBackground';
 import { parseFormattedText } from './utils/textFormatting';
 import { getTypedText, getTypingProgress, TypingCursor } from './utils/typingEffect';
+import { SafeImage } from './components/SafeImage';
 
 // Color scheme interface - compatible with DaisyUI ThemeColors
 export interface ColorScheme {
@@ -392,14 +393,14 @@ export const ProductShowcaseScene: React.FC<{content: any; style: ColorScheme}> 
               justifyContent: 'center',
             }}
           >
-            <Img
+            <SafeImage
               src={images[currentIndex]}
               style={{
                 width: '100%',
-                height: 'auto',
-                maxHeight: '100%',
-                objectFit: 'contain',
+                height: '100%',
+                objectFit: 'cover',
               }}
+              fallbackColor={style.base200 || '#f5f5f5'}
             />
           </div>
         </div>
@@ -866,14 +867,14 @@ export const StepByStepScene: React.FC<{content: any; style: ColorScheme}> = ({c
           }}
         >
           {steps[currentStep]?.image && (
-            <Img
+            <SafeImage
               src={steps[currentStep].image}
               style={{
                 width: '100%',
-                maxWidth: '600px',
-                borderRadius: style.borderRadius,
-                boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
+                height: '100%',
+                objectFit: 'cover',
               }}
+              fallbackColor={style.base200 || '#f5f5f5'}
             />
           )}
           {steps[currentStep]?.description && (
