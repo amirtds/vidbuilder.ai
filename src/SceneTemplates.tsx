@@ -117,7 +117,7 @@ export const HeroTitleScene: React.FC<{content: any; style: ColorScheme}> = ({co
     primaryColor: style.primary || '#667eea',
     secondaryColor: style.secondary || '#764ba2',
     accentColor: style.accent || '#f093fb',
-    defaultColor: style.neutral || '#666',
+    defaultColor: style.neutralContent || style.baseContent || '#666',
   }) : null;
 
   // Responsive font sizing based on resolution
@@ -351,7 +351,7 @@ export const ProductShowcaseScene: React.FC<{content: any; style: ColorScheme}> 
           style={{
             fontSize: descSize,
             fontWeight: 400,
-            color: style.neutral || '#666',
+            color: style.neutralContent || style.baseContent || '#666',
             textAlign: 'center',
             maxWidth: '80%',
             lineHeight: 1.5,
@@ -410,7 +410,7 @@ export const ProductShowcaseScene: React.FC<{content: any; style: ColorScheme}> 
         <div
           style={{
             fontSize: captionSize,
-            color: style.neutral || '#666',
+            color: style.neutralContent || style.baseContent || '#666',
             marginTop: 50,
             opacity: captionOpacity * imageEntranceOpacity,
             transform: `translateY(${captionY}px)`,
@@ -576,7 +576,7 @@ export const FeatureListScene: React.FC<{content: any; style: ColorScheme}> = ({
                 )}
                 <div style={{
                   fontSize: featureTextSize,
-                  color: style.neutral || '#666',
+                  color: style.neutralContent || style.baseContent || '#666',
                   fontWeight: 400,
                   lineHeight: 1.4,
                   letterSpacing: -0.3,
@@ -667,7 +667,7 @@ export const CTAScene: React.FC<{content: any; style: ColorScheme}> = ({content,
         <div
           style={{
             fontSize: descSize,
-            color: style.neutral || '#666',
+            color: style.neutralContent || style.baseContent || '#666',
             marginBottom: 60,
             textAlign: 'center',
             maxWidth: '75%',
@@ -711,7 +711,7 @@ export const CTAScene: React.FC<{content: any; style: ColorScheme}> = ({content,
           style={{
             marginTop: 40,
             fontSize: urgencySize,
-            color: style.neutral || '#666',
+            color: style.neutralContent || style.baseContent || '#666',
             opacity: buttonOpacity * 0.8,
             textAlign: 'center',
             fontWeight: 500,

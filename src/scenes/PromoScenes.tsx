@@ -151,7 +151,7 @@ export const MinimalTitleScene: React.FC<{content: any; style: EnhancedColorSche
           <p
             style={{
               fontSize: subtitleSize,
-              color: style.neutral,
+              color: style.neutralContent || style.baseContent,
               marginTop: 50,
               fontWeight: 500,
               letterSpacing: -1,
@@ -385,7 +385,7 @@ export const SplitScreenScene: React.FC<{content: any; style: EnhancedColorSchem
             </h2>
             <p style={{
               fontSize: textSize, 
-              color: style.neutral,
+              color: style.neutralContent || style.baseContent,
               lineHeight: 1.4,
               fontWeight: 500,
               letterSpacing: -0.5,
@@ -592,7 +592,7 @@ export const StatsDashboardScene: React.FC<{content: any; style: EnhancedColorSc
               <div
                 style={{
                   fontSize: labelSize,
-                  color: style.neutral,
+                  color: style.neutralContent || style.baseContent,
                   fontWeight: 600,
                   letterSpacing: -0.25,
                   opacity: 0.85,
@@ -772,7 +772,7 @@ export const TestimonialScene: React.FC<{content: any; style: EnhancedColorSchem
           <div
             style={{
               fontSize: roleSize,
-              color: style.neutral,
+              color: style.neutralContent || style.baseContent,
               marginTop: 12,
               fontWeight: 500,
               letterSpacing: -0.3,
@@ -1639,7 +1639,7 @@ export const IconGridScene: React.FC<{content: any; style: EnhancedColorScheme}>
                 <div
                   style={{
                     fontSize: descSize,
-                    color: style.neutral,
+                    color: style.neutralContent || style.baseContent,
                     lineHeight: 1.5,
                     maxWidth: 250,
                     margin: '0 auto',
@@ -1855,7 +1855,7 @@ export const ProductMatrixScene: React.FC<{content: any; style: EnhancedColorSch
                   <div
                     style={{
                       fontSize: descSize,
-                      color: style.neutral,
+                      color: style.neutralContent || style.baseContent,
                       marginBottom: 20,
                       lineHeight: 1.5,
                       fontWeight: 500,
@@ -2099,7 +2099,7 @@ export const ProcessFlowScene: React.FC<{content: any; style: EnhancedColorSchem
                   <div
                     style={{
                       fontSize: stepDescSize,
-                      color: style.neutral,
+                      color: style.neutralContent || style.baseContent,
                       maxWidth: 380,
                       lineHeight: 1.5,
                       opacity: 0.85,
