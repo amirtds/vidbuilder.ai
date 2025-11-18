@@ -105,6 +105,31 @@ async function generateVideoAsync(jobId, videoConfig, uploadedFiles, webhookUrl,
     // Update progress: 10%
     jobStatus.set(jobId, { ...jobStatus.get(jobId), progress: 10, message: 'Configuring scenes...' });
     
+    // Resolve color scheme (supports theme, custom colors, or both)
+    // Load TypeScript service using esbuild-register
+    require('esbuild-register/dist/node').register();
+    const { getThemeColors } = require('./src/services/DaisyUIThemeService.ts');
+    
+    // Handle custom color scheme overrides
+    if (videoConfig.colorScheme && typeof videoConfig.colorScheme === 'object') {
+      // If theme is also provided, merge custom colors on top of theme
+      if (videoConfig.theme) {
+        const baseTheme = getThemeColors(videoConfig.theme);
+        videoConfig.colorScheme = { ...baseTheme, ...videoConfig.colorScheme };
+        console.log(`🎨 Color scheme merged: base="${videoConfig.theme}", custom overrides=${Object.keys(videoConfig.colorScheme).length}`);
+      } else {
+        console.log('🎨 Using fully custom color scheme');
+      }
+    } else if (videoConfig.theme) {
+      // Just theme, no custom colors
+      videoConfig.colorScheme = getThemeColors(videoConfig.theme);
+      console.log(`🎨 Theme applied: ${videoConfig.theme}`);
+    } else {
+      // No theme or colorScheme, use default
+      videoConfig.colorScheme = getThemeColors('corporate');
+      console.warn('⚠️  No theme or colorScheme provided, using "corporate" as default');
+    }
+    
     // Distribute images across scenes
     const imageScenes = ['product-showcase', 'hero-title', 'product-matrix'];
     let imageIndex = 0;

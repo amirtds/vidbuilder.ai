@@ -885,11 +885,8 @@ export function getThemeColors(themeName: DaisyUITheme): ThemeColors {
 export function themeToSceneStyle(themeName: DaisyUITheme): ThemeColors {
   const colors = getThemeColors(themeName);
   
-  // Per DESIGN.md: Use system fonts, never hard-code font names
-  return {
-    ...colors,
-    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-  };
+  // Return colors without fontFamily - users can specify their own font if needed
+  return colors;
 }
 
 /**

@@ -489,9 +489,35 @@ app.post('/api/generate-flexible-video', basicAuth, upload.array('images', 20), 
       });
     }
     
+    // Resolve color scheme (supports theme, custom colors, or both)
+    // Load TypeScript service using esbuild-register
+    require('esbuild-register/dist/node').register();
+    const { getThemeColors } = require('./src/services/DaisyUIThemeService.ts');
+    
+    // Handle custom color scheme overrides
+    if (videoConfig.colorScheme && typeof videoConfig.colorScheme === 'object') {
+      // If theme is also provided, merge custom colors on top of theme
+      if (videoConfig.theme) {
+        const baseTheme = getThemeColors(videoConfig.theme);
+        videoConfig.colorScheme = { ...baseTheme, ...videoConfig.colorScheme };
+        console.log(`🎨 Color scheme merged: base="${videoConfig.theme}", custom overrides=${Object.keys(videoConfig.colorScheme).length}`);
+      } else {
+        console.log('🎨 Using fully custom color scheme');
+      }
+    } else if (videoConfig.theme) {
+      // Just theme, no custom colors
+      videoConfig.colorScheme = getThemeColors(videoConfig.theme);
+      console.log(`🎨 Theme applied: ${videoConfig.theme}`);
+    } else {
+      // No theme or colorScheme, use default
+      videoConfig.colorScheme = getThemeColors('corporate');
+      console.warn('⚠️  No theme or colorScheme provided, using "corporate" as default');
+    }
+    
     console.log(`Starting flexible video generation job ${jobId}`);
     console.log(`Title: ${videoConfig.title || 'Untitled'}`);
     console.log(`Type: ${videoConfig.type || 'promotional'}`);
+    console.log(`Theme: ${videoConfig.theme || 'default'}`);
     console.log(`Scenes: ${videoConfig.scenes.length}`);
     console.log(`Images uploaded: ${req.files ? req.files.length : 0}`);
     
