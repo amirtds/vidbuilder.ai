@@ -393,6 +393,7 @@ export const ProductShowcaseScene: React.FC<{content: any; style: ColorScheme}> 
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            background: style.base200 || '#f5f5f5',
           }}
         >
           {/* Image with Ken Burns effect */}
@@ -413,7 +414,7 @@ export const ProductShowcaseScene: React.FC<{content: any; style: ColorScheme}> 
               style={{
                 width: '100%',
                 height: '100%',
-                objectFit: 'cover',
+                objectFit: content.fitMode || 'contain',
               }}
               fallbackColor={style.base200 || '#f5f5f5'}
             />
@@ -560,44 +561,35 @@ export const FeatureListScene: React.FC<{content: any; style: ColorScheme}> = ({
                 border: `1px solid ${style.base300 || '#e5e5e5'}`,
               }}
             >
-              {/* Icon Container - Filled circle with primary color */}
-              {feature.icon && (
-                <div
-                  style={{
-                    fontSize: iconSize,
-                    width: iconSize + 32,
-                    height: iconSize + 32,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    background: style.primary || '#4b6bfb',
-                    borderRadius: '50%',
-                    flexShrink: 0,
-                    boxShadow: `0 8px 24px ${style.primary || '#4b6bfb'}40`,
-                  }}
+              {/* Icon Container - Checkmark icon in circle with primary color */}
+              <div
+                style={{
+                  fontSize: iconSize,
+                  width: iconSize + 32,
+                  height: iconSize + 32,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  background: style.primary || '#4b6bfb',
+                  borderRadius: '50%',
+                  flexShrink: 0,
+                  boxShadow: `0 8px 24px ${style.primary || '#4b6bfb'}40`,
+                }}
+              >
+                {/* Checkmark SVG Icon */}
+                <svg
+                  width={iconSize * 0.5}
+                  height={iconSize * 0.5}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke={style.primaryContent || '#fff'}
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
-                  {/* Check if icon is a URL (starts with http/https) or emoji/text */}
-                  {feature.icon.startsWith('http') ? (
-                    <SafeImage
-                      src={feature.icon}
-                      style={{
-                        width: iconSize * 0.7,
-                        height: iconSize * 0.7,
-                        objectFit: 'contain',
-                      }}
-                      fallbackColor="transparent"
-                      showFallbackIcon={false}
-                    />
-                  ) : (
-                    <span style={{
-                      fontSize: iconSize * 0.65,
-                      filter: 'brightness(1.2) contrast(1.1)',
-                    }}>
-                      {feature.icon}
-                    </span>
-                  )}
-                </div>
-              )}
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </div>
               
               {/* Text Content */}
               <div style={{ flex: 1 }}>

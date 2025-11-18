@@ -937,6 +937,7 @@ export const TimelineScene: React.FC<{content: any; style: EnhancedColorScheme}>
               style={{
                 display: 'flex',
                 alignItems: 'center',
+                justifyContent: 'center',
                 marginBottom: 80,
                 opacity,
                 transform: `translateX(${isLeft ? -slideIn : slideIn}px)`,
@@ -945,7 +946,7 @@ export const TimelineScene: React.FC<{content: any; style: EnhancedColorScheme}>
             >
               <div
                 style={{
-                  flex: 1,
+                  width: '45%',
                   textAlign: isLeft ? 'right' : 'left',
                   paddingRight: isLeft ? 40 : 0,
                   paddingLeft: isLeft ? 0 : 40,
@@ -972,6 +973,18 @@ export const TimelineScene: React.FC<{content: any; style: EnhancedColorScheme}>
                     }}>
                       {event.title}
                     </div>
+                    {event.description && (
+                      <div style={{
+                        fontSize: dateSize * 0.9,
+                        color: style.neutralContent || style.baseContent,
+                        marginTop: 8,
+                        fontWeight: 400,
+                        lineHeight: 1.5,
+                        opacity: 0.8,
+                      }}>
+                        {event.description}
+                      </div>
+                    )}
                   </>
                 )}
               </div>
@@ -986,11 +999,12 @@ export const TimelineScene: React.FC<{content: any; style: EnhancedColorScheme}>
                   zIndex: 1,
                   transform: `scale(${dotScale})`,
                   boxShadow: `0 0 0 4px ${style.base200}`,
+                  flexShrink: 0,
                 }}
               />
               <div
                 style={{
-                  flex: 1,
+                  width: '45%',
                   textAlign: isLeft ? 'left' : 'right',
                   paddingLeft: isLeft ? 40 : 0,
                   paddingRight: isLeft ? 0 : 40,
@@ -1017,6 +1031,18 @@ export const TimelineScene: React.FC<{content: any; style: EnhancedColorScheme}>
                     }}>
                       {event.title}
                     </div>
+                    {event.description && (
+                      <div style={{
+                        fontSize: dateSize * 0.9,
+                        color: style.neutralContent || style.baseContent,
+                        marginTop: 8,
+                        fontWeight: 400,
+                        lineHeight: 1.5,
+                        opacity: 0.8,
+                      }}>
+                        {event.description}
+                      </div>
+                    )}
                   </>
                 )}
               </div>
@@ -1896,7 +1922,7 @@ export const ProductMatrixScene: React.FC<{content: any; style: EnhancedColorSch
 // 9. Process Flow Scene - Cinematic Journey
 export const ProcessFlowScene: React.FC<{content: any; style: EnhancedColorScheme}> = ({content, style}) => {
   const frame = useCurrentFrame();
-  const {width} = useVideoConfig();
+  const {width, durationInFrames} = useVideoConfig();
   const steps = content.steps || [];
   
   // Responsive sizing - Optimized for readability
@@ -1965,7 +1991,12 @@ export const ProcessFlowScene: React.FC<{content: any; style: EnhancedColorSchem
         }}
       >
         {steps.map((step: any, i: number) => {
-          const delay = 25 + i * 20; // Start after title
+          // Dynamic delay based on scene duration and number of steps
+          const titleDuration = 35; // Title animation duration
+          const availableTime = durationInFrames - titleDuration - 30; // Reserve 30 frames at end
+          const itemDelay = steps.length > 1 ? availableTime / steps.length : 0;
+          const delay = titleDuration + (i * itemDelay);
+          const animDuration = 30;
           
           // Dramatic spring entrance
           const scale = spring({
@@ -1981,7 +2012,7 @@ export const ProcessFlowScene: React.FC<{content: any; style: EnhancedColorSchem
           // Opacity fade
           const opacity = interpolate(
             frame,
-            [delay, delay + 25],
+            [delay, delay + animDuration],
             [0, 1],
             {
               extrapolateRight: 'clamp',
@@ -1992,7 +2023,7 @@ export const ProcessFlowScene: React.FC<{content: any; style: EnhancedColorSchem
           // Blur reveal
           const blur = interpolate(
             frame,
-            [delay, delay + 20],
+            [delay, delay + animDuration - 10],
             [8, 0],
             {
               extrapolateRight: 'clamp',
@@ -2003,7 +2034,7 @@ export const ProcessFlowScene: React.FC<{content: any; style: EnhancedColorSchem
           // Y movement
           const stepY = interpolate(
             frame,
-            [delay, delay + 30],
+            [delay, delay + animDuration],
             [50, 0],
             {
               extrapolateRight: 'clamp',
