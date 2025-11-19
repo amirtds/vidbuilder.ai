@@ -1034,11 +1034,11 @@ export const TimelineScene: React.FC<{content: any; style: EnhancedColorScheme}>
                     {event.description && (
                       <div style={{
                         fontSize: dateSize * 0.9,
-                        color: style.neutralContent || style.baseContent,
+                        color: style.baseContent,
                         marginTop: 8,
                         fontWeight: 400,
                         lineHeight: 1.5,
-                        opacity: 0.8,
+                        opacity: 0.65,
                       }}>
                         {event.description}
                       </div>
