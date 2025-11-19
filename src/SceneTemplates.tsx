@@ -118,7 +118,7 @@ export const HeroTitleScene: React.FC<{content: any; style: ColorScheme}> = ({co
     primaryColor: style.primary || '#667eea',
     secondaryColor: style.secondary || '#764ba2',
     accentColor: style.accent || '#f093fb',
-    defaultColor: style.neutralContent || style.baseContent || '#666',
+    defaultColor: style.baseContent || '#000',
   }) : null;
 
   // Responsive font sizing based on resolution
@@ -183,11 +183,11 @@ export const HeroTitleScene: React.FC<{content: any; style: ColorScheme}> = ({co
               fontSize: subtitleFontSize,
               fontWeight: content.subtitleWeight || 500,
               textAlign: 'center',
-              opacity: subtitleOpacity,
+              opacity: subtitleOpacity * 0.7,
               marginTop: height >= 2160 ? 48 : 36,
-              letterSpacing: 0.3,
-              lineHeight: 1.5,
-              maxWidth: '90%',
+              maxWidth: '85%',
+              lineHeight: 1.4,
+              color: style.baseContent || '#000',
               wordWrap: 'break-word',
               WebkitFontSmoothing: 'antialiased',
               MozOsxFontSmoothing: 'grayscale',
@@ -225,7 +225,7 @@ export const ProductShowcaseScene: React.FC<{content: any; style: ColorScheme}> 
     primaryColor: style.primary || '#667eea',
     secondaryColor: style.secondary || '#764ba2',
     accentColor: style.accent || '#f093fb',
-    defaultColor: style.neutralContent || style.baseContent || '#666',
+    defaultColor: style.baseContent || '#000',
   }) : null;
   
   // Responsive sizing - DRAMATIC scale
@@ -367,11 +367,11 @@ export const ProductShowcaseScene: React.FC<{content: any; style: ColorScheme}> 
           style={{
             fontSize: descSize,
             fontWeight: 400,
-            color: style.neutralContent || style.baseContent || '#666',
+            color: style.baseContent || '#000',
             textAlign: 'center',
             maxWidth: '80%',
             lineHeight: 1.5,
-            opacity: titleOpacity,
+            opacity: titleOpacity * 0.7,
           }}
         >
           {descriptionParts || content.description}
@@ -427,9 +427,9 @@ export const ProductShowcaseScene: React.FC<{content: any; style: ColorScheme}> 
         <div
           style={{
             fontSize: captionSize,
-            color: style.neutralContent || style.baseContent || '#666',
+            color: style.baseContent || '#000',
             marginTop: 50,
-            opacity: captionOpacity * imageEntranceOpacity,
+            opacity: captionOpacity * imageEntranceOpacity * 0.8,
             transform: `translateY(${captionY}px)`,
             textAlign: 'center',
             padding: '0 80px',
@@ -613,16 +613,17 @@ export const FeatureListScene: React.FC<{content: any; style: ColorScheme}> = ({
                 )}
                 <div style={{
                   fontSize: featureTextSize,
-                  color: style.neutralContent || style.baseContent || '#666',
+                  color: style.baseContent || '#000',
                   fontWeight: 400,
                   lineHeight: 1.4,
                   letterSpacing: -0.3,
+                  opacity: 0.7,
                 }}>
                   {parseFormattedText(feature.text || feature, {
                     primaryColor: style.primary || '#667eea',
                     secondaryColor: style.secondary || '#764ba2',
                     accentColor: style.accent || '#f093fb',
-                    defaultColor: style.neutralContent || style.baseContent || '#666',
+                    defaultColor: style.baseContent || '#000',
                   })}
                 </div>
               </div>
@@ -651,7 +652,7 @@ export const CTAScene: React.FC<{content: any; style: ColorScheme}> = ({content,
     primaryColor: style.primary || '#667eea',
     secondaryColor: style.secondary || '#764ba2',
     accentColor: style.accent || '#f093fb',
-    defaultColor: style.neutralContent || style.baseContent || '#666',
+    defaultColor: style.baseContent || '#000',
   }) : null;
   
   const buttonTextParts = content.buttonText ? parseFormattedText(content.buttonText, {
@@ -665,7 +666,7 @@ export const CTAScene: React.FC<{content: any; style: ColorScheme}> = ({content,
     primaryColor: style.primary || '#667eea',
     secondaryColor: style.secondary || '#764ba2',
     accentColor: style.accent || '#f093fb',
-    defaultColor: style.neutralContent || style.baseContent || '#666',
+    defaultColor: style.baseContent || '#000',
   }) : null;
   
   // Responsive sizing
@@ -738,13 +739,13 @@ export const CTAScene: React.FC<{content: any; style: ColorScheme}> = ({content,
         <div
           style={{
             fontSize: descSize,
-            color: style.neutralContent || style.baseContent || '#666',
+            color: style.baseContent || '#000',
             marginBottom: 60,
             textAlign: 'center',
             maxWidth: '75%',
             lineHeight: 1.5,
             fontWeight: 400,
-            opacity: descOpacity,
+            opacity: descOpacity * 0.7,
             letterSpacing: -0.5,
             position: 'relative',
             zIndex: 1,
@@ -782,8 +783,8 @@ export const CTAScene: React.FC<{content: any; style: ColorScheme}> = ({content,
           style={{
             marginTop: 40,
             fontSize: urgencySize,
-            color: style.neutralContent || style.baseContent || '#666',
-            opacity: buttonOpacity * 0.8,
+            color: style.baseContent || '#000',
+            opacity: buttonOpacity * 0.6,
             textAlign: 'center',
             fontWeight: 500,
             position: 'relative',

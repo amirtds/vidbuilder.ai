@@ -151,12 +151,12 @@ export const MinimalTitleScene: React.FC<{content: any; style: EnhancedColorSche
           <p
             style={{
               fontSize: subtitleSize,
-              color: style.neutralContent || style.baseContent,
+              color: style.baseContent,
               marginTop: 50,
               fontWeight: 500,
               letterSpacing: -1,
               lineHeight: 1.3,
-              opacity: subtitleOpacity,
+              opacity: subtitleOpacity * 0.7,
               transform: `translateY(${subtitleY}px) scale(${subtitleScale})`,
               maxWidth: '80%',
               margin: '50px auto 0',
@@ -387,11 +387,11 @@ export const SplitScreenScene: React.FC<{content: any; style: EnhancedColorSchem
             </h2>
             <p style={{
               fontSize: textSize, 
-              color: style.neutralContent || style.baseContent,
+              color: style.baseContent,
               lineHeight: 1.4,
               fontWeight: 500,
               letterSpacing: -0.5,
-              opacity: textOpacity,
+              opacity: textOpacity * 0.7,
               transform: `translateY(${textY}px)`,
             }}>
               {content.rightText}
@@ -976,11 +976,11 @@ export const TimelineScene: React.FC<{content: any; style: EnhancedColorScheme}>
                     {event.description && (
                       <div style={{
                         fontSize: dateSize * 0.9,
-                        color: style.neutralContent || style.baseContent,
+                        color: style.baseContent,
                         marginTop: 8,
                         fontWeight: 400,
                         lineHeight: 1.5,
-                        opacity: 0.8,
+                        opacity: 0.65,
                       }}>
                         {event.description}
                       </div>
