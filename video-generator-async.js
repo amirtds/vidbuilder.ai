@@ -413,6 +413,7 @@ async function generateVideoAsync(jobId, videoConfig, uploadedFiles, webhookUrl,
       message: 'Video generated successfully',
       duration: totalDuration,
       scenes: videoConfig.scenes.length,
+      videoJson: videoConfig.scenes,
       reelsGenerated: generateReels,
       renderTime: `${totalTime}s`,
       timestamp: new Date().toISOString()
